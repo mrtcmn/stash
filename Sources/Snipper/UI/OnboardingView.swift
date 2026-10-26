@@ -37,10 +37,10 @@ struct OnboardingView: View {
                 step(
                     number: 2,
                     title: "Add the browser extension",
-                    detail: "In Chrome, Arc, Brave or Edge open the extensions page, enable Developer mode, then Load unpacked → the Stash extension folder. You get a Snip button on every post and one-click bookmark import.",
+                    detail: "Install it from the Chrome Web Store in Chrome, Arc, Brave or Edge. You get a Snip button on every post and one-click bookmark import.",
                     done: model.lastExtensionContact != nil
                 ) {
-                    Button("Show Extension Folder") { model.revealExtensionFolder() }
+                    Link("Add to Chrome", destination: AppResources.chromeWebStore)
                 }
 
                 step(

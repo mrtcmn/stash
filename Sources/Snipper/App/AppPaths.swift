@@ -47,6 +47,8 @@ enum AppResources {
         url(name, ext).flatMap { try? String(contentsOf: $0, encoding: .utf8) }
     }
 
+    static let chromeWebStore = URL(string: "https://chromewebstore.google.com/detail/stash-%E2%80%94-save-to-mac/ekcefgmlhmapfkgbomdighgcedpfemlb")!
+
     /// The unpacked Chromium extension folder.
     static var extensionFolder: URL? {
         // build-app.sh copies it as ChromeExtension; the Xcode project as Extension.

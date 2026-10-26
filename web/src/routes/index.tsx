@@ -47,6 +47,7 @@ const SOURCES: { name: string; icon: React.ReactNode }[] = [
 const DOWNLOAD = 'https://github.com/mrtcmn/stash/releases/latest/download/Stash.dmg'
 const CHANGELOG = 'https://github.com/mrtcmn/stash/releases'
 const SOURCE = 'https://github.com/mrtcmn/stash'
+const EXTENSION = 'https://chromewebstore.google.com/detail/stash-%E2%80%94-save-to-mac/ekcefgmlhmapfkgbomdighgcedpfemlb'
 
 function Landing() {
   const [open, setOpen] = useState(false)
@@ -138,7 +139,7 @@ function Landing() {
             <span className="text-[15px] font-medium">Try the search here</span>
           </button>
         </div>
-        <p className="mt-5 text-[13px] text-white/60">macOS 26+ · Apple Silicon · Free</p>
+        <p className="mt-5 text-[13px] text-white/60">macOS 26+ · Apple Silicon · Free · <a href={EXTENSION} className="underline hover:text-white">Get the Chrome extension</a></p>
 
       </section>
 
@@ -205,7 +206,7 @@ function Landing() {
         <Corners />
         <div className="grid grid-cols-1 gap-10 px-10 pb-16 pt-24 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <Eyebrow>[ 01 ] How it works</Eyebrow>
+            <Eyebrow>How it works</Eyebrow>
             <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">Your second brain,<br />without the filing.</h2>
           </div>
           <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">Folders and tags take work, so most bookmarks never get looked at again. Stash reads each snip as you save it, so the thing you half-remember turns up in milliseconds.</p>
@@ -240,7 +241,7 @@ function Landing() {
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex flex-col gap-5 px-10 pb-10 pt-14">
-            <Eyebrow>[ 02 ] The reader</Eyebrow>
+            <Eyebrow>The reader</Eyebrow>
             <h2 className="text-[32px] font-medium leading-[1.12] tracking-[-0.02em]">Every snip opens exactly as you saved it.</h2>
           </div>
           <Point n="01" lead="Full-fidelity posts." text="Media, threads and replies, archived even if the original gets deleted." />
@@ -258,25 +259,11 @@ function Landing() {
         <Stat v="4.9★" l="From early users" border />
       </section>
 
-      {/* TODO(owner): placeholder testimonials from the design — swap in real quotes with permission. */}
-      <section className="relative w-full max-w-[1120px] border-x border-t border-[#E8E8E5]">
-        <Corners />
-        <div className="flex flex-col items-center gap-5 px-10 pb-14 pt-24">
-          <Eyebrow>[ 03 ] Loved by collectors</Eyebrow>
-          <h2 className="max-w-[640px] text-center text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">People who save a lot finally find it again.</h2>
-        </div>
-        <div className="grid grid-cols-1 border-t border-[#E8E8E5] md:grid-cols-3">
-          <Quote q="I typed ‘that onboarding with the orange blob’ and it found a post from eight months ago. That's when I deleted my bookmarks folder." i="LK" n="Lena Kraus" r="Product designer" />
-          <Quote border q="Local embeddings that are actually fast. It's the first tool of its kind I'd trust with my whole research trail." i="DO" n="Daniel Okafor" r="ML engineer" />
-          <Quote border q="The globe view is unreasonably good. I open it just to wander through what I've collected." i="MS" n="Mira Santos" r="Founder, Loop Studio" />
-        </div>
-      </section>
-
       <section id="pricing" className="relative w-full max-w-[1120px] scroll-mt-16 border-x border-t border-[#E8E8E5]">
         <Corners />
         <div className="grid grid-cols-1 gap-10 px-10 pb-14 pt-24 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <Eyebrow>[ 04 ] Pricing</Eyebrow>
+            <Eyebrow>Pricing</Eyebrow>
             <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">Free. All of it.</h2>
           </div>
           <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">The Mac app and the browser extension are free, with no snip limit and no account. Cloud sync and mobile apps are on the way.</p>
@@ -291,7 +278,7 @@ function Landing() {
       <section className="relative flex w-full max-w-[1120px] flex-col border-x border-t border-[#E8E8E5] md:flex-row">
         <Corners />
         <div className="flex shrink-0 flex-col gap-5 border-[#E8E8E5] px-10 pb-10 pt-24 md:w-[400px] md:border-r">
-          <Eyebrow>[ 05 ] FAQ</Eyebrow>
+          <Eyebrow>FAQ</Eyebrow>
           <h2 className="text-[40px] font-medium leading-[1.08] tracking-[-0.02em]">Questions, answered.</h2>
           <p className="text-[15px] leading-[1.6] text-[#71717A]">Something else? Open an issue on <a className="text-[#0A0A0A] underline" href={SOURCE}>GitHub</a>.</p>
         </div>
@@ -314,6 +301,10 @@ function Landing() {
             <AppleIcon className="h-[18px] w-[18px] -mt-0.5" />
             <span className="text-[15px] font-medium text-white">Download for Mac</span>
           </a>
+          <a href={EXTENSION} className="inline-flex h-12 items-center gap-2.5 rounded-full border border-[#E4E4E1] bg-white px-6">
+            {brand('googlechrome')}
+            <span className="text-[15px] font-medium">Add to Chrome</span>
+          </a>
           <a href={SOURCE} className="inline-flex h-12 items-center gap-2 rounded-full border border-[#E4E4E1] bg-white px-6">
             <span className="text-[15px] font-medium">Read the changelog</span>
             <Arrow up />
@@ -331,7 +322,7 @@ function Landing() {
               </div>
               <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#71717A]">A quiet library for everything worth keeping.</p>
             </div>
-            <FooterCol t="Product" l={[['Features', '#product'], ['Pricing', '#pricing'], ['Changelog', CHANGELOG]]} />
+            <FooterCol t="Product" l={[['Features', '#product'], ['Pricing', '#pricing'], ['Chrome extension', EXTENSION], ['Changelog', CHANGELOG]]} />
             <FooterCol t="Company" l={[['Privacy', '/privacy.html'], ['Terms', '/terms.html'], ['Source', SOURCE]]} />
             <FooterCol t="Follow" l={[['GitHub', SOURCE]]} />
           </div>
@@ -420,15 +411,6 @@ const Point = ({ n, lead, text }: { n: string; lead: string; text: string }) => 
 )
 const Stat = ({ v, l, border }: { v: string; l: string; border?: boolean }) => (
   <div className={`flex flex-col gap-2 px-10 py-12 ${b(border)}`}><p className="text-[44px] font-medium leading-none tracking-[-0.02em] tabular-nums">{v}</p><p className="text-[14px] text-[#71717A]">{l}</p></div>
-)
-const Quote = ({ q, i, n, r, border }: { q: string; i: string; n: string; r: string; border?: boolean }) => (
-  <figure className={`flex flex-col justify-between gap-10 p-10 ${b(border)}`}>
-    <p className="text-[17px] leading-[1.6] text-[#27272A]">“{q}”</p>
-    <div className="flex items-center gap-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E4E4E1] text-[13px] font-medium text-[#3F3F46]">{i}</div>
-      <div className="flex flex-col"><span className="text-[14px] font-medium">{n}</span><span className="text-[13px] text-[#71717A]">{r}</span></div>
-    </div>
-  </figure>
 )
 const Check = ({ dark }: { dark?: boolean }) => (
   <svg className={`h-4 w-4 fill-none stroke-[1.33] [stroke-linecap:round] [stroke-linejoin:round] ${dark ? 'stroke-white' : 'stroke-[#0A0A0A]'}`} viewBox="0 0 16 16" aria-hidden><path d="M13.33 4 6 11.33 2.67 8" /></svg>

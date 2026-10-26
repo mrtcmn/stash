@@ -204,8 +204,9 @@ private struct BrowserSettings: View {
         Form {
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Install the extension in Chrome, Arc, Brave, Edge, Vivaldi or any Chromium browser:")
-                    Text("1. Open chrome://extensions (or arc://extensions, brave://extensions…)\n2. Turn on Developer mode\n3. Click Load unpacked and choose the extension folder")
+                    Text("Install the extension from the Chrome Web Store. It works in Chrome, Arc, Brave, Edge, Vivaldi and any Chromium browser.")
+                    Link("Add to Chrome", destination: AppResources.chromeWebStore)
+                    Text("Or load it unpacked:\n1. Open chrome://extensions (or arc://extensions, brave://extensions…)\n2. Turn on Developer mode\n3. Click Load unpacked and choose the extension folder")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                     HStack {
