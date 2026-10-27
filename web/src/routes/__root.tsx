@@ -1,5 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 
+import { useEffect } from 'react'
+import { initAnalytics } from '#/lib/analytics'
 import appCss from '../styles.css?url'
 
 // og:image and canonical need an absolute URL.
@@ -54,6 +56,7 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  useEffect(initAnalytics, [])
   return (
     <html lang="en">
       <head>

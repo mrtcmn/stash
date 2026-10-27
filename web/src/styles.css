@@ -36,3 +36,18 @@ body {
   src: url('/fonts/instrument-serif-italic-latin.woff2') format('woff2');
   font-display: swap;
 }
+
+/* How it works cards: small looping demos, used with motion-safe: so reduced motion skips them. */
+@keyframes keypress {
+  0%, 6%, 32%, 100% { transform: translateY(0); }
+  10%, 28% { transform: translateY(2px); box-shadow: none; }
+}
+@keyframes grow {
+  0% { transform: scaleX(0); }
+  30%, 80% { transform: scaleX(1); }
+  95%, 100% { transform: scaleX(0); }
+}
+@keyframes ring {
+  0% { transform: scale(1); opacity: 0.9; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}

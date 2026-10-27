@@ -4,8 +4,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { posts } from '#/data/posts'
 import { SearchIcon, SearchMode } from '#/components/SearchMode'
 import { FooterWordmark } from '#/components/FooterWordmark'
+import { track } from '#/lib/analytics'
 
 export const Route = createFileRoute('/')({ component: Landing })
+
+const TYPED = ['meaning.', 'color.', 'features.']
 
 const brand = (file: string) => <img src={`/brands/${file}.svg`} alt="" loading="lazy" className="h-5 w-5 opacity-75" />
 const SOURCES: { name: string; icon: React.ReactNode }[] = [
@@ -64,6 +67,7 @@ function Landing() {
   }, [])
 
   const openSearch = useCallback(() => {
+    track('search_opened')
     setFrom(pill.current?.getBoundingClientRect() ?? null)
     setOpen(true)
   }, [])
@@ -76,6 +80,7 @@ function Landing() {
     const q = new URLSearchParams(location.search).get('q')
     if (q !== null) { setQuery(q); openSearch() }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let timer = 0
     const scope = createScope().add(() => {
       const words = [...document.querySelectorAll('[data-anim="headline"]')].flatMap(
         (el) => splitText(el as HTMLElement, { words: true, accessible: true, includeSpaces: false }).words,
@@ -83,15 +88,30 @@ function Landing() {
       animate(words, { translateY: { from: '110%', to: '0%' }, duration: 800, delay: stagger(70), ease: 'outCubic' })
       animate('[data-anim="pill"]', { opacity: { from: 0, to: 1 }, translateY: { from: 24, to: 0 }, duration: 600, delay: 500, ease: 'outCubic' })
       animate('[data-anim="caret"]', { opacity: { from: 1, to: 0 }, duration: 600, ease: 'inOutQuad', loop: true, alternate: true })
+      // splitText rebuilt the headline; the last match is the visible copy, the first is the screen-reader one.
+      const el = [...document.querySelectorAll('[data-typewriter]')].at(-1)
+      if (!el) return
+      let w = 0, n = TYPED[0].length, typing = false
+      const tick = () => {
+        if (typing ? n === TYPED[w].length : n === 0) {
+          if (typing) { typing = false; timer = window.setTimeout(tick, 2200); return }
+          w = (w + 1) % TYPED.length
+          typing = true
+        }
+        n += typing ? 1 : -1
+        el.textContent = TYPED[w].slice(0, n)
+        timer = window.setTimeout(tick, typing ? 90 : 45)
+      }
+      timer = window.setTimeout(tick, 3000)
     })
-    return () => scope.revert()
+    return () => { clearTimeout(timer); scope.revert() }
   }, [openSearch])
 
   return (
     <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-[#FBFBFA] text-[#0A0A0A]">
       <SearchMode open={open} from={from} query={query} setQuery={setQuery} onClose={close} />
 
-      <header className={`sticky top-0 z-40 flex w-full justify-center border-b backdrop-blur-md transition-colors duration-300 ${onSky ? 'border-white/15 bg-white/5 text-white' : 'border-[#E8E8E5] bg-[#FBFBFA]/85'}`}>
+      <header data-where="header" className={`sticky top-0 z-40 flex w-full justify-center border-b backdrop-blur-md transition-colors duration-300 ${onSky ? 'border-white/15 bg-white/5 text-white' : 'border-[#E8E8E5] bg-[#FBFBFA]/85'}`}>
         <div className={`flex h-16 w-full max-w-[1120px] items-center justify-between border-x px-6 ${onSky ? 'border-white/15' : 'border-[#E8E8E5]'}`}>
           <a href="#" aria-label="Stash">
             {/* White wordmark; inverted to black once the header leaves the sky. */}
@@ -114,7 +134,7 @@ function Landing() {
       <div id="sky-top" className="relative -mt-16 w-full overflow-hidden pt-16 text-white">
       <Sky />
       {/* Hero */}
-      <section className="relative mx-auto flex w-full max-w-[1120px] flex-col items-center border-x border-white/15 px-4 pt-20">
+      <section data-where="hero" className="relative mx-auto flex w-full max-w-[1120px] flex-col items-center border-x border-white/15 px-4 pt-20">
         <a href="#how" className="inline-flex h-8 items-center gap-2.5 rounded-full border border-white/30 bg-white/15 pl-1.5 pr-3.5 backdrop-blur-md">
           <span className="inline-flex h-5 items-center rounded-full bg-white px-2 text-[11px] font-medium text-[#0A0A0A]">New</span>
           <span className="text-[13px] text-white/90">Semantic search now runs on WebGPU</span>
@@ -124,7 +144,7 @@ function Landing() {
           Save anything.
           <br />
           <span className="text-white/60">Find it by </span>
-          <span className="font-['Instrument_Serif'] font-normal italic tracking-[-0.01em]">meaning.</span>
+          <span data-typewriter className="font-['Instrument_Serif'] font-normal italic tracking-[-0.01em]">meaning.</span>
         </h1>
         <p className="mt-7 max-w-[540px] text-center text-[19px] leading-[1.55] text-white/80">
           Every post, page and screenshot you keep, in one library on your Mac. Describe what you remember and Stash finds it.
@@ -134,10 +154,6 @@ function Landing() {
             <AppleIcon className="h-[18px] w-[18px] -mt-0.5" />
             <span className="text-[15px] font-medium">Download for Mac</span>
           </a>
-          <button onClick={openSearch} className="inline-flex h-12 items-center gap-2.5 rounded-full border border-white/35 bg-white/15 px-6 backdrop-blur-md">
-            <SearchIcon className="h-4 w-4 stroke-white!" />
-            <span className="text-[15px] font-medium">Try the search here</span>
-          </button>
         </div>
         <p className="mt-5 text-[13px] text-white/60">macOS 26+ · Apple Silicon · Free · <a href={EXTENSION} className="underline hover:text-white">Get the Chrome extension</a></p>
 
@@ -184,9 +200,9 @@ function Landing() {
 
       <section id="product" className="relative grid w-full max-w-[1120px] scroll-mt-16 grid-cols-1 border-x border-t border-[#E8E8E5] md:grid-cols-3">
         <Corners />
-        <Feature n="01 · Globe view" text="Every snip on one sphere. Spin it, filter it, fall into it." />
-        <Feature n="02 · Instant filters" text="Posts, screenshots, notes and links — one keystroke apart." border />
-        <Feature n="03 · EmbeddingGemma" text="A local model reads what you save. Nothing leaves the Mac." border />
+        <Feature n="Globe view" text="Every snip on one sphere. Spin it, filter it, fall into it." />
+        <Feature n="Instant filters" text="Posts, screenshots, notes and links — one keystroke apart." border />
+        <Feature n="EmbeddingGemma" text="A local model reads what you save. Nothing leaves the Mac." border />
       </section>
 
       <section className="relative w-full max-w-[1120px] border-x border-t border-[#E8E8E5]">
@@ -214,21 +230,24 @@ function Landing() {
         <div className="grid grid-cols-1 border-t border-[#E8E8E5] md:grid-cols-3">
           <Step title="Capture in one keystroke" text="Save a post, a page or a region of your screen from anywhere. X bookmarks sync on their own.">
             <div className="flex h-[180px] items-center justify-center gap-2.5 rounded-[14px] border border-[#E8E8E5] bg-white">
-              <Key>⌃</Key><Key>⇧</Key><Key dark>4</Key>
+              <Key>⌃</Key><Key delay={180}>⇧</Key><Key dark delay={360}>4</Key>
             </div>
           </Step>
           <Step border title="Search by meaning" text="Describe it the way you remember it. Ranked results in about 2 ms, even with no exact keyword.">
             <div className="flex h-[180px] flex-col gap-3 rounded-[14px] border border-[#E8E8E5] bg-white p-4">
               <div className="flex h-9 items-center gap-2 rounded-full border border-[#E4E4E1] px-3"><SearchIcon className="h-3.5 w-3.5" /><span className="text-[13px]">latte with a heart</span></div>
-              <Bar label="Blue cup" pct={71} color="#0A0A0A" />
-              <Bar label="Cappuccino" pct={54} color="#A1A1AA" />
-              <Bar label="Bakery" pct={38} color="#D4D4D8" />
+              <Bar label="Blue cup" pct={71} color="#0A0A0A" delay={0} />
+              <Bar label="Cappuccino" pct={54} color="#A1A1AA" delay={150} />
+              <Bar label="Bakery" pct={38} color="#D4D4D8" delay={300} />
             </div>
           </Step>
           <Step border title="Private by default" text="Embeddings run locally on Apple Silicon. Your library stays yours — no account needed.">
             <div className="flex h-[180px] flex-col items-center justify-center gap-4 rounded-[14px] border border-[#E8E8E5] bg-white">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#E4E4E1]"><LockIcon /></div>
-              <div className="inline-flex h-7 items-center gap-2 rounded-full bg-[#F4F4F2] px-3"><span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" /><span className="text-[12px] font-medium text-[#3F3F46]">On-device · no account</span></div>
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#E4E4E1]">
+                <span className="absolute inset-0 rounded-full border border-[#16A34A]/40 opacity-0 motion-safe:animate-[ring_2.8s_ease-out_infinite]" />
+                <LockIcon />
+              </div>
+              <div className="inline-flex h-7 items-center gap-2 rounded-full bg-[#F4F4F2] px-3"><span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] motion-safe:animate-pulse" /><span className="text-[12px] font-medium text-[#3F3F46]">On-device · no account</span></div>
             </div>
           </Step>
         </div>
@@ -244,9 +263,9 @@ function Landing() {
             <Eyebrow>The reader</Eyebrow>
             <h2 className="text-[32px] font-medium leading-[1.12] tracking-[-0.02em]">Every snip opens exactly as you saved it.</h2>
           </div>
-          <Point n="01" lead="Full-fidelity posts." text="Media, threads and replies, archived even if the original gets deleted." />
-          <Point n="02" lead="Arrow through results." text="← → moves through every match without losing your place." />
-          <Point n="03" lead="Share back out." text="Post, copy or open the source in one click." />
+          <Point lead="Full-fidelity posts." text="Media, threads and replies, archived even if the original gets deleted." />
+          <Point lead="Arrow through results." text="← → moves through every match without losing your place." />
+          <Point lead="Share back out." text="Post, copy or open the source in one click." />
         </div>
       </section>
 
@@ -259,7 +278,7 @@ function Landing() {
         <Stat v="4.9★" l="From early users" border />
       </section>
 
-      <section id="pricing" className="relative w-full max-w-[1120px] scroll-mt-16 border-x border-t border-[#E8E8E5]">
+      <section id="pricing" data-where="pricing" className="relative w-full max-w-[1120px] scroll-mt-16 border-x border-t border-[#E8E8E5]">
         <Corners />
         <div className="grid grid-cols-1 gap-10 px-10 pb-14 pt-24 md:grid-cols-2">
           <div className="flex flex-col gap-5">
@@ -291,7 +310,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="relative flex w-full max-w-[1120px] flex-col items-center border-x border-t border-[#E8E8E5] px-10 py-28">
+      <section data-where="cta" className="relative flex w-full max-w-[1120px] flex-col items-center border-x border-t border-[#E8E8E5] px-10 py-28">
         <Corners />
         <img src="/icon-128.png" alt="" loading="lazy" className="h-[72px] w-[72px] rounded-[17px] shadow-[0_20px_40px_-14px_rgba(0,0,0,0.5)]" />
         <h2 className="mt-10 text-center text-[44px] font-medium leading-[1.02] tracking-[-0.02em] md:text-[64px]">Stop losing the good stuff.</h2>
@@ -312,7 +331,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="flex w-full justify-center border-t border-[#E8E8E5]">
+      <footer data-where="footer" className="flex w-full justify-center border-t border-[#E8E8E5]">
         <div className="relative w-full max-w-[1120px] overflow-hidden border-x border-[#E8E8E5]">
           <div className="grid grid-cols-2 gap-6 px-10 py-14 md:grid-cols-5">
             <div className="col-span-2 flex flex-col gap-4">
@@ -393,19 +412,18 @@ const Step = ({ title, text, border, children }: { title: string; text: string; 
     <div className="flex flex-col gap-2"><h3 className="text-[19px] font-medium tracking-[-0.01em]">{title}</h3><p className="text-[15px] leading-[1.6] text-[#71717A]">{text}</p></div>
   </div>
 )
-const Key = ({ children, dark }: { children: React.ReactNode; dark?: boolean }) => (
-  <div className={`flex h-14 w-14 items-center justify-center rounded-[12px] text-[20px] ${dark ? 'bg-[#0A0A0A] font-medium text-white shadow-[0_2px_0_#3F3F46]' : 'border border-[#E4E4E1] bg-[#FBFBFA] text-[#3F3F46] shadow-[0_2px_0_#E4E4E1]'}`}>{children}</div>
+const Key = ({ children, dark, delay = 0 }: { children: React.ReactNode; dark?: boolean; delay?: number }) => (
+  <div style={{ animationDelay: `${delay}ms` }} className={`motion-safe:animate-[keypress_3.2s_ease-in-out_infinite] flex h-14 w-14 items-center justify-center rounded-[12px] text-[20px] ${dark ? 'bg-[#0A0A0A] font-medium text-white shadow-[0_2px_0_#3F3F46]' : 'border border-[#E4E4E1] bg-[#FBFBFA] text-[#3F3F46] shadow-[0_2px_0_#E4E4E1]'}`}>{children}</div>
 )
-const Bar = ({ label, pct, color }: { label: string; pct: number; color: string }) => (
+const Bar = ({ label, pct, color, delay }: { label: string; pct: number; color: string; delay: number }) => (
   <div className="flex items-center gap-3">
     <span className="w-20 text-[12px] text-[#3F3F46]">{label}</span>
-    <div className="h-1.5 flex-1 rounded-full bg-[#F1F1EF]"><div className="h-1.5 rounded-full" style={{ width: `${pct}%`, background: color }} /></div>
+    <div className="h-1.5 flex-1 rounded-full bg-[#F1F1EF]"><div className="h-1.5 origin-left rounded-full motion-safe:animate-[grow_4s_ease-out_infinite]" style={{ width: `${pct}%`, background: color, animationDelay: `${delay}ms` }} /></div>
     <span className="text-[11px] tabular-nums text-[#71717A]">{pct}%</span>
   </div>
 )
-const Point = ({ n, lead, text }: { n: string; lead: string; text: string }) => (
-  <div className="flex gap-5 border-t border-[#E8E8E5] px-10 py-5">
-    <span className="text-[13px] tabular-nums text-[#71717A]">{n}</span>
+const Point = ({ lead, text }: { lead: string; text: string }) => (
+  <div className="border-t border-[#E8E8E5] px-10 py-5">
     <p className="text-[15px] leading-[1.55] text-[#3F3F46]"><span className="font-medium text-[#0A0A0A]">{lead}</span> {text}</p>
   </div>
 )

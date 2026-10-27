@@ -16,6 +16,7 @@
     "@tanstack/react-router": "1.170.44",
     "@tanstack/react-start": "1.169.2",
     "animejs": "^4.3.3",
+    "posthog-js": "^1.438.23",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.18"
