@@ -57,12 +57,12 @@ jobs:
 
       # Made from the stapled app, so the copy in /Applications opens offline too.
       # The DMG needs its own notarization because its hash differs from the app's.
+      # dmgbuild writes the window layout, background and volume icon from scripts/dmg.py.
       - name: Make DMG
         run: |
-          mkdir build/dmg
-          cp -R build/Stash.app build/dmg/
-          ln -s /Applications build/dmg/Applications
-          hdiutil create -volname Stash -srcfolder build/dmg -format UDZO build/Stash.dmg
+          python3 -m venv "$RUNNER_TEMP/dmgbuild"
+          "$RUNNER_TEMP/dmgbuild/bin/pip" install -q dmgbuild==1.6.7
+          "$RUNNER_TEMP/dmgbuild/bin/dmgbuild" -s scripts/dmg.py Stash build/Stash.dmg
           if [ -n "${SIGN_IDENTITY:-}" ]; then
             codesign --sign "$SIGN_IDENTITY" --timestamp build/Stash.dmg
           fi
