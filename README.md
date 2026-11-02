@@ -1,41 +1,112 @@
-<p align="center"><img src="App/AppIcon.png" width="128" alt="Snipper icon"></p>
+<p align="center">
+  <img src="assets/logo.svg" width="112" alt="Stash logo">
+</p>
 
-<h1 align="center">Snipper</h1>
+<h1 align="center">Stash</h1>
 
-<p align="center">Save posts from X, screenshots, notes and links on your Mac — then find them by meaning.<br>
-A native macOS 26 app with Liquid Glass, on-device <b>EmbeddingGemma 2</b> search, and a Chromium extension.</p>
+<p align="center"><b>Save anything. Find it by meaning.</b></p>
 
----
+<p align="center">
+  Every post, page and screenshot you keep, in one library on your Mac.<br>
+  Describe what you remember. Stash finds it.
+</p>
 
-## What it does
+<p align="center">
+  <a href="https://github.com/mrtcmn/stash/releases/latest/download/Stash.dmg"><b>Download for Mac</b></a> ·
+  <a href="https://stash.grasco.dev">Website</a> ·
+  <a href="https://chromewebstore.google.com/detail/stash-%E2%80%94-save-to-mac/ekcefgmlhmapfkgbomdighgcedpfemlb">Chrome extension</a>
+</p>
 
-**Snip anything**
-- **Posts from X** — a *Snip* button on every post in Chrome, Arc, Brave, Edge, Vivaldi or any Chromium browser. Saves the full text of long posts, every image and video, quotes, link cards and metrics.
-- **All your X bookmarks** — one click scrolls through `x.com/i/bookmarks` and imports everything. Archives, CSV/JSON exports and browser bookmark files import too.
-- **Screenshots** — area, window, full screen, or **text** (OCR, copies the text). The selection overlay has a crosshair, pixel loupe with color readout, resize handles, keyboard nudging and click-to-select windows.
-- **Annotate** — arrows, boxes, ellipses, lines, pen, highlighter, text, numbered steps, pixelate (redact) and crop, with undo.
-- **Pin** screenshots above all windows, or drag them out of the capture preview.
-- **Quick note** — a Spotlight-style glass panel from anywhere (⌃⇧N).
-- **Snip the browser tab** (⌃⇧X) — no extension needed: reads the front tab of any Chromium browser or Safari and saves the post or page with its preview.
-- **Clipboard, Services, drag & drop, color picker, URL scheme** (`snipper://…`).
+<p align="center">
+  <img alt="macOS 26+" src="https://img.shields.io/badge/macOS-26%2B-black?logo=apple">
+  <img alt="Apple Silicon" src="https://img.shields.io/badge/Apple%20Silicon-ready-2563d6">
+  <img alt="Free" src="https://img.shields.io/badge/price-free-2ea043">
+  <a href="https://github.com/mrtcmn/stash/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/mrtcmn/stash"></a>
+</p>
 
-**Find it again**
-- **Semantic search with EmbeddingGemma 2**, Google's multimodal embedding model, running entirely on your Mac with WebGPU. Text and images share one space: search *“chart showing revenue growth”* and get the screenshot, even if the words never appear in it. Post photos are embedded together with their text.
-- **Hybrid ranking** blends meaning with keywords, and text inside screenshots is recognized (Vision OCR) and searchable.
-- **Search by image** — drop a picture on the search bar. **More like this** on any card.
-- Filters: `from:handle` · `tag:name` · `type:post|screenshot|note|link|image|clip` · `is:fav` · `"exact phrase"`.
+<p align="center">
+  <img src="assets/hero.jpg" alt="The Stash library: a globe of saved posts and screenshots, with a search bar at the bottom">
+</p>
 
-**Liquid Glass design**
-- An *atlas* globe like the EmbeddingGemma 2 WebGPU demo: equal cards on a sphere that repeats in every direction, best match in the center; drag or scroll to pan, pinch or ⌘-scroll to zoom. Or a masonry *grid*.
-- Floating glass search bar with similarity readouts, glass chrome, a focused viewer, and a menu bar panel with every tool.
+> The app is called **Stash**. The code and the URL scheme still use the old name, Snipper.
 
-## Requirements
+## Why Stash?
 
-- macOS 26 (Tahoe) — Liquid Glass and the SwiftUI APIs used here are macOS 26 only
-- Xcode 26 or its command line tools (Swift 6.2)
-- For semantic search: a Mac with WebGPU in WebKit (Apple silicon recommended) and a one-time ~300 MB model download. Without WebGPU Snipper falls back to Apple's built-in text embeddings.
+Folders and tags take work. So most bookmarks never get a second look.
 
-## Build and run
+Stash reads each item as you save it. Later, you describe it the way you remember it. For example: *"chart showing revenue growth"*. Stash shows you the screenshot, even if those words are not in it.
+
+<p align="center">
+  <img src="assets/features.png" alt="Capture with one keystroke, search by meaning, private by default">
+</p>
+
+## What you get
+
+### Save from anywhere
+
+- **Posts from X.** A *Snip* button appears on every post in Chrome, Arc, Brave, Edge, Vivaldi and other Chromium browsers. Stash keeps long posts in full, with images, videos, quotes and link cards.
+- **Your X bookmarks.** One click imports them all. Archives, CSV and JSON files import too.
+- **Screenshots.** Capture an area, a window or the full screen. Or capture text, and Stash copies it with OCR.
+- **Annotate.** Add arrows, boxes, text, numbered steps and a highlighter. Blur out private parts.
+- **Quick notes.** Press ⌃⇧N for a note from any app.
+- **Clipboard, color picker, drag and drop.** Stash takes those too.
+
+### Find it again
+
+- **Search by meaning.** Stash uses Google's EmbeddingGemma 2. Text and images live in one space, so words can find pictures.
+- **Search by image.** Drop a picture on the search bar. Or pick *More like this* on any card.
+- **Smart filters.** Try `from:handle`, `tag:name`, `type:screenshot`, `is:fav` or `"exact phrase"`.
+- **Text inside screenshots.** Stash reads it and makes it searchable.
+
+### Open it like new
+
+<p align="center">
+  <img src="assets/reader.png" width="520" alt="A saved post opened in the Stash reader">
+</p>
+
+- Posts open as you saved them, with media, threads and replies.
+- Use the arrow keys to move through your results.
+- View your library as a globe or as a grid.
+
+### Private by default
+
+- Search runs on your Mac. Your snips are not uploaded.
+- You do not need an account.
+- The library lives in `~/Library/Application Support/Snipper`.
+- Stash uses the network to download the model once. It also fetches images and previews of the things you save.
+
+## Get started
+
+1. **Download** [Stash.dmg](https://github.com/mrtcmn/stash/releases/latest/download/Stash.dmg) and open it.
+2. **Install the extension** from the [Chrome Web Store](https://chromewebstore.google.com/detail/stash-%E2%80%94-save-to-mac/ekcefgmlhmapfkgbomdighgcedpfemlb). Keep Stash running. The extension talks to it on your Mac.
+3. **Save something.** Press ⌃⇧4 to capture an area. Or click *Snip* on a post.
+4. **Search.** Press ⌃⇧Space and describe what you want.
+
+You need a Mac with Apple Silicon and macOS 26 or later. Semantic search downloads a model of about 300 MB the first time. Without WebGPU, Stash uses Apple's built-in text embeddings instead.
+
+### Shortcuts
+
+| Action | Shortcut |
+| --- | --- |
+| Capture area | ⌃⇧4 |
+| Capture window | ⌃⇧5 |
+| Capture screen | ⌃⇧3 |
+| Capture text (OCR) | ⌃⇧2 |
+| Quick note | ⌃⇧N |
+| Snip the browser tab | ⌃⇧X |
+| Save clipboard | ⌃⇧V |
+| Pick color | ⌃⇧C |
+| Search library | ⌃⇧Space |
+
+You can change all of them in Settings › Shortcuts. The extension adds **⌥⇧S** (save page or selection) and **⌥⇧A** (screenshot of the visible area).
+
+### URL scheme
+
+Use these from Raycast, Alfred or Shortcuts:
+
+`snipper://search?q=…` · `snipper://capture/area|window|screen|text` · `snipper://note?text=…` · `snipper://save?url=…` · `snipper://import-bookmarks`
+
+## Build from source
 
 ```bash
 make run              # builds build/Stash.app and opens it
@@ -43,46 +114,20 @@ make run              # builds build/Stash.app and opens it
 scripts/build-app.sh  # release build, ad-hoc signed
 ```
 
-macOS ties Screen Recording permission to the code signature, so with ad-hoc signing it asks again after every rebuild. Sign with your development certificate to keep it:
+You need macOS 26 and Xcode 26 (or its command line tools, Swift 6.2).
+
+macOS ties the Screen Recording permission to the code signature. An ad-hoc build asks again after each rebuild. Sign with your own certificate to avoid this:
 
 ```bash
 SIGN_IDENTITY="Apple Development: Your Name (TEAMID)" scripts/build-app.sh
 ```
 
-Prefer Xcode? `brew install xcodegen && xcodegen` creates `Snipper.xcodeproj` from `project.yml`.
+To use Xcode, run `brew install xcodegen && xcodegen`. This creates `Snipper.xcodeproj` from `project.yml`.
 
-## Install the browser extension
+To load the extension from source, open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and choose the `Extension` folder.
 
-1. Open `chrome://extensions` (or `arc://extensions`, `brave://extensions`, `edge://extensions`).
-2. Turn on **Developer mode**, click **Load unpacked**, and choose the `Extension` folder
-   (Snipper › Settings › Browser › *Show Extension Folder* opens it).
-3. Keep Snipper running. The extension talks to it on `127.0.0.1:47615`.
-
-The extension adds:
-- the **Snip** button on posts (click again to remove), with saved posts highlighted;
-- **Import X bookmarks** in the popup (or *File › Import X Bookmarks…* in the app);
-- right-click **Save selection / link / image / page / screenshot to Snipper**;
-- shortcuts **⌥⇧S** (save page or selection) and **⌥⇧A** (screenshot visible area).
-
-Saves made while the app is closed are queued and sent when it starts.
-
-## Shortcuts
-
-| Action | Default |
-| --- | --- |
-| Capture area | ⌃⇧4 |
-| Capture window | ⌃⇧5 |
-| Capture screen | ⌃⇧3 |
-| Capture text (OCR) | ⌃⇧2 |
-| Quick note | ⌃⇧N |
-| Snip browser tab | ⌃⇧X |
-| Save clipboard | ⌃⇧V |
-| Pick color | ⌃⇧C |
-| Search library | ⌃⇧Space |
-
-All of them can be changed in Settings › Shortcuts. While selecting an area: **Space** toggles window mode, **Shift** keeps a square, **arrows** nudge (**⌥** resizes), **Return** saves, **S** save · **C** copy · **A** annotate · **T** copy text · **P** pin, **Esc** cancels. In the library: **⌘F** search, **⌘1/⌘2** atlas/grid, **←/→** step through the viewer.
-
-## How search works
+<details>
+<summary><b>How search works</b></summary>
 
 ```
 snip ──► EmbeddingDocument ──► EmbeddingGemma 2 (WebGPU, in a hidden WKWebView) ──► 768-d vector ──► SQLite
@@ -90,38 +135,38 @@ query ─► "task: search result | query: …" ─► vector ─► cosine vs a
                                               keywords + filters ──────────┴─► hybrid ranking
 ```
 
-- The model is [`onnx-community/embeddinggemma-2-ONNX`](https://huggingface.co/onnx-community/embeddinggemma-2-ONNX) (4-bit, text + vision encoders; audio stays unloaded), run with [Transformers.js](https://huggingface.co/docs/transformers.js) 4.3 inside a hidden `WKWebView` (`Sources/Snipper/Resources/gemma-runtime.html`). Files are cached by WebKit after the first download; *Settings › Search* can delete them.
-- Documents use the model's prompts (`title: … | text: …`), queries use `task: search result | query: …`. Screenshots are embedded as image + recognized text; post photos join the post text via `<|image|>` placeholders.
-- Vectors are re-computed only when a snip's embedding input changes (content hash), newest first, in token-budgeted batches.
+- The model is [`onnx-community/embeddinggemma-2-ONNX`](https://huggingface.co/onnx-community/embeddinggemma-2-ONNX). It runs with [Transformers.js](https://huggingface.co/docs/transformers.js) in a hidden `WKWebView`.
+- Screenshots are embedded as image plus recognized text. Post photos join the post text.
+- Stash recomputes a vector only when the content of a snip changes.
+- The local API listens on the loopback interface only. It needs the `X-Snipper-Client` header, and websites cannot send that header.
 
-## Privacy
+</details>
 
-Everything stays on your Mac: the library is `~/Library/Application Support/Snipper` (SQLite + media files), and embeddings are computed locally. Network access is limited to downloading the model (Hugging Face, jsDelivr), images and previews of things you save, and X's public embed endpoints when you snip a post URL without the extension.
-
-The local API only listens on the loopback interface. It accepts requests from browser extensions or local tools carrying the `X-Snipper-Client` header; websites can't send that header without a CORS preflight, which Snipper denies.
-
-## Project layout
+<details>
+<summary><b>Project layout and tests</b></summary>
 
 ```
-Sources/SnipperCore   Model, SQLite storage, ranking, post/archive/CSV parsing, HTTP parsing (Foundation only)
+Sources/SnipperCore   Model, SQLite storage, ranking, parsing (Foundation only)
 Sources/Snipper       The macOS app: SwiftUI + AppKit, ScreenCaptureKit, Vision, WebKit
-  App/ Library/ Search/ Capture/ Editor/ Browser/ System/ UI/ Resources/
-Extension/            Chromium MV3 extension (X content scripts, popup, service worker)
+Extension/            Chromium MV3 extension
 Tests/                XCTest suite for SnipperCore
+web/                  The website (stash.grasco.dev)
 App/                  Info.plist, entitlements, icon
 ```
 
-## Tests
-
 ```bash
-swift test                                  # SnipperCore (also runs on Linux)
-node --test "Extension/tests/*.test.mjs"    # the extension's X GraphQL parser
+swift test                                  # SnipperCore
+node --test "Extension/tests/*.test.mjs"    # the extension's X parser
 ```
 
-## URL scheme
+</details>
 
-`snipper://search?q=…` · `snipper://capture/area|window|screen|text` · `snipper://note?text=…` · `snipper://save?url=…` · `snipper://import-bookmarks` — handy from Raycast, Alfred or Shortcuts.
+## Contributing
 
----
+Found a bug or have an idea? [Open an issue](https://github.com/mrtcmn/stash/issues). Pull requests are welcome. Please run the tests before you send one.
 
-Icons in the extension and app use the [Lucide](https://lucide.dev) scissors glyph (ISC license).
+## License
+
+This repository has no license file yet. Until one is added, all rights stay with the author.
+
+The app and extension icons use the [Lucide](https://lucide.dev) scissors glyph (ISC license).
