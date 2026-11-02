@@ -1,5 +1,5 @@
 // Normalizes posts from X's web GraphQL responses (and from the page DOM) into the
-// shape the Snipper app expects. Runs in the page's main world and in Node tests.
+// shape the Stash app expects. Runs in the page's main world and in Node tests.
 (function (root) {
   "use strict";
 
@@ -248,6 +248,6 @@
   }
 
   const api = { decodeEntities, cleanText, normalizeTweet, collectTweets, timelineTweets, bottomCursor, operationName };
-  root.__snipperTweetParse = api;
+  root.__stashTweetParse = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

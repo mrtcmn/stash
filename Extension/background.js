@@ -1,4 +1,4 @@
-// Snipper extension service worker: talks to the Snipper app on 127.0.0.1 and handles
+// Stash extension service worker: talks to the Stash app on 127.0.0.1 and handles
 // context menus, keyboard commands and an offline queue for saves made while the app is closed.
 
 const DEFAULT_PORT = 47615;
@@ -24,7 +24,7 @@ async function callApp(path, body, { method = body ? "POST" : "GET", timeout = 2
   try {
     response = await fetch(`http://127.0.0.1:${await port()}${path}`, {
       method,
-      headers: { "Content-Type": "application/json", "X-Snipper-Client": "extension" },
+      headers: { "Content-Type": "application/json", "X-Stash-Client": "extension" },
       body: body ? JSON.stringify(body) : undefined,
       signal: controller.signal,
     });
@@ -186,7 +186,7 @@ async function notify(tabId, text, kind = "ok") {
 
 // Runs inside the page: a small glass toast in a shadow root.
 function showToast(text, kind) {
-  const id = "snipper-toast-root";
+  const id = "stash-toast-root";
   document.getElementById(id)?.remove();
   const host = document.createElement("div");
   host.id = id;
@@ -226,27 +226,27 @@ function describe(result, noun = "Saved to Stash") {
 // Context menus and commands
 
 const MENUS = [
-  { id: "snipper-selection", title: "Save selection to Stash", contexts: ["selection"] },
-  { id: "snipper-link", title: "Save link to Stash", contexts: ["link"] },
-  { id: "snipper-image", title: "Save image to Stash", contexts: ["image"] },
-  { id: "snipper-page", title: "Save page to Stash", contexts: ["page"] },
-  { id: "snipper-screenshot", title: "Screenshot visible area to Stash", contexts: ["page"] },
+  { id: "stash-selection", title: "Save selection to Stash", contexts: ["selection"] },
+  { id: "stash-link", title: "Save link to Stash", contexts: ["link"] },
+  { id: "stash-image", title: "Save image to Stash", contexts: ["image"] },
+  { id: "stash-page", title: "Save page to Stash", contexts: ["page"] },
+  { id: "stash-screenshot", title: "Screenshot visible area to Stash", contexts: ["page"] },
 ];
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.removeAll(() => {
     for (const menu of MENUS) chrome.contextMenus.create(menu);
   });
-  chrome.alarms.create("snipper-outbox", { periodInMinutes: 1 });
+  chrome.alarms.create("stash-outbox", { periodInMinutes: 1 });
   updateBadge().catch(() => {});
 });
 
 chrome.runtime.onStartup.addListener(() => {
-  chrome.alarms.create("snipper-outbox", { periodInMinutes: 1 });
+  chrome.alarms.create("stash-outbox", { periodInMinutes: 1 });
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === "snipper-outbox") flushOutbox().catch(() => {});
+  if (alarm.name === "stash-outbox") flushOutbox().catch(() => {});
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -255,23 +255,23 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     let item = null;
     let label = "Saved to Stash";
     switch (info.menuItemId) {
-      case "snipper-selection":
+      case "stash-selection":
         item = await selectionItem(tab, info.selectionText);
         label = "Selection saved to Stash";
         break;
-      case "snipper-link":
+      case "stash-link":
         item = { type: "link", url: info.linkUrl, title: info.linkText || info.selectionText || undefined };
         label = "Link saved to Stash";
         break;
-      case "snipper-image":
+      case "stash-image":
         item = { type: "image", srcUrl: info.srcUrl, dataUrl: await imageDataURL(info.srcUrl), url: info.pageUrl, title: tab?.title };
         label = "Image saved to Stash";
         break;
-      case "snipper-page":
+      case "stash-page":
         item = await pageItem(tab);
         label = "Page saved to Stash";
         break;
-      case "snipper-screenshot":
+      case "stash-screenshot":
         item = await screenshotItem(tab);
         label = "Screenshot saved to Stash";
         break;
@@ -319,10 +319,10 @@ async function openBookmarksImport() {
     await chrome.tabs.update(tabs[0].id, { active: true });
     await chrome.windows.update(tabs[0].windowId, { focused: true });
     await chrome.tabs.sendMessage(tabs[0].id, { type: "start-import" }).catch(async () => {
-      await chrome.tabs.update(tabs[0].id, { url: "https://x.com/i/bookmarks#snipper-import" });
+      await chrome.tabs.update(tabs[0].id, { url: "https://x.com/i/bookmarks#stash-import" });
     });
   } else {
-    await chrome.tabs.create({ url: "https://x.com/i/bookmarks#snipper-import" });
+    await chrome.tabs.create({ url: "https://x.com/i/bookmarks#stash-import" });
   }
 }
 
@@ -378,8 +378,8 @@ async function handle(message, sender) {
 }
 
 async function openApp() {
-  // Opening the custom URL scheme launches Snipper (the browser asks once).
-  await chrome.tabs.create({ url: "snipper://open", active: true });
+  // Opening the custom URL scheme launches Stash (the browser asks once).
+  await chrome.tabs.create({ url: "stash://open", active: true });
   return { ok: true };
 }
 

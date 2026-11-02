@@ -1,4 +1,4 @@
-// Port of Sources/SnipperCore/GlobeLayout.swift: equal cards in a brick grid that repeats in
+// Port of Sources/StashCore/GlobeLayout.swift: equal cards in a brick grid that repeats in
 // every direction; item 0 sits at the center and later items fill rings around it.
 export type GlobeLayout = { cells: [number, number][]; columns: number; rows: number }
 

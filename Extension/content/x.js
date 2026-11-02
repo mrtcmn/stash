@@ -1,8 +1,8 @@
-// Snipper on x.com: a Snip button on every post, saved-state sync, and bookmark import.
+// Stash on x.com: a Snip button on every post, saved-state sync, and bookmark import.
 (function () {
   "use strict";
-  if (window.__snipperContent) return;
-  window.__snipperContent = true;
+  if (window.__stashContent) return;
+  window.__stashContent = true;
 
   const cache = new Map(); // post id → normalized post from GraphQL
   const bookmarkIds = new Set(); // ids that appeared in Bookmarks responses
@@ -30,11 +30,11 @@
   window.addEventListener("message", (event) => {
     if (event.source !== window || event.origin !== window.location.origin) return;
     const data = event.data;
-    if (data?.__snipper === "bookmark" && typeof data.id === "string") {
+    if (data?.__stash === "bookmark" && typeof data.id === "string") {
       saveBookmark(data.id);
       return;
     }
-    if (!data || data.__snipper !== "graphql" || !Array.isArray(data.tweets)) return;
+    if (!data || data.__stash !== "graphql" || !Array.isArray(data.tweets)) return;
     for (const post of data.tweets) {
       if (post && post.id) cache.set(post.id, post);
     }
@@ -53,7 +53,7 @@
   });
 
   // Ask the page hook for responses it saw before this script started.
-  window.postMessage({ __snipper: "replay" }, window.location.origin);
+  window.postMessage({ __stash: "replay" }, window.location.origin);
 
   // ---------------------------------------------------------------------------
   // Reading posts from the page
@@ -128,22 +128,22 @@
   const ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88"/><path d="M14.47 14.48 20 20"/><path d="M8.12 8.12 12 12"/></svg>`;
 
   function decorate(article) {
-    if (article.dataset.snipper) return;
+    if (article.dataset.stash) return;
     const groups = article.querySelectorAll('[role="group"]');
     const bar = groups[groups.length - 1];
     const id = postIdOf(article);
     if (!bar || !id) return;
-    article.dataset.snipper = id;
+    article.dataset.stash = id;
 
     const wrap = document.createElement("div");
-    wrap.className = "snipper-action";
+    wrap.className = "stash-action";
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "snipper-btn";
-    button.dataset.snipperId = id;
+    button.className = "stash-btn";
+    button.dataset.stashId = id;
     button.setAttribute("aria-label", "Save to Stash");
     button.title = "Save to Stash";
-    button.innerHTML = `<span class="snipper-btn-circle">${ICON}</span>`;
+    button.innerHTML = `<span class="stash-btn-circle">${ICON}</span>`;
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -168,11 +168,11 @@
   }
 
   function buttonsFor(id) {
-    return document.querySelectorAll(`.snipper-btn[data-snipper-id="${CSS.escape(id)}"]`);
+    return document.querySelectorAll(`.stash-btn[data-stash-id="${CSS.escape(id)}"]`);
   }
 
   async function toggle(article, button) {
-    const id = button.dataset.snipperId;
+    const id = button.dataset.stashId;
     if (button.dataset.busy) return;
     button.dataset.busy = "true";
     try {
@@ -190,9 +190,9 @@
         saved.add(id);
         buttonsFor(id).forEach((b) => {
           markSaved(b, true);
-          b.classList.remove("snipper-pop");
+          b.classList.remove("stash-pop");
           void b.offsetWidth;
-          b.classList.add("snipper-pop");
+          b.classList.add("stash-pop");
         });
         const who = post.author?.handle ? ` by @${post.author.handle}` : "";
         toast(result.queued ? "Stash isn't running — saved for later" : `Saved post${who}`, result.queued ? "warn" : "ok");
@@ -206,7 +206,7 @@
 
   /** Saves a post the user just bookmarked on X. */
   async function saveBookmark(id) {
-    const article = document.querySelector(`article[data-snipper="${CSS.escape(id)}"]`);
+    const article = document.querySelector(`article[data-stash="${CSS.escape(id)}"]`);
     const post = cache.get(id) || (article && postFromDOM(article, id));
     if (!post) return;
     const result = await send({ type: "save", source: "x-bookmarks", items: [{ type: "tweet", tweet: post }], queueIfOffline: true });
@@ -239,7 +239,7 @@
   }
 
   function scan(root = document) {
-    root.querySelectorAll('article[data-testid="tweet"]:not([data-snipper])').forEach(decorate);
+    root.querySelectorAll('article[data-testid="tweet"]:not([data-stash])').forEach(decorate);
   }
 
   const observer = new MutationObserver((mutations) => {
@@ -263,14 +263,14 @@
   function toast(text, kind = "ok", action = null) {
     if (!toastHost) {
       toastHost = document.createElement("div");
-      toastHost.className = "snipper-toast-host";
+      toastHost.className = "stash-toast-host";
       document.documentElement.appendChild(toastHost);
     }
     toastHost.innerHTML = "";
     const el = document.createElement("div");
-    el.className = `snipper-toast snipper-toast-${kind}`;
+    el.className = `stash-toast stash-toast-${kind}`;
     const icon = document.createElement("span");
-    icon.className = "snipper-toast-icon";
+    icon.className = "stash-toast-icon";
     icon.innerHTML = ICON;
     const label = document.createElement("span");
     label.textContent = text;
@@ -282,10 +282,10 @@
       el.appendChild(b);
     }
     toastHost.appendChild(el);
-    requestAnimationFrame(() => el.classList.add("snipper-toast-in"));
+    requestAnimationFrame(() => el.classList.add("stash-toast-in"));
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
-      el.classList.remove("snipper-toast-in");
+      el.classList.remove("stash-toast-in");
       setTimeout(() => el.remove(), 300);
     }, kind === "error" ? 4200 : 2600);
   }
@@ -324,8 +324,8 @@
       if (here) {
         this.showPanel();
         // x-main.js keeps the request in sessionStorage because X's redirect drops the hash.
-        const requested = location.hash === "#snipper-import" || sessionStorage.getItem("snipper-import");
-        sessionStorage.removeItem("snipper-import");
+        const requested = location.hash === "#stash-import" || sessionStorage.getItem("stash-import");
+        sessionStorage.removeItem("stash-import");
         if (requested) {
           if (location.hash) history.replaceState(null, "", location.pathname + location.search);
           setTimeout(() => this.start(), 1200);
@@ -342,7 +342,7 @@
     async start(full = false) {
       if (this.state === "running") return;
       if (!this.isBookmarksPage()) {
-        location.href = "https://x.com/i/bookmarks#snipper-import";
+        location.href = "https://x.com/i/bookmarks#stash-import";
         return;
       }
       const status = await send({ type: "status" });
@@ -449,10 +449,10 @@
     showPanel() {
       if (this.panel) return;
       this.panel = document.createElement("div");
-      this.panel.className = "snipper-panel";
+      this.panel.className = "stash-panel";
       document.documentElement.appendChild(this.panel);
       this.render();
-      requestAnimationFrame(() => this.panel?.classList.add("snipper-panel-in"));
+      requestAnimationFrame(() => this.panel?.classList.add("stash-panel-in"));
     },
 
     hidePanel() {
@@ -471,28 +471,28 @@
       let actions = "";
       if (this.state === "idle" && this.scanned) {
         body = `<p>Save bookmarks added since the last import. Stash stops when it reaches posts it already has.</p>`;
-        actions = `<button class="snipper-primary" data-act="start">Import new bookmarks</button><button data-act="full">Rescan all</button>`;
+        actions = `<button class="stash-primary" data-act="start">Import new bookmarks</button><button data-act="full">Rescan all</button>`;
       } else if (this.state === "idle") {
         body = `<p>Save every bookmark to Stash on your Mac, with full text and images, ready for semantic search.</p>`;
-        actions = `<button class="snipper-primary" data-act="start">Import all bookmarks</button>`;
+        actions = `<button class="stash-primary" data-act="start">Import all bookmarks</button>`;
       } else if (this.state === "running" || this.state === "stopping") {
-        body = `<p class="snipper-count"><strong>${count.toLocaleString()}</strong> saved <span>· ${found.toLocaleString()} found · scrolling…</span></p><div class="snipper-bar"><i></i></div>`;
+        body = `<p class="stash-count"><strong>${count.toLocaleString()}</strong> saved <span>· ${found.toLocaleString()} found · scrolling…</span></p><div class="stash-bar"><i></i></div>`;
         actions = `<button data-act="stop">${this.state === "stopping" ? "Stopping…" : "Stop"}</button>`;
       } else if (this.state === "done") {
         body = `<p>${escapeHTML(this.message)}</p>`;
-        actions = `<button class="snipper-primary" data-act="open">Open Stash</button><button data-act="start">Run again</button>`;
+        actions = `<button class="stash-primary" data-act="open">Open Stash</button><button data-act="start">Run again</button>`;
       } else {
-        body = `<p class="snipper-error">${escapeHTML(this.message)}</p>`;
-        actions = `<button class="snipper-primary" data-act="start">Try again</button><button data-act="launch">Open Stash</button>`;
+        body = `<p class="stash-error">${escapeHTML(this.message)}</p>`;
+        actions = `<button class="stash-primary" data-act="start">Try again</button><button data-act="launch">Open Stash</button>`;
       }
       this.panel.innerHTML = `
-        <div class="snipper-panel-head">
-          <span class="snipper-logo">${ICON}</span>
+        <div class="stash-panel-head">
+          <span class="stash-logo">${ICON}</span>
           <div><strong>Stash</strong><small>Bookmarks import</small></div>
-          <button class="snipper-close" data-act="close" aria-label="Close">×</button>
+          <button class="stash-close" data-act="close" aria-label="Close">×</button>
         </div>
         ${body}
-        <div class="snipper-actions">${actions}</div>`;
+        <div class="stash-actions">${actions}</div>`;
       this.panel.querySelectorAll("[data-act]").forEach((el) =>
         el.addEventListener("click", () => {
           const act = el.dataset.act;

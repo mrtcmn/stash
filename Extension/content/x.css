@@ -1,13 +1,13 @@
-/* Snipper on x.com. Everything is prefixed to stay out of X's way. */
+/* Stash on x.com. Everything is prefixed to stay out of X's way. */
 
-.snipper-action {
+.stash-action {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex: 0 0 auto;
 }
 
-.snipper-btn {
+.stash-btn {
   appearance: none;
   border: 0;
   background: transparent;
@@ -20,7 +20,7 @@
   font: inherit;
 }
 
-.snipper-btn-circle {
+.stash-btn-circle {
   display: grid;
   place-items: center;
   width: 34px;
@@ -29,39 +29,39 @@
   transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.snipper-btn svg {
+.stash-btn svg {
   width: 18px;
   height: 18px;
 }
 
-.snipper-btn:hover .snipper-btn-circle,
-.snipper-btn:focus-visible .snipper-btn-circle {
+.stash-btn:hover .stash-btn-circle,
+.stash-btn:focus-visible .stash-btn-circle {
   color: #8e8e93;
   background: rgba(142, 142, 147, 0.12);
 }
 
-.snipper-btn:focus-visible {
+.stash-btn:focus-visible {
   outline: none;
 }
 
-.snipper-btn[data-saved="true"] {
+.stash-btn[data-saved="true"] {
   color: #8e8e93;
 }
 
-.snipper-btn[data-saved="true"] .snipper-btn-circle {
+.stash-btn[data-saved="true"] .stash-btn-circle {
   background: rgba(142, 142, 147, 0.14);
   box-shadow: inset 0 0 0 1px rgba(142, 142, 147, 0.35);
 }
 
-.snipper-btn[data-busy="true"] .snipper-btn-circle {
+.stash-btn[data-busy="true"] .stash-btn-circle {
   opacity: 0.55;
 }
 
-.snipper-pop .snipper-btn-circle {
-  animation: snipper-pop 0.42s cubic-bezier(0.2, 0.9, 0.3, 1.35);
+.stash-pop .stash-btn-circle {
+  animation: stash-pop 0.42s cubic-bezier(0.2, 0.9, 0.3, 1.35);
 }
 
-@keyframes snipper-pop {
+@keyframes stash-pop {
   0% { transform: scale(1); }
   40% { transform: scale(1.28); }
   100% { transform: scale(1); }
@@ -69,7 +69,7 @@
 
 /* Toasts ------------------------------------------------------------------ */
 
-.snipper-toast-host {
+.stash-toast-host {
   position: fixed;
   left: 50%;
   bottom: 32px;
@@ -78,7 +78,7 @@
   pointer-events: none;
 }
 
-.snipper-toast {
+.stash-toast {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -100,12 +100,12 @@
   white-space: nowrap;
 }
 
-.snipper-toast-in {
+.stash-toast-in {
   opacity: 1;
   transform: none;
 }
 
-.snipper-toast-icon {
+.stash-toast-icon {
   display: grid;
   place-items: center;
   width: 26px;
@@ -115,15 +115,15 @@
   background: #e4e4e4;
 }
 
-.snipper-toast-icon svg {
+.stash-toast-icon svg {
   width: 15px;
   height: 15px;
 }
 
-.snipper-toast-error .snipper-toast-icon { background: #ff9ba7; }
-.snipper-toast-warn .snipper-toast-icon { background: #ffd68a; }
+.stash-toast-error .stash-toast-icon { background: #ff9ba7; }
+.stash-toast-warn .stash-toast-icon { background: #ffd68a; }
 
-.snipper-toast button {
+.stash-toast button {
   margin-left: 6px;
   border: 0;
   border-radius: 999px;
@@ -137,7 +137,7 @@
 
 /* Bookmarks import panel ----------------------------------------------------- */
 
-.snipper-panel {
+.stash-panel {
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -158,31 +158,31 @@
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.snipper-panel-in {
+.stash-panel-in {
   opacity: 1;
   transform: none;
 }
 
-.snipper-panel-head {
+.stash-panel-head {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.snipper-panel-head strong {
+.stash-panel-head strong {
   display: block;
   font-size: 15px;
   letter-spacing: -0.03em;
 }
 
-.snipper-panel-head small {
+.stash-panel-head small {
   display: block;
   font-size: 11px;
   color: #ababab;
 }
 
-.snipper-logo {
+.stash-logo {
   display: grid;
   place-items: center;
   width: 34px;
@@ -193,12 +193,12 @@
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.18);
 }
 
-.snipper-logo svg {
+.stash-logo svg {
   width: 18px;
   height: 18px;
 }
 
-.snipper-close {
+.stash-close {
   margin-left: auto;
   width: 28px;
   height: 28px;
@@ -211,34 +211,34 @@
   cursor: pointer;
 }
 
-.snipper-close:hover {
+.stash-close:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 
-.snipper-panel p {
+.stash-panel p {
   margin: 0 0 12px;
   color: #d6d6d6;
   font-size: 13px;
 }
 
-.snipper-panel .snipper-count strong {
+.stash-panel .stash-count strong {
   font-size: 22px;
   letter-spacing: -0.04em;
   color: #fff;
   font-variant-numeric: tabular-nums;
 }
 
-.snipper-panel .snipper-count span {
+.stash-panel .stash-count span {
   color: #ababab;
   font-size: 12px;
 }
 
-.snipper-panel .snipper-error {
+.stash-panel .stash-error {
   color: #ffc4cb;
 }
 
-.snipper-bar {
+.stash-bar {
   height: 4px;
   margin: -2px 0 14px;
   border-radius: 4px;
@@ -246,26 +246,26 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-.snipper-bar i {
+.stash-bar i {
   display: block;
   width: 40%;
   height: 100%;
   border-radius: 4px;
   background: linear-gradient(90deg, rgba(228, 228, 228, 0.2), #e4e4e4);
-  animation: snipper-slide 1.3s ease-in-out infinite;
+  animation: stash-slide 1.3s ease-in-out infinite;
 }
 
-@keyframes snipper-slide {
+@keyframes stash-slide {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(260%); }
 }
 
-.snipper-actions {
+.stash-actions {
   display: flex;
   gap: 8px;
 }
 
-.snipper-actions button {
+.stash-actions button {
   flex: 0 0 auto;
   padding: 8px 14px;
   border-radius: 12px;
@@ -277,16 +277,16 @@
   transition: background 0.16s ease;
 }
 
-.snipper-actions button:hover {
+.stash-actions button:hover {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.snipper-actions .snipper-primary {
+.stash-actions .stash-primary {
   color: #121212;
   background: #e4e4e4;
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-.snipper-actions .snipper-primary:hover {
+.stash-actions .stash-primary:hover {
   background: #f2f2f2;
 }

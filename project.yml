@@ -1,36 +1,36 @@
 # Optional Xcode project, generated with XcodeGen (brew install xcodegen; xcodegen).
 # scripts/build-app.sh builds the same app without Xcode.
-name: Snipper
+name: Stash
 options:
   bundleIdPrefix: dev.grasco
   deploymentTarget:
     macOS: "26.0"
 packages:
-  SnipperCore:
+  StashCore:
     path: .
 targets:
-  Snipper:
+  Stash:
     type: application
     platform: macOS
     sources:
-      - path: Sources/Snipper
+      - path: Sources/Stash
         excludes:
           - "Resources/**"
-      - path: Sources/Snipper/Resources
+      - path: Sources/Stash/Resources
         buildPhase: resources
       - path: Extension
         type: folder
         buildPhase: resources
     dependencies:
-      - package: SnipperCore
-        product: SnipperCore
+      - package: StashCore
+        product: StashCore
     settings:
       base:
-        PRODUCT_NAME: Snipper
-        PRODUCT_BUNDLE_IDENTIFIER: dev.grasco.snipper
+        PRODUCT_NAME: Stash
+        PRODUCT_BUNDLE_IDENTIFIER: dev.grasco.stash
         INFOPLIST_FILE: App/Info.plist
         GENERATE_INFOPLIST_FILE: NO
-        CODE_SIGN_ENTITLEMENTS: App/Snipper.entitlements
+        CODE_SIGN_ENTITLEMENTS: App/Stash.entitlements
         ENABLE_HARDENED_RUNTIME: YES
         CODE_SIGN_STYLE: Automatic
         SWIFT_VERSION: "5.0"

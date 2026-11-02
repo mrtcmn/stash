@@ -4,21 +4,21 @@
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:snipper}",
-            "name": "Debug Snipper",
-            "target": "Snipper",
+            "cwd": "${workspaceFolder:stash}",
+            "name": "Debug Stash",
+            "target": "Stash",
             "configuration": "debug",
-            "preLaunchTask": "swift: Build Debug Snipper"
+            "preLaunchTask": "swift: Build Debug Stash"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:snipper}",
-            "name": "Release Snipper",
-            "target": "Snipper",
+            "cwd": "${workspaceFolder:stash}",
+            "name": "Release Stash",
+            "target": "Stash",
             "configuration": "release",
-            "preLaunchTask": "swift: Build Release Snipper"
+            "preLaunchTask": "swift: Build Release Stash"
         }
     ]
 }

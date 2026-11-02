@@ -28,8 +28,6 @@
   <img src="assets/hero.jpg" alt="The Stash library: a globe of saved posts and screenshots, with a search bar at the bottom">
 </p>
 
-> The app is called **Stash**. The code and the URL scheme still use the old name, Snipper.
-
 ## Why Stash?
 
 Folders and tags take work. So most bookmarks never get a second look.
@@ -72,7 +70,7 @@ Stash reads each item as you save it. Later, you describe it the way you remembe
 
 - Search runs on your Mac. Your snips are not uploaded.
 - You do not need an account.
-- The library lives in `~/Library/Application Support/Snipper`.
+- The library lives in `~/Library/Application Support/Stash`.
 - Stash uses the network to download the model once. It also fetches images and previews of the things you save.
 
 ## Get started
@@ -104,7 +102,7 @@ You can change all of them in Settings › Shortcuts. The extension adds **⌥�
 
 Use these from Raycast, Alfred or Shortcuts:
 
-`snipper://search?q=…` · `snipper://capture/area|window|screen|text` · `snipper://note?text=…` · `snipper://save?url=…` · `snipper://import-bookmarks`
+`stash://search?q=…` · `stash://capture/area|window|screen|text` · `stash://note?text=…` · `stash://save?url=…` · `stash://import-bookmarks`
 
 ## Build from source
 
@@ -122,7 +120,7 @@ macOS ties the Screen Recording permission to the code signature. An ad-hoc buil
 SIGN_IDENTITY="Apple Development: Your Name (TEAMID)" scripts/build-app.sh
 ```
 
-To use Xcode, run `brew install xcodegen && xcodegen`. This creates `Snipper.xcodeproj` from `project.yml`.
+To use Xcode, run `brew install xcodegen && xcodegen`. This creates `Stash.xcodeproj` from `project.yml`.
 
 To load the extension from source, open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and choose the `Extension` folder.
 
@@ -138,7 +136,7 @@ query ─► "task: search result | query: …" ─► vector ─► cosine vs a
 - The model is [`onnx-community/embeddinggemma-2-ONNX`](https://huggingface.co/onnx-community/embeddinggemma-2-ONNX). It runs with [Transformers.js](https://huggingface.co/docs/transformers.js) in a hidden `WKWebView`.
 - Screenshots are embedded as image plus recognized text. Post photos join the post text.
 - Stash recomputes a vector only when the content of a snip changes.
-- The local API listens on the loopback interface only. It needs the `X-Snipper-Client` header, and websites cannot send that header.
+- The local API listens on the loopback interface only. It needs the `X-Stash-Client` header, and websites cannot send that header.
 
 </details>
 
@@ -146,16 +144,16 @@ query ─► "task: search result | query: …" ─► vector ─► cosine vs a
 <summary><b>Project layout and tests</b></summary>
 
 ```
-Sources/SnipperCore   Model, SQLite storage, ranking, parsing (Foundation only)
-Sources/Snipper       The macOS app: SwiftUI + AppKit, ScreenCaptureKit, Vision, WebKit
+Sources/StashCore   Model, SQLite storage, ranking, parsing (Foundation only)
+Sources/Stash       The macOS app: SwiftUI + AppKit, ScreenCaptureKit, Vision, WebKit
 Extension/            Chromium MV3 extension
-Tests/                XCTest suite for SnipperCore
+Tests/                XCTest suite for StashCore
 web/                  The website (stash.grasco.dev)
 App/                  Info.plist, entitlements, icon
 ```
 
 ```bash
-swift test                                  # SnipperCore
+swift test                                  # StashCore
 node --test "Extension/tests/*.test.mjs"    # the extension's X parser
 ```
 
@@ -167,6 +165,6 @@ Found a bug or have an idea? [Open an issue](https://github.com/mrtcmn/stash/iss
 
 ## License
 
-This repository has no license file yet. Until one is added, all rights stay with the author.
+Stash is open source under the [MIT License](LICENSE).
 
 The app and extension icons use the [Lucide](https://lucide.dev) scissors glyph (ISC license).

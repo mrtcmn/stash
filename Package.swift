@@ -1,11 +1,11 @@
 // swift-tools-version: 6.2
 import PackageDescription
 
-// Snipper is a macOS 26 app. `SnipperCore` is plain Foundation so its logic
+// Stash is a macOS 26 app. `StashCore` is plain Foundation so its logic
 // (storage, parsing, ranking) can also be built and tested on Linux.
 
 var products: [Product] = [
-    .library(name: "SnipperCore", targets: ["SnipperCore"]),
+    .library(name: "StashCore", targets: ["StashCore"]),
 ]
 
 var dependencies: [Package.Dependency] = []
@@ -18,32 +18,32 @@ var targets: [Target] = [
         providers: [.apt(["libsqlite3-dev"])]
     ),
     .target(
-        name: "SnipperCore",
+        name: "StashCore",
         dependencies: [
             .target(name: "CSQLite", condition: .when(platforms: [.linux])),
         ]
     ),
     .testTarget(
-        name: "SnipperCoreTests",
-        dependencies: ["SnipperCore"]
+        name: "StashCoreTests",
+        dependencies: ["StashCore"]
     ),
 ]
 
 #if os(macOS)
-products.append(.executable(name: "Snipper", targets: ["Snipper"]))
+products.append(.executable(name: "Stash", targets: ["Stash"]))
 dependencies.append(.package(url: "https://github.com/sparkle-project/Sparkle", from: "2.6.0"))
 targets.append(
     .executableTarget(
-        name: "Snipper",
-        dependencies: ["SnipperCore", .product(name: "Sparkle", package: "Sparkle")],
-        // Copied into Snipper.app/Contents/Resources by scripts/build-app.sh.
+        name: "Stash",
+        dependencies: ["StashCore", .product(name: "Sparkle", package: "Sparkle")],
+        // Copied into Stash.app/Contents/Resources by scripts/build-app.sh.
         exclude: ["Resources"]
     )
 )
 #endif
 
 let package = Package(
-    name: "Snipper",
+    name: "Stash",
     platforms: [.macOS("26.0")],
     products: products,
     dependencies: dependencies,

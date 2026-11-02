@@ -17,17 +17,17 @@ SIGN_IDENTITY="${SIGN_IDENTITY:--}"
 APP="build/Stash.app"
 
 echo "▸ Building ($CONFIG)…"
-swift build -c "$CONFIG" --product Snipper
+swift build -c "$CONFIG" --product Stash
 BIN_DIR="$(swift build -c "$CONFIG" --show-bin-path)"
 
 echo "▸ Assembling $APP"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp "$BIN_DIR/Snipper" "$APP/Contents/MacOS/Snipper"
+cp "$BIN_DIR/Stash" "$APP/Contents/MacOS/Stash"
 cp -R "$BIN_DIR/Sparkle.framework" "$APP/Contents/Frameworks/"
 # ponytail: the XPC services are only for sandboxed apps; Stash is not sandboxed.
 rm -rf "$APP/Contents/Frameworks/Sparkle.framework/"{XPCServices,Versions/B/XPCServices}
-install_name_tool -add_rpath @executable_path/../Frameworks "$APP/Contents/MacOS/Snipper"
+install_name_tool -add_rpath @executable_path/../Frameworks "$APP/Contents/MacOS/Stash"
 cp App/Info.plist "$APP/Contents/Info.plist"
 if [ -n "${VERSION:-}" ]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
@@ -35,7 +35,7 @@ fi
 if [ -n "${BUILD_NUMBER:-}" ]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$APP/Contents/Info.plist"
 fi
-cp -R Sources/Snipper/Resources/. "$APP/Contents/Resources/"
+cp -R Sources/Stash/Resources/. "$APP/Contents/Resources/"
 # Ship the browser extension inside the app so "Show Extension Folder" works.
 rsync -a --exclude tests --exclude node_modules --exclude '*.md' Extension/ "$APP/Contents/Resources/ChromeExtension/"
 
@@ -61,7 +61,7 @@ for code in "$SPARKLE/Versions/B/Autoupdate" "$SPARKLE/Versions/B/Updater.app" "
   codesign --force "${SIGN_FLAGS[@]}" --sign "$SIGN_IDENTITY" "$code"
 done
 codesign --force "${SIGN_FLAGS[@]}" \
-  --entitlements App/Snipper.entitlements \
+  --entitlements App/Stash.entitlements \
   --sign "$SIGN_IDENTITY" "$APP"
 
 echo "✓ Built $APP"

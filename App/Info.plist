@@ -7,11 +7,11 @@
 	<key>CFBundleDisplayName</key>
 	<string>Stash</string>
 	<key>CFBundleExecutable</key>
-	<string>Snipper</string>
+	<string>Stash</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>dev.grasco.snipper</string>
+	<string>dev.grasco.stash</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -46,10 +46,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>dev.grasco.snipper</string>
+			<string>dev.grasco.stash</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>snipper</string>
+				<string>stash</string>
 			</array>
 		</dict>
 	</array>
@@ -62,7 +62,7 @@
 				<string>Save to Stash</string>
 			</dict>
 			<key>NSMessage</key>
-			<string>saveToSnipper</string>
+			<string>saveToStash</string>
 			<key>NSPortName</key>
 			<string>Stash</string>
 			<key>NSSendTypes</key>

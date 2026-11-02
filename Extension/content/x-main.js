@@ -3,13 +3,13 @@
 // snip gets the full text of long posts, every image and accurate metrics.
 (function () {
   "use strict";
-  if (window.__snipperHooked) return;
-  window.__snipperHooked = true;
+  if (window.__stashHooked) return;
+  window.__stashHooked = true;
 
   // Runs before X's redirect from /i/bookmarks to /i/history drops the hash; x.js reads this.
-  if (location.hash === "#snipper-import") sessionStorage.setItem("snipper-import", "1");
+  if (location.hash === "#stash-import") sessionStorage.setItem("stash-import", "1");
 
-  const parse = window.__snipperTweetParse;
+  const parse = window.__stashTweetParse;
   if (!parse) return;
 
   const GRAPHQL = /\/graphql\/[A-Za-z0-9_-]+\/[A-Za-z0-9_]+/;
@@ -23,7 +23,7 @@
     window.postMessage(message, window.location.origin);
   }
   window.addEventListener("message", (event) => {
-    if (event.source !== window || event.data?.__snipper !== "replay") return;
+    if (event.source !== window || event.data?.__stash !== "replay") return;
     for (const message of recent) window.postMessage(message, window.location.origin);
   });
 
@@ -34,7 +34,7 @@
       const timeline = /Bookmark/i.test(operation || "") ? parse.timelineTweets(json) : [];
       if (!tweets.length && !timeline.length) return;
       emit({
-        __snipper: "graphql",
+        __stash: "graphql",
         operation,
         tweets,
         timelineIds: timeline.map((t) => t.id),
@@ -51,7 +51,7 @@
     if (parse.operationName(url) !== "CreateBookmark" || typeof body !== "string") return;
     try {
       const id = JSON.parse(body)?.variables?.tweet_id;
-      if (id) window.postMessage({ __snipper: "bookmark", id: String(id) }, window.location.origin);
+      if (id) window.postMessage({ __stash: "bookmark", id: String(id) }, window.location.origin);
     } catch {}
   }
 
@@ -60,12 +60,12 @@
   const xhrSend = XMLHttpRequest.prototype.send;
   XMLHttpRequest.prototype.open = function (method, url, ...rest) {
     try {
-      this.__snipperURL = typeof url === "string" ? url : String(url);
+      this.__stashURL = typeof url === "string" ? url : String(url);
     } catch {}
     return xhrOpen.call(this, method, url, ...rest);
   };
   XMLHttpRequest.prototype.send = function (...args) {
-    const url = this.__snipperURL;
+    const url = this.__stashURL;
     if (url && GRAPHQL.test(url)) {
       this.addEventListener("load", () => {
         try {
