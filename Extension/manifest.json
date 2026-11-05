@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Stash — Save to Mac",
   "short_name": "Stash",
-  "version": "1.0.0",
+  "version": "1.1.4",
   "description": "Snip posts from X, import all your bookmarks, and save pages, selections and images to the Stash app on your Mac.",
   "minimum_chrome_version": "116",
   "icons": {
