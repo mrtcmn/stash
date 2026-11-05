@@ -4,9 +4,11 @@
 const DEFAULT_PORT = 47615;
 const OUTBOX_LIMIT = 500;
 
+const DOWNLOAD_URL = "https://stash.grasco.dev/";
+
 class AppOfflineError extends Error {
   constructor() {
-    super("Stash isn't running. Open the Stash app on your Mac.");
+    super("Stash isn't running. Open the Stash app on your Mac, or download it at stash.grasco.dev.");
     this.name = "AppOfflineError";
   }
 }
@@ -207,13 +209,23 @@ function showToast(text, kind) {
     </style>
     <div><i></i><span></span></div>`;
   shadow.querySelector("span").textContent = text;
+  // ponytail: matches the offline texts by wording, switch to a flag if more offline texts appear
+  if (/isn't running|Couldn't reach/.test(text)) {
+    const a = document.createElement("a");
+    a.href = "https://stash.grasco.dev/";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "Download Stash";
+    a.style.cssText = "color:#8ab4ff;text-decoration:underline;pointer-events:auto";
+    shadow.querySelector("div").appendChild(a);
+  }
   document.documentElement.appendChild(host);
   const box = shadow.querySelector("div");
   requestAnimationFrame(() => box.classList.add("in"));
   setTimeout(() => {
     box.classList.remove("in");
     setTimeout(() => host.remove(), 300);
-  }, kind === "error" ? 4000 : 2400);
+  }, kind === "error" ? 6000 : 2400);
 }
 
 function describe(result, noun = "Saved to Stash") {

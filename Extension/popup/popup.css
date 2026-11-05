@@ -148,3 +148,5 @@ details input {
 .hint { margin-top: 4px; font-size: 11px; color: var(--ink-3); }
 
 .actions .icon svg { width: 16px; height: 16px; }
+
+#get { align-self: center; color: #8ab4ff; font-size: 12px; text-decoration: underline; }

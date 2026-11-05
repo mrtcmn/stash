@@ -22,12 +22,14 @@ async function refresh() {
   const status = await send({ type: "status" });
   if (status.ok) {
     dot.className = "dot on";
+    document.getElementById("get").hidden = true;
     const count = Number(status.snips || 0).toLocaleString();
     statusEl.textContent = `Connected · ${count} snips · ${status.semantic ? status.search : "keyword search"}`;
   } else {
     dot.className = "dot off";
     statusEl.textContent = status.offline ? "Stash isn't running" : status.error || "Not connected";
     show("Open the Stash app on your Mac. Saves made now are queued and sent when it starts.", "");
+    document.getElementById("get").hidden = false;
   }
 }
 
@@ -47,6 +49,7 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       setTimeout(() => window.close(), 700);
     } else if (result.queued) {
       show("Stash isn't running — saved for later.", "");
+      document.getElementById("get").hidden = false;
     } else {
       show(result.error || "Something went wrong.", "error");
     }

@@ -260,7 +260,12 @@
 
   let toastHost = null;
   let toastTimer = null;
+  const DOWNLOAD_URL = "https://stash.grasco.dev/";
   function toast(text, kind = "ok", action = null) {
+    // ponytail: matches the offline texts by wording, switch to a flag if more offline texts appear
+    if (!action && /isn't running|Couldn't reach/.test(text)) {
+      action = { label: "Download Stash", run: () => window.open(DOWNLOAD_URL, "_blank", "noopener") };
+    }
     if (!toastHost) {
       toastHost = document.createElement("div");
       toastHost.className = "stash-toast-host";
@@ -483,7 +488,7 @@
         actions = `<button class="stash-primary" data-act="open">Open Stash</button><button data-act="start">Run again</button>`;
       } else {
         body = `<p class="stash-error">${escapeHTML(this.message)}</p>`;
-        actions = `<button class="stash-primary" data-act="start">Try again</button><button data-act="launch">Open Stash</button>`;
+        actions = `<button class="stash-primary" data-act="start">Try again</button><button data-act="launch">Open Stash</button><button data-act="download">Download Stash</button>`;
       }
       this.panel.innerHTML = `
         <div class="stash-panel-head">
@@ -504,6 +509,7 @@
             this.hidePanel();
           } else if (act === "open") send({ type: "open", query: "" });
           else if (act === "launch") send({ type: "launch" });
+          else if (act === "download") window.open(DOWNLOAD_URL, "_blank", "noopener");
         }),
       );
     },
