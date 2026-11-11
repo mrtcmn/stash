@@ -1,5 +1,4 @@
 node_modules
 dist
-.tanstack
-.vscode
+.astro
 *.log

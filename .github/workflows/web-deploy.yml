@@ -1,0 +1,22 @@
+name: Deploy web
+
+# Dokploy is on the tailnet, so the runner joins it first.
+# Secrets: TS_OAUTH_CLIENT_ID, TS_OAUTH_SECRET (tag:ci), DOKPLOY_API_KEY.
+on:
+  push:
+    branches: [main]
+    paths: ['web/**']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+      - run: |
+          curl -fsS -X POST http://100.69.173.3:3000/api/application.deploy \
+            -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" -H "content-type: application/json" \
+            -d '{"applicationId":"YHkQ7TTxlQSowwj2B07-I"}'

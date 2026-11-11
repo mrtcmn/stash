@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content'
+import Blog from '../../layouts/Blog.astro'
+import { SITE } from '../../lib/posts'
+
+export async function getStaticPaths() {
+  return (await getCollection('blog')).map((post) => ({ params: { id: post.id }, props: { post } }))
+}
+const { post } = Astro.props
+const { Content } = await render(post)
+const { title, description, date, updated } = post.data
+const path = `/blog/${post.id}/`
+const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    image: `${SITE}/og.jpg`,
+    datePublished: date.toISOString(),
+    dateModified: (updated ?? date).toISOString(),
+    author: { '@type': 'Organization', name: 'Stash', url: SITE },
+    publisher: { '@type': 'Organization', name: 'Stash', logo: { '@type': 'ImageObject', url: `${SITE}/icon-128.png` } },
+    mainEntityOfPage: SITE + path,
+    keywords: post.data.tags.join(', ') || undefined,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Stash', item: SITE + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+      { '@type': 'ListItem', position: 3, name: title, item: SITE + path },
+    ],
+  },
+]
+---
+<Blog title={`${title} — Stash`} description={description} path={path} type="article" published={date} modified={updated ?? date} jsonLd={jsonLd}>
+  <Fragment slot="hero">
+    <a href="/blog/" class="text-[13px] text-white/70">← Blog</a>
+    <h1 class="mt-5 max-w-[820px] text-[38px] font-medium leading-[1.05] tracking-[-0.03em] md:text-[56px]">{title}</h1>
+    <p class="mt-4 text-[14px] text-white/70">
+      <time datetime={date.toISOString()}>{fmt(date)}</time>
+      {updated && <span> · Updated <time datetime={updated.toISOString()}>{fmt(updated)}</time></span>}
+    </p>
+  </Fragment>
+  <article class="prose mx-auto max-w-[720px]"><Content /></article>
+</Blog>

@@ -1,12 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
 import { animate, createScope, splitText, stagger } from 'animejs'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { posts } from '#/data/posts'
 import { SearchIcon, SearchMode } from '#/components/SearchMode'
 import { FooterWordmark } from '#/components/FooterWordmark'
-import { track } from '#/lib/analytics'
-
-export const Route = createFileRoute('/')({ component: Landing })
+import { initAnalytics, track } from '#/lib/analytics'
 
 const TYPED = ['meaning.', 'color.', 'features.']
 
@@ -52,7 +49,9 @@ const CHANGELOG = 'https://github.com/mrtcmn/stash/releases'
 const SOURCE = 'https://github.com/mrtcmn/stash'
 const EXTENSION = 'https://chromewebstore.google.com/detail/stash-%E2%80%94-save-to-mac/ekcefgmlhmapfkgbomdighgcedpfemlb'
 
-function Landing() {
+export type Latest = { title: string; href: string }
+
+export default function Landing({ latest }: { latest?: Latest }) {
   const [open, setOpen] = useState(false)
   const [from, setFrom] = useState<DOMRect | null>(null)
   const [query, setQuery] = useState('')
@@ -75,6 +74,8 @@ function Landing() {
     setOpen(false)
     if (reason === 'scroll') document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })
   }, [])
+
+  useEffect(initAnalytics, [])
 
   useEffect(() => {
     const q = new URLSearchParams(location.search).get('q')
@@ -121,6 +122,7 @@ function Landing() {
             <a href="#product">Product</a>
             <a href="#how">How it works</a>
             <a href="/privacy.html">Privacy</a>
+            <a href="/blog/">Blog</a>
             <a href="#pricing">Pricing</a>
             <a href={CHANGELOG}>Changelog</a>
           </nav>
@@ -135,9 +137,9 @@ function Landing() {
       <Sky />
       {/* Hero */}
       <section data-where="hero" className="relative mx-auto flex w-full max-w-[1120px] flex-col items-center border-x border-white/15 px-4 pt-20">
-        <a href="#how" className="inline-flex h-8 items-center gap-2.5 rounded-full border border-white/30 bg-white/15 pl-1.5 pr-3.5 backdrop-blur-md">
-          <span className="inline-flex h-5 items-center rounded-full bg-white px-2 text-[11px] font-medium text-[#0A0A0A]">New</span>
-          <span className="text-[13px] text-white/90">Semantic search now runs on WebGPU</span>
+        <a href={latest?.href ?? '#how'} className="inline-flex h-8 max-w-full items-center gap-2.5 rounded-full border border-white/30 bg-white/15 pl-1.5 pr-3.5 backdrop-blur-md">
+          <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-white px-2 text-[11px] font-medium text-[#0A0A0A]">{latest ? 'Latest' : 'New'}</span>
+          <span className="truncate text-[13px] text-white/90">{latest?.title ?? 'Semantic search now runs on WebGPU'}</span>
           <Arrow />
         </a>
         <h1 data-anim="headline" className="mt-7 text-center [text-shadow:0_2px_30px_rgba(10,30,90,0.25)] text-[52px] font-medium leading-[0.98] tracking-[-0.03em] md:text-[88px]">
@@ -342,7 +344,7 @@ function Landing() {
               <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#71717A]">A quiet library for everything worth keeping.</p>
             </div>
             <FooterCol t="Product" l={[['Features', '#product'], ['Pricing', '#pricing'], ['Chrome extension', EXTENSION], ['Changelog', CHANGELOG]]} />
-            <FooterCol t="Company" l={[['Privacy', '/privacy.html'], ['Terms', '/terms.html'], ['Source', SOURCE]]} />
+            <FooterCol t="Company" l={[['Blog', '/blog/'], ['Privacy', '/privacy.html'], ['Terms', '/terms.html'], ['Source', SOURCE]]} />
             <FooterCol t="Follow" l={[['GitHub', SOURCE]]} />
           </div>
           <div className="flex items-center justify-between border-t border-[#E8E8E5] px-10 py-5">

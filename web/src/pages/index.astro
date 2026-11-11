@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro'
+import Landing from '../components/Landing'
+import { allPosts } from '../lib/posts'
+
+const TITLE = 'Stash — Save anything. Find it by meaning.'
+const DESCRIPTION = 'Every post, page and screenshot you keep, in one library on your Mac. Search by meaning, on-device.'
+const SITE = 'https://stash.grasco.dev'
+const [post] = await allPosts()
+const latest = post && { title: post.data.title, href: `/blog/${post.id}/` }
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Stash',
+  description: DESCRIPTION,
+  url: SITE,
+  image: `${SITE}/og.jpg`,
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'macOS 26',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}]
+---
+<Base title={TITLE} description={DESCRIPTION} jsonLd={jsonLd}>
+  <link slot="head" rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
+  <link slot="head" rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif-italic-latin.woff2" crossorigin="anonymous" />
+  <Landing client:load latest={latest} />
+</Base>

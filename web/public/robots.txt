@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stash.grasco.dev/sitemap.xml
+Sitemap: https://stash.grasco.dev/sitemap-index.xml
