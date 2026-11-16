@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — Mac に保存",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "X のポストをスニップし、ブックマークをすべてインポート。ページ、選択範囲、画像を Mac の Stash アプリに保存します。",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "ページまたは選択したテキストを Stash に保存",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "ページの表示部分のスクリーンショットを Stash に保存",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " Mac 版",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "接続中…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "接続",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "このページを保存",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "タイトル、プレビュー画像、リンク",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "選択したテキストを保存",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "元のリンクを保持",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "表示範囲をスクリーンショット",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "写っている内容で検索可能",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "X のブックマークをインポート",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "スクロールしてすべて保存",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "Stash を開く",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "Stash をダウンロード",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "設定",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "アプリのポート",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "Stash › 設定 › ブラウザ と一致させてください。",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "接続済み · $COUNT$ 件のスニップ · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "キーワード検索",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "未接続",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash が起動していません",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "Mac で Stash アプリを開いてください。今の保存はキューに入り、アプリの起動時に送信されます。",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "Stash に保存しました",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "Stash に保存済み — 更新しました",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash が起動していません — 後で保存します",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "問題が発生しました。",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "応答がありません",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "ページを再読み込みして、Stash に再接続してください。",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "Stash に保存",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "Stash に保存済み — クリックで削除",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "Stash から削除しました",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "このポストを読み取れませんでした。",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "ポストを保存しました",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "@$HANDLE$ のポストを保存しました",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "Stash に接続できませんでした",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "ブックマークを Stash に保存しました",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash が起動していません。アプリを開いてから、もう一度お試しください。",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "$COUNT$ 件のブックマークを保存しました。",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "$COUNT$ 件のブックマークを保存しました · 新規 $NEW$ 件。",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$。停止するまでに $COUNT$ 件のブックマークを保存しました。",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "ブックマークのインポート",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "前回のインポート以降に追加されたブックマークを保存します。保存済みのポストに達すると、Stash は停止します。",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "新しいブックマークをインポート",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "すべて再スキャン",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "すべてのブックマークを全文と画像付きで Mac の Stash に保存し、セマンティック検索ですぐに使えるようにします。",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "すべてのブックマークをインポート",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "件保存 · $FOUND$ 件検出 · スクロール中…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "停止",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "停止中…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "もう一度実行",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "再試行",
+    "description": "Button."
+  },
+  "close": {
+    "message": "閉じる",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash が起動していません。Mac で Stash アプリを開くか、stash.grasco.dev からダウンロードしてください。",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash の応答: $STATUS$",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "選択範囲を Stash に保存",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "リンクを Stash に保存",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "画像を Stash に保存",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "ページを Stash に保存",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "表示範囲のスクリーンショットを Stash に保存",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "選択範囲を Stash に保存しました",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "リンクを Stash に保存しました",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "画像を Stash に保存しました",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "ページを Stash に保存しました",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "スクリーンショットを Stash に保存しました",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "先にページ上のテキストを選択してください。",
+    "description": "Error."
+  }
+}

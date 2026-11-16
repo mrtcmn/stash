@@ -44,7 +44,7 @@ targets.append(
 
 let package = Package(
     name: "Stash",
-    platforms: [.macOS("26.0")],
+    platforms: [.macOS("26.0"), .iOS("26.0")],
     products: products,
     dependencies: dependencies,
     targets: targets,

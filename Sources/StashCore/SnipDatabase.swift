@@ -59,6 +59,28 @@ public actor SnipDatabase {
             PRAGMA user_version = 1;
             """)
         }
+        if version < 2 {
+            // Keep the newest row per external_id, then enforce uniqueness so concurrent
+            // processes cannot insert the same item twice.
+            try c.execute("""
+            DELETE FROM vectors WHERE snip_id IN (
+                SELECT id FROM snips WHERE external_id IS NOT NULL AND rowid NOT IN (
+                    SELECT rowid FROM (
+                        SELECT rowid, ROW_NUMBER() OVER (PARTITION BY external_id ORDER BY saved_at DESC, rowid DESC) AS n
+                        FROM snips WHERE external_id IS NOT NULL
+                    ) WHERE n = 1
+                )
+            );
+            DELETE FROM snips WHERE external_id IS NOT NULL AND rowid NOT IN (
+                SELECT rowid FROM (
+                    SELECT rowid, ROW_NUMBER() OVER (PARTITION BY external_id ORDER BY saved_at DESC, rowid DESC) AS n
+                    FROM snips WHERE external_id IS NOT NULL
+                ) WHERE n = 1
+            );
+            CREATE UNIQUE INDEX IF NOT EXISTS snips_external_id_u ON snips(external_id) WHERE external_id IS NOT NULL;
+            PRAGMA user_version = 2;
+            """)
+        }
     }
 
     // MARK: Snips
@@ -75,6 +97,14 @@ public actor SnipDatabase {
         return snips
     }
 
+    /// Copies the snips of another library file into this one. Existing ids and external ids stay as they are.
+    public func importSnips(fromFile path: String) throws {
+        let quoted = path.replacingOccurrences(of: "'", with: "''")
+        try connection.execute("ATTACH DATABASE '\(quoted)' AS seed")
+        defer { try? connection.execute("DETACH DATABASE seed") }
+        try connection.execute("INSERT OR IGNORE INTO snips SELECT * FROM seed.snips")
+    }
+
     public func count() throws -> Int {
         try connection.scalarInt("SELECT COUNT(*) FROM snips")
     }
@@ -86,8 +116,59 @@ public actor SnipDatabase {
         return try? decoder.decode(Snip.self, from: statement.data(0))
     }
 
+    /// Looks up a snip by its de-duplication key (indexed).
+    public func snip(externalID: String) throws -> Snip? {
+        let statement = try connection.prepare("SELECT data FROM snips WHERE external_id = ? LIMIT 1")
+        try statement.bind([.text(externalID)])
+        guard try statement.step() else { return nil }
+        return try? decoder.decode(Snip.self, from: statement.data(0))
+    }
+
     public func upsert(_ snip: Snip) throws {
         try upsert([snip])
+    }
+
+    private func write(_ snip: Snip) throws {
+        let statement = try connection.prepare("""
+        INSERT INTO snips (id, kind, saved_at, external_id, data) VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            kind = excluded.kind,
+            saved_at = excluded.saved_at,
+            external_id = excluded.external_id,
+            data = excluded.data
+        """)
+        try statement.run([
+            .text(snip.id.uuidString),
+            .text(snip.kind.rawValue),
+            .real(snip.savedAt.timeIntervalSince1970),
+            snip.externalID.map { .text($0) } ?? .null,
+            .blob(try encoder.encode(snip)),
+        ])
+    }
+
+    /// Atomic look-up, merge and write for one de-duplication key. Returns the stored snip.
+    @discardableResult
+    public func mergeUpsert(externalID: String, merge: (Snip?) -> Snip) throws -> Snip {
+        try connection.transaction {
+            let existing = try snip(externalID: externalID)
+            var result = merge(existing)
+            if let existing { result.id = existing.id }
+            result.externalID = externalID
+            try write(result)
+            return result
+        }
+    }
+
+    /// Atomic read-modify-write. Does nothing and returns nil when the row no longer exists.
+    @discardableResult
+    public func update(id: UUID, transform: (inout Snip) -> Void) throws -> Snip? {
+        try connection.transaction {
+            guard var current = try snip(id: id) else { return nil }
+            transform(&current)
+            current.id = id
+            try write(current)
+            return current
+        }
     }
 
     public func upsert(_ snips: [Snip]) throws {

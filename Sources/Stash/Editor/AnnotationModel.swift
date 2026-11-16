@@ -10,17 +10,17 @@ enum AnnotationTool: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .select: "Select"
-        case .arrow: "Arrow"
-        case .rectangle: "Rectangle"
-        case .ellipse: "Ellipse"
-        case .line: "Line"
-        case .pen: "Pen"
-        case .highlighter: "Highlighter"
-        case .text: "Text"
-        case .pixelate: "Pixelate"
-        case .counter: "Step counter"
-        case .crop: "Crop"
+        case .select: String(localized: "Select", comment: "Annotation editor tool name, shown as a tooltip")
+        case .arrow: String(localized: "Arrow", comment: "Annotation editor tool name, shown as a tooltip")
+        case .rectangle: String(localized: "Rectangle", comment: "Annotation editor tool name, shown as a tooltip")
+        case .ellipse: String(localized: "Ellipse", comment: "Annotation editor tool name, shown as a tooltip")
+        case .line: String(localized: "Line", comment: "Annotation editor tool name, shown as a tooltip")
+        case .pen: String(localized: "Pen", comment: "Annotation editor tool name, shown as a tooltip")
+        case .highlighter: String(localized: "Highlighter", comment: "Annotation editor tool name, shown as a tooltip")
+        case .text: String(localized: "Text", comment: "Annotation editor tool name, shown as a tooltip")
+        case .pixelate: String(localized: "Pixelate", comment: "Annotation editor tool name, shown as a tooltip")
+        case .counter: String(localized: "Step counter", comment: "Annotation editor tool name, shown as a tooltip")
+        case .crop: String(localized: "Crop", comment: "Annotation editor tool name, shown as a tooltip")
         }
     }
 

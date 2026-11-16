@@ -160,7 +160,7 @@ private struct PostCardContent: View {
             AvatarView(author: snip.author, size: 28)
             VStack(alignment: .leading, spacing: 1) {
                 HStack(spacing: 4) {
-                    Text(snip.author?.name ?? "Post")
+                    Text(snip.author?.name ?? SnipKind.tweet.localizedLabel)
                         .font(.system(size: 13, weight: .semibold))
                         .lineLimit(1)
                     if snip.author?.verified == true {
@@ -279,7 +279,7 @@ private struct ImageCardContent: View {
     private var subtitle: String {
         var parts = [RelativeDate.short(snip.savedAt)]
         if let m = snip.primaryMedia, let w = m.width, let h = m.height { parts.append("\(w)×\(h)") }
-        if let ocr = snip.ocrText, !ocr.isEmpty { parts.append("text recognized") }
+        if let ocr = snip.ocrText, !ocr.isEmpty { parts.append(String(localized: "text recognized", comment: "Screenshot card subtitle: OCR found text in the image")) }
         return parts.joined(separator: " · ")
     }
 }
@@ -294,7 +294,7 @@ private struct NoteCardContent: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 6) {
                 Image(systemName: "note.text")
-                Text(snip.title.isEmpty ? "Note" : snip.title)
+                Text(snip.title.isEmpty ? SnipKind.note.localizedLabel : snip.title)
                     .lineLimit(1)
             }
             .font(.system(size: 12, weight: .semibold))
@@ -345,7 +345,7 @@ private struct ClipCardContent: View {
                         .frame(width: 14, height: 14)
                         .clipShape(RoundedRectangle(cornerRadius: 3))
                 }
-                Text([snip.domain ?? snip.appName ?? "Clip", RelativeDate.short(snip.savedAt)].joined(separator: " · "))
+                Text([snip.domain ?? snip.appName ?? SnipKind.text.localizedLabel, RelativeDate.short(snip.savedAt)].joined(separator: " · "))
                     .lineLimit(1)
             }
             .font(.system(size: 11))
@@ -378,7 +378,7 @@ private struct LinkCardContent: View {
                     } else {
                         Image(systemName: "link").font(.system(size: 10, weight: .bold))
                     }
-                    Text(snip.link?.siteName ?? snip.domain ?? "Link")
+                    Text(snip.link?.siteName ?? snip.domain ?? SnipKind.link.localizedLabel)
                         .lineLimit(1)
                 }
                 .font(.system(size: 11, weight: .medium))

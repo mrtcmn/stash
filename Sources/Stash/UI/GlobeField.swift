@@ -100,7 +100,7 @@ final class GlobeView: NSView {
         scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         root.addSublayer(scene)
         setAccessibilityRole(.group)
-        setAccessibilityLabel("Library")
+        setAccessibilityLabel(String(localized: "Library", comment: "Accessibility label of the snip field in the library window"))
     }
 
     @available(*, unavailable)
@@ -530,8 +530,8 @@ private final class CardElement: NSAccessibilityElement {
 enum SnipMenu {
     static func make(for snip: Snip, model: AppModel) -> NSMenu {
         let menu = NSMenu()
-        func add(_ title: String, _ symbol: String, enabled: Bool = true, _ action: @escaping () -> Void) {
-            let item = ActionMenuItem(title: title, action: action)
+        func add(_ title: LocalizedStringResource, _ symbol: String, enabled: Bool = true, _ action: @escaping () -> Void) {
+            let item = ActionMenuItem(title: String(localized: title), action: action)
             item.image = NSImage(systemSymbolName: symbol, accessibilityDescription: nil)
             item.isEnabled = enabled
             menu.addItem(item)

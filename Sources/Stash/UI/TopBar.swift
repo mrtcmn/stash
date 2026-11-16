@@ -106,7 +106,8 @@ struct TopBar: View {
         } label: {
             HStack(spacing: 4) {
                 Image(systemName: current == nil ? "number" : "line.3.horizontal.decrease")
-                Text(current.map { $0 == "X Bookmarks" ? $0 : "#\($0)" } ?? "More")
+                Text(current.map { $0 == "X Bookmarks" ? String(localized: "X Bookmarks", comment: "Library filter menu label: X bookmarks are shown") : "#\($0)" }
+                    ?? String(localized: "More", comment: "Library filter menu label: no tag filter is set"))
             }
             .font(.system(size: 12, weight: .medium))
             .padding(.horizontal, 10)

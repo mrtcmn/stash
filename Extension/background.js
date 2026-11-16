@@ -5,10 +5,11 @@ const DEFAULT_PORT = 47615;
 const OUTBOX_LIMIT = 500;
 
 const DOWNLOAD_URL = "https://stash.grasco.dev/";
+const t = (key, subs) => chrome.i18n.getMessage(key, subs) || key;
 
 class AppOfflineError extends Error {
   constructor() {
-    super("Stash isn't running. Open the Stash app on your Mac, or download it at stash.grasco.dev.");
+    super(t("appOffline"));
     this.name = "AppOfflineError";
   }
 }
@@ -36,7 +37,7 @@ async function callApp(path, body, { method = body ? "POST" : "GET", timeout = 2
     clearTimeout(timer);
   }
   const json = await response.json().catch(() => ({}));
-  if (!response.ok || json.ok === false) throw new Error(json.error || `Stash answered ${response.status}`);
+  if (!response.ok || json.ok === false) throw new Error(json.error || t("appAnswered", [String(response.status)]));
   return json;
 }
 
@@ -209,13 +210,13 @@ function showToast(text, kind) {
     </style>
     <div><i></i><span></span></div>`;
   shadow.querySelector("span").textContent = text;
-  // ponytail: matches the offline texts by wording, switch to a flag if more offline texts appear
-  if (/isn't running|Couldn't reach/.test(text)) {
+  // ponytail: matches the offline texts by message, switch to a flag if more offline texts appear
+  if (["savedForLater", "cannotReach", "appOffline"].some((k) => t(k) === text)) {
     const a = document.createElement("a");
     a.href = "https://stash.grasco.dev/";
     a.target = "_blank";
     a.rel = "noopener";
-    a.textContent = "Download Stash";
+    a.textContent = t("downloadStash");
     a.style.cssText = "color:#8ab4ff;text-decoration:underline;pointer-events:auto";
     shadow.querySelector("div").appendChild(a);
   }
@@ -228,9 +229,9 @@ function showToast(text, kind) {
   }, kind === "error" ? 6000 : 2400);
 }
 
-function describe(result, noun = "Saved to Stash") {
-  if (result?.queued) return ["Stash isn't running — saved for later", "warn"];
-  if (result?.added === 0 && (result?.updated || result?.unchanged)) return ["Already in Stash — updated", "ok"];
+function describe(result, noun = t("savedToStash")) {
+  if (result?.queued) return [t("savedForLater"), "warn"];
+  if (result?.added === 0 && (result?.updated || result?.unchanged)) return [t("alreadyUpdated"), "ok"];
   return [noun, "ok"];
 }
 
@@ -238,11 +239,11 @@ function describe(result, noun = "Saved to Stash") {
 // Context menus and commands
 
 const MENUS = [
-  { id: "stash-selection", title: "Save selection to Stash", contexts: ["selection"] },
-  { id: "stash-link", title: "Save link to Stash", contexts: ["link"] },
-  { id: "stash-image", title: "Save image to Stash", contexts: ["image"] },
-  { id: "stash-page", title: "Save page to Stash", contexts: ["page"] },
-  { id: "stash-screenshot", title: "Screenshot visible area to Stash", contexts: ["page"] },
+  { id: "stash-selection", title: t("menuSaveSelection"), contexts: ["selection"] },
+  { id: "stash-link", title: t("menuSaveLink"), contexts: ["link"] },
+  { id: "stash-image", title: t("menuSaveImage"), contexts: ["image"] },
+  { id: "stash-page", title: t("menuSavePage"), contexts: ["page"] },
+  { id: "stash-screenshot", title: t("menuScreenshot"), contexts: ["page"] },
 ];
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -265,27 +266,27 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   const tabId = tab?.id;
   try {
     let item = null;
-    let label = "Saved to Stash";
+    let label = t("savedToStash");
     switch (info.menuItemId) {
       case "stash-selection":
         item = await selectionItem(tab, info.selectionText);
-        label = "Selection saved to Stash";
+        label = t("selectionSaved");
         break;
       case "stash-link":
         item = { type: "link", url: info.linkUrl, title: info.linkText || info.selectionText || undefined };
-        label = "Link saved to Stash";
+        label = t("linkSaved");
         break;
       case "stash-image":
         item = { type: "image", srcUrl: info.srcUrl, dataUrl: await imageDataURL(info.srcUrl), url: info.pageUrl, title: tab?.title };
-        label = "Image saved to Stash";
+        label = t("imageSaved");
         break;
       case "stash-page":
         item = await pageItem(tab);
-        label = "Page saved to Stash";
+        label = t("pageSaved");
         break;
       case "stash-screenshot":
         item = await screenshotItem(tab);
-        label = "Screenshot saved to Stash";
+        label = t("screenshotSaved");
         break;
     }
     if (!item) return;
@@ -305,11 +306,11 @@ chrome.commands.onCommand.addListener(async (command, tab) => {
       const page = await pageItem(tab);
       const item = page.selection ? { type: "selection", text: page.selection, url: page.url, title: page.title, siteName: page.siteName, favicon: page.favicon } : page;
       const result = await save([item], "shortcut", { queueIfOffline: true });
-      const [text, kind] = describe(result, page.selection ? "Selection saved to Stash" : "Page saved to Stash");
+      const [text, kind] = describe(result, page.selection ? t("selectionSaved") : t("pageSaved"));
       await notify(tab.id, text, kind);
     } else if (command === "screenshot-tab") {
       const result = await save([await screenshotItem(tab)], "shortcut");
-      const [text, kind] = describe(result, "Screenshot saved to Stash");
+      const [text, kind] = describe(result, t("screenshotSaved"));
       await notify(tab.id, text, kind);
     }
   } catch (error) {
@@ -361,23 +362,23 @@ async function handle(message, sender) {
     case "save-active-page": {
       const tab = await activeTab();
       const result = await save([await pageItem(tab)], "popup", { queueIfOffline: true });
-      const [text, kind] = describe(result, "Page saved to Stash");
+      const [text, kind] = describe(result, t("pageSaved"));
       await notify(tab.id, text, kind);
       return result;
     }
     case "save-active-selection": {
       const tab = await activeTab();
       const item = await selectionItem(tab);
-      if (!item) throw new Error("Select some text on the page first.");
+      if (!item) throw new Error(t("selectTextFirst"));
       const result = await save([item], "popup", { queueIfOffline: true });
-      const [text, kind] = describe(result, "Selection saved to Stash");
+      const [text, kind] = describe(result, t("selectionSaved"));
       await notify(tab.id, text, kind);
       return result;
     }
     case "screenshot-active": {
       const tab = await activeTab();
       const result = await save([await screenshotItem(tab)], "popup");
-      const [text, kind] = describe(result, "Screenshot saved to Stash");
+      const [text, kind] = describe(result, t("screenshotSaved"));
       await notify(tab.id, text, kind);
       return result;
     }

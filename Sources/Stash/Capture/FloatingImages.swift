@@ -131,7 +131,7 @@ final class CapturePreviewController {
             },
             onCopy: { [weak self] in
                 Pasteboard.copy(image: image)
-                HUD.shared.show("Copied to clipboard", symbol: "doc.on.doc.fill")
+                HUD.shared.show(String(localized: "Copied to clipboard", comment: "HUD after an image is copied to the clipboard"), symbol: "doc.on.doc.fill")
                 self?.close()
             },
             onPin: { [weak self] in
@@ -245,7 +245,7 @@ private struct CapturePreviewView: View {
         .environment(\.colorScheme, .dark)
     }
 
-    private func action(_ symbol: String, _ title: String, _ perform: @escaping @MainActor () -> Void) -> some View {
+    private func action(_ symbol: String, _ title: LocalizedStringKey, _ perform: @escaping @MainActor () -> Void) -> some View {
         Button {
             perform()
         } label: {

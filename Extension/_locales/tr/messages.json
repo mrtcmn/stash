@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — Mac'e kaydet",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "X gönderilerini kaydet, tüm yer işaretlerini içe aktar; sayfaları, seçimleri ve görselleri Mac'indeki Stash uygulamasına kaydet.",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "Sayfayı veya seçili metni Stash'e kaydet",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "Sayfanın görünen kısmının ekran görüntüsünü Stash'e kaydet",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " Mac için",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "Bağlanıyor…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "Bağlantı",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "Bu sayfayı kaydet",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "Başlık, önizleme görseli ve bağlantı",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "Seçili metni kaydet",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "Kaynak bağlantısını korur",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "Görünen alanın ekran görüntüsü",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "İçeriğine göre aranabilir",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "X yer işaretlerini içe aktar",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "Kaydırarak hepsini kaydeder",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "Stash'i aç",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "Stash'i indir",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "Ayarlar",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "Uygulama portu",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "Stash › Ayarlar › Tarayıcı ile aynı olmalı.",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "Bağlı · $COUNT$ kayıt · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "anahtar kelime araması",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "Bağlı değil",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash çalışmıyor",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "Mac'inde Stash uygulamasını aç. Şimdi kaydettiklerin sıraya alınır ve uygulama açılınca gönderilir.",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "Stash'e kaydedildi",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "Zaten Stash'te — güncellendi",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash çalışmıyor — sonrası için kaydedildi",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "Bir şeyler ters gitti.",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "Yanıt yok",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "Stash'i yeniden bağlamak için sayfayı yenile.",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "Stash'e kaydet",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "Stash'e kaydedildi — kaldırmak için tıkla",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "Stash'ten kaldırıldı",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "Bu gönderi okunamadı.",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "Gönderi kaydedildi",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "@$HANDLE$ kullanıcısının gönderisi kaydedildi",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "Stash'e ulaşılamadı",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "Yer işareti Stash'e kaydedildi",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash çalışmıyor. Uygulamayı aç, sonra tekrar dene.",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "$COUNT$ yer işareti kaydedildi.",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "$COUNT$ yer işareti kaydedildi · $NEW$ yeni.",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$. Durmadan önce $COUNT$ yer işareti kaydedildi.",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "Yer işaretlerini içe aktarma",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "Son içe aktarmadan beri eklenen yer işaretlerini kaydet. Stash, zaten sahip olduğu gönderilere ulaşınca durur.",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "Yeni yer işaretlerini aktar",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "Tümünü yeniden tara",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "Tüm yer işaretlerini tam metin ve görselleriyle Mac'indeki Stash'e kaydet; anlamsal aramaya hazır olsun.",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "Tüm yer işaretlerini aktar",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "kaydedildi · $FOUND$ bulundu · kaydırılıyor…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "Durdur",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "Durduruluyor…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "Yeniden çalıştır",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "Tekrar dene",
+    "description": "Button."
+  },
+  "close": {
+    "message": "Kapat",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash çalışmıyor. Mac'indeki Stash uygulamasını aç ya da stash.grasco.dev adresinden indir.",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash $STATUS$ yanıtı verdi",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "Seçimi Stash'e kaydet",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "Bağlantıyı Stash'e kaydet",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "Görseli Stash'e kaydet",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "Sayfayı Stash'e kaydet",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "Görünen alanın ekran görüntüsünü Stash'e kaydet",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "Seçim Stash'e kaydedildi",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "Bağlantı Stash'e kaydedildi",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "Görsel Stash'e kaydedildi",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "Sayfa Stash'e kaydedildi",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "Ekran görüntüsü Stash'e kaydedildi",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "Önce sayfada biraz metin seç.",
+    "description": "Error."
+  }
+}

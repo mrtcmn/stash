@@ -18,12 +18,15 @@ final class SemanticIndex {
     }
 
     private(set) var state: State = .off
-    private(set) var engineName = "Keywords"
+    private(set) var engineName = SemanticIndex.keywordsName
     private(set) var embeddedCount = 0
     private(set) var pendingCount = 0
     private(set) var isIndexing = false
     /// Explains a fallback, e.g. when WebGPU is unavailable.
     private(set) var notice: String? = nil
+
+    /// Engine name when only keyword search runs.
+    private static var keywordsName: String { String(localized: "Keywords", comment: "Search engine name when semantic search is off, in settings and captions") }
 
     var isReady: Bool { state == .ready }
     var supportsImages: Bool { isReady && (engine?.supportsImages ?? false) }
@@ -66,7 +69,7 @@ final class SemanticIndex {
         switch settings.searchEngine {
         case .off:
             state = .off
-            engineName = "Keywords"
+            engineName = Self.keywordsName
         case .apple:
             await activate(AppleSentenceEngine(), generation: current)
         case .gemma:
@@ -78,7 +81,7 @@ final class SemanticIndex {
             } catch {
                 guard current == generation else { return }
                 state = .failed(error.localizedDescription)
-                engineName = "Keywords"
+                engineName = Self.keywordsName
                 logger.error("EmbeddingGemma failed to start: \(error.localizedDescription, privacy: .public)")
             }
         }
@@ -90,12 +93,12 @@ final class SemanticIndex {
         } catch {
             guard current == generation else { return }
             state = .failed(error.localizedDescription)
-            engineName = "Keywords"
+            engineName = Self.keywordsName
         }
     }
 
     private func prepareAndActivate(_ candidate: EmbeddingEngine, generation current: Int) async throws {
-        state = .preparing(label: "Starting \(candidate.displayName)", progress: nil)
+        state = .preparing(label: String(localized: "Starting \(candidate.displayName)", comment: "Search engine progress label; the argument is the engine name"), progress: nil)
         try await candidate.prepare { [weak self] label, progress in
             guard let self, self.generation == current else { return }
             self.state = .preparing(label: label, progress: progress)

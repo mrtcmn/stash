@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — احفظ على Mac",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "اقتطع منشورات X، واستورد كل إشاراتك المرجعية، واحفظ الصفحات والتحديدات والصور في تطبيق Stash على جهاز Mac.",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "احفظ الصفحة أو النص المحدد في Stash",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "التقط الجزء الظاهر من الصفحة إلى Stash",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " لأجهزة Mac",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "جارٍ الاتصال…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "الاتصال",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "احفظ هذه الصفحة",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "العنوان وصورة المعاينة والرابط",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "احفظ النص المحدد",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "يبقي رابط المصدر",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "التقط المنطقة الظاهرة",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "قابلة للبحث حسب محتواها",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "استورد إشارات X المرجعية",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "يمرّر عبرها ويحفظها كلها",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "افتح Stash",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "نزّل Stash",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "الإعدادات",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "منفذ التطبيق",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "يجب أن يطابق Stash › الإعدادات › المتصفح.",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "متصل · القصاصات: $COUNT$ · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "البحث بالكلمات المفتاحية",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "غير متصل",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash لا يعمل",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "افتح تطبيق Stash على جهاز Mac. ما تحفظه الآن يدخل قائمة الانتظار ويُرسل عند تشغيله.",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "تم الحفظ في Stash",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "موجود في Stash — تم التحديث",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash لا يعمل — تم الحفظ لوقت لاحق",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "حدث خطأ ما.",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "لا استجابة",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "أعد تحميل الصفحة لإعادة الاتصال بـ Stash.",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "احفظ في Stash",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "محفوظ في Stash — انقر للإزالة",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "أُزيل من Stash",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "تعذّرت قراءة هذا المنشور.",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "تم حفظ المنشور",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "تم حفظ منشور @$HANDLE$",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "تعذّر الوصول إلى Stash",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "تم حفظ الإشارة المرجعية في Stash",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash لا يعمل. افتح التطبيق، ثم حاول مرة أخرى.",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "الإشارات المرجعية المحفوظة: $COUNT$.",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "الإشارات المرجعية المحفوظة: $COUNT$ · الجديدة: $NEW$.",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$. الإشارات المرجعية المحفوظة قبل التوقف: $COUNT$.",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "استيراد الإشارات المرجعية",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "احفظ الإشارات المرجعية المضافة منذ آخر استيراد. يتوقف Stash عندما يصل إلى منشورات لديه بالفعل.",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "استورد الإشارات المرجعية الجديدة",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "أعد فحص الكل",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "احفظ كل إشارة مرجعية في Stash على جهاز Mac، بالنص الكامل والصور، جاهزة للبحث الدلالي.",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "استورد كل الإشارات المرجعية",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "محفوظة · تم العثور على: $FOUND$ · جارٍ التمرير…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "إيقاف",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "جارٍ الإيقاف…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "شغّل مجددًا",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "حاول مرة أخرى",
+    "description": "Button."
+  },
+  "close": {
+    "message": "إغلاق",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash لا يعمل. افتح تطبيق Stash على جهاز Mac، أو نزّله من stash.grasco.dev.",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "ردّ Stash بالرمز $STATUS$",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "احفظ التحديد في Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "احفظ الرابط في Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "احفظ الصورة في Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "احفظ الصفحة في Stash",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "التقط المنطقة الظاهرة إلى Stash",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "تم حفظ التحديد في Stash",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "تم حفظ الرابط في Stash",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "تم حفظ الصورة في Stash",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "تم حفظ الصفحة في Stash",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "تم حفظ لقطة الشاشة في Stash",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "حدد بعض النص في الصفحة أولًا.",
+    "description": "Error."
+  }
+}

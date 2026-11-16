@@ -140,7 +140,7 @@ struct LibraryRootView: View {
                 let links = urls.filter { !$0.isFileURL }
                 if !files.isEmpty { Task { await model.importURLs(files) } }
                 for link in links { Task { await model.saveURL(link, title: nil, source: "drop") } }
-                for data in images { Task { await model.saveImageData(data, title: "Dropped image", source: "drop") } }
+                for data in images { Task { await model.saveImageData(data, title: String(localized: "Dropped image", comment: "Default title of an image dropped on the library window"), source: "drop") } }
                 for text in texts where !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     model.library.add(Snip(kind: .text, body: text, source: "drop"))
                 }

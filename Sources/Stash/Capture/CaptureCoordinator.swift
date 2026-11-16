@@ -9,7 +9,7 @@ struct CaptureContext {
 
     var title: String {
         if let windowTitle, !windowTitle.isEmpty, let appName { return "\(appName) — \(windowTitle)" }
-        return appName ?? "Screenshot"
+        return appName ?? String(localized: "Screenshot", comment: "Default title of a screenshot when the app is not known")
     }
 }
 
@@ -58,7 +58,7 @@ final class CaptureCoordinator {
                 self.session = session
                 session.begin()
             } catch {
-                HUD.shared.error("Capture failed: \(error.localizedDescription)")
+                HUD.shared.error(String(localized: "Capture failed: \(error.localizedDescription)", comment: "HUD error; the argument is the reason"))
             }
         }
     }
@@ -67,10 +67,10 @@ final class CaptureCoordinator {
         if ScreenCapturePermission.isGranted { return true }
         if ScreenCapturePermission.request() { return true }
         let alert = NSAlert()
-        alert.messageText = "Allow Stash to record the screen"
-        alert.informativeText = "Stash needs Screen Recording access to take screenshots. Turn it on in System Settings › Privacy & Security › Screen & System Audio Recording, then try again."
-        alert.addButton(withTitle: "Open System Settings")
-        alert.addButton(withTitle: "Cancel")
+        alert.messageText = String(localized: "Allow Stash to record the screen", comment: "Alert title when Screen Recording access is missing")
+        alert.informativeText = String(localized: "Stash needs Screen Recording access to take screenshots. Turn it on in System Settings › Privacy & Security › Screen & System Audio Recording, then try again.", comment: "Alert text when Screen Recording access is missing")
+        alert.addButton(withTitle: String(localized: "Open System Settings", comment: "Alert button: opens the Screen Recording privacy settings"))
+        alert.addButton(withTitle: String(localized: "Cancel", comment: "Alert button"))
         NSApp.activate()
         if alert.runModal() == .alertFirstButtonReturn {
             ScreenCapturePermission.openSystemSettings()
@@ -95,7 +95,7 @@ final class CaptureCoordinator {
             image = frozen[index].image
         }
         guard let image else {
-            HUD.shared.error("Nothing was captured.")
+            HUD.shared.error(String(localized: "Nothing was captured.", comment: "HUD error after a capture"))
             return
         }
         // Give focus back to where the user was, unless we open a window of our own.
@@ -122,18 +122,23 @@ final class CaptureCoordinator {
         case .ocr:
             let text = await TextRecognizer.recognize(image)
             guard !text.isEmpty else {
-                HUD.shared.error("No text found in the selection.")
+                HUD.shared.error(String(localized: "No text found in the selection.", comment: "HUD error after a text (OCR) capture"))
                 return
             }
             Pasteboard.copy(text: text)
             let lines = text.split(whereSeparator: \.isNewline).count
-            HUD.shared.show("Copied \(lines) line\(lines == 1 ? "" : "s") of text", symbol: "text.viewfinder")
+            HUD.shared.show(
+                lines == 1
+                    ? String(localized: "Copied 1 line of text", comment: "HUD after a text (OCR) capture")
+                    : String(localized: "Copied \(lines) lines of text", comment: "HUD after a text (OCR) capture; the argument is the line count"),
+                symbol: "text.viewfinder"
+            )
             if settings.saveTextCaptures {
                 await model.saveTextCapture(text, image: image, context: context)
             }
         case .copy:
             Pasteboard.copy(image: image)
-            HUD.shared.show("Copied to clipboard", symbol: "doc.on.doc.fill")
+            HUD.shared.show(String(localized: "Copied to clipboard", comment: "HUD after an image is copied to the clipboard"), symbol: "doc.on.doc.fill")
         case .save:
             if let snip = await model.saveScreenshot(image, context: context) {
                 showPreview(image, snip: snip)
@@ -149,7 +154,7 @@ final class CaptureCoordinator {
             if save, let snip = await model.saveScreenshot(image, context: context) {
                 showPreview(image, snip: snip)
             } else if copy {
-                HUD.shared.show("Copied to clipboard", symbol: "doc.on.doc.fill")
+                HUD.shared.show(String(localized: "Copied to clipboard", comment: "HUD after an image is copied to the clipboard"), symbol: "doc.on.doc.fill")
             }
         }
     }
@@ -159,7 +164,7 @@ final class CaptureCoordinator {
         if model.settings.showCapturePreview {
             model.capturePreview.show(image: image, snipID: snip.id)
         } else {
-            HUD.shared.show("Saved to Stash", symbol: "checkmark.circle.fill")
+            HUD.shared.show(String(localized: "Saved to Stash", comment: "HUD after a screenshot is saved"), symbol: "checkmark.circle.fill")
         }
     }
 }
@@ -183,7 +188,7 @@ enum ScreenColorPicker {
                     Int((color.blueComponent * 255).rounded())
                 )
                 Pasteboard.copy(text: hex)
-                HUD.shared.show("Copied \(hex)", swatch: Color(nsColor: color))
+                HUD.shared.show(String(localized: "Copied \(hex)", comment: "HUD after the color picker copies a color; the argument is a hex code such as #FF0000"), swatch: Color(nsColor: color))
             }
         }
     }

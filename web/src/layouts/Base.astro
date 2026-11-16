@@ -1,5 +1,6 @@
 ---
 import '../styles.css'
+import { EN, LIVE, ogLocale, type Lang } from '../i18n'
 
 interface Props {
   title: string
@@ -9,13 +10,19 @@ interface Props {
   published?: Date
   modified?: Date
   jsonLd?: object[]
+  /** Absolute URL of the social card image. */
+  image?: string
+  /** Page language; defaults to English. */
+  lang?: Lang
+  /** Set on pages that exist in every language: emits hreflang links. */
+  alternates?: (lang: Lang) => string
 }
 const SITE = 'https://stash.grasco.dev'
-const { title, description, path = '/', type = 'website', published, modified, jsonLd = [] } = Astro.props
+const { title, description, path = '/', type = 'website', published, modified, jsonLd = [], lang = EN, alternates, image = `${SITE}/og.jpg` } = Astro.props
 const url = SITE + path
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang.hreflang} dir={lang.rtl ? 'rtl' : 'ltr'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,12 +30,16 @@ const url = SITE + path
     <meta name="description" content={description} />
     <meta name="theme-color" content="#FBFBFA" />
     <link rel="canonical" href={url} />
+    {alternates && LIVE.map((l) => <link rel="alternate" hreflang={l.hreflang} href={SITE + alternates(l)} />)}
+    {alternates && <link rel="alternate" hreflang="x-default" href={SITE + alternates(EN)} />}
     <meta property="og:type" content={type} />
+    <meta property="og:locale" content={ogLocale(lang)} />
+    {alternates && LIVE.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ogLocale(l)} />)}
     <meta property="og:site_name" content="Stash" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${SITE}/og.jpg`} />
+    <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Stash" />
@@ -37,7 +48,7 @@ const url = SITE + path
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITE}/og.jpg`} />
+    <meta name="twitter:image" content={image} />
     <link rel="icon" href="/icon-128.png" />
     <link rel="apple-touch-icon" href="/icon-128.png" />
     <link rel="alternate" type="application/rss+xml" title="Stash blog" href="/rss.xml" />

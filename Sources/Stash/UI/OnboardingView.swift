@@ -83,7 +83,7 @@ struct OnboardingView: View {
         withAnimation(.easeOut(duration: 0.25)) { model.finishOnboarding() }
     }
 
-    private func step<Actions: View>(number: Int, title: String, detail: String, done: Bool, @ViewBuilder actions: () -> Actions) -> some View {
+    private func step<Actions: View>(number: Int, title: LocalizedStringKey, detail: LocalizedStringKey, done: Bool, @ViewBuilder actions: () -> Actions) -> some View {
         HStack(alignment: .top, spacing: 14) {
             ZStack {
                 Circle().fill(done ? Color(hex: 0x7EE0B5) : Theme.accent.opacity(0.18))

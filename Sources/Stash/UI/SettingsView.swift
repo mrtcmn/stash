@@ -160,7 +160,7 @@ private struct SearchSettings: View {
             Section("Status") {
                 LabeledContent("Engine", value: model.index.engineName)
                 LabeledContent("State", value: stateText)
-                LabeledContent("Indexed", value: "\(model.index.embeddedCount.formatted()) of \(model.library.snips.count.formatted())")
+                LabeledContent("Indexed", value: String(localized: "\(model.index.embeddedCount.formatted()) of \(model.library.snips.count.formatted())", comment: "Search settings: number of indexed snips out of all snips"))
                 if let notice = model.index.notice {
                     Text(notice).font(.callout).foregroundStyle(.yellow)
                 }
@@ -188,10 +188,12 @@ private struct SearchSettings: View {
 
     private var stateText: String {
         switch model.index.state {
-        case .off: "Off"
-        case .ready: model.index.isIndexing ? "Indexing (\(model.index.pendingCount) left)" : "Ready"
+        case .off: String(localized: "Off", comment: "Search settings: state of semantic search")
+        case .ready: model.index.isIndexing
+            ? String(localized: "Indexing (\(model.index.pendingCount) left)", comment: "Search settings: state while snips are indexed")
+            : String(localized: "Ready", comment: "Search settings: state of semantic search")
         case .preparing(let label, let progress): progress.map { "\(label) \(Int($0 * 100))%" } ?? label
-        case .failed(let message): "Unavailable: \(message)"
+        case .failed(let message): String(localized: "Unavailable: \(message)", comment: "Search settings: state when the engine failed; the argument is the error message")
         }
     }
 }
@@ -222,7 +224,7 @@ private struct BrowserSettings: View {
             }
             Section("Connection") {
                 LabeledContent("Local server", value: serverText)
-                LabeledContent("Last contact", value: model.lastExtensionContact.map { RelativeDate.short($0) } ?? "never")
+                LabeledContent("Last contact", value: model.lastExtensionContact.map { RelativeDate.short($0) } ?? String(localized: "never", comment: "Browser settings: the extension never contacted the app"))
                 HStack {
                     TextField("Port", text: $portText)
                         .frame(width: 90)
@@ -251,9 +253,9 @@ private struct BrowserSettings: View {
 
     private var serverText: String {
         switch model.serverState {
-        case .running(let port): "Listening on 127.0.0.1:\(port)"
-        case .stopped: "Stopped"
-        case .failed(let message): "Error: \(message)"
+        case .running(let port): String(localized: "Listening on 127.0.0.1:\(Int(port))", comment: "Browser settings: state of the local server; the argument is the port")
+        case .stopped: String(localized: "Stopped", comment: "Browser settings: state of the local server")
+        case .failed(let message): String(localized: "Error: \(message)", comment: "Browser settings: local server failed; the argument is the error message")
         }
     }
 }

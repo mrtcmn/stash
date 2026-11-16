@@ -55,7 +55,7 @@ struct KeyCombo: Codable, Hashable {
         kVK_ANSI_Y: "Y", kVK_ANSI_Z: "Z",
         kVK_ANSI_0: "0", kVK_ANSI_1: "1", kVK_ANSI_2: "2", kVK_ANSI_3: "3", kVK_ANSI_4: "4",
         kVK_ANSI_5: "5", kVK_ANSI_6: "6", kVK_ANSI_7: "7", kVK_ANSI_8: "8", kVK_ANSI_9: "9",
-        kVK_Space: "Space", kVK_Return: "↩", kVK_Tab: "⇥", kVK_Delete: "⌫", kVK_Escape: "⎋",
+        kVK_Space: String(localized: "Space", comment: "Shortcut display: name of the space bar key"), kVK_Return: "↩", kVK_Tab: "⇥", kVK_Delete: "⌫", kVK_Escape: "⎋",
         kVK_LeftArrow: "←", kVK_RightArrow: "→", kVK_UpArrow: "↑", kVK_DownArrow: "↓",
         kVK_ANSI_Minus: "-", kVK_ANSI_Equal: "=", kVK_ANSI_LeftBracket: "[", kVK_ANSI_RightBracket: "]",
         kVK_ANSI_Semicolon: ";", kVK_ANSI_Quote: "'", kVK_ANSI_Comma: ",", kVK_ANSI_Period: ".",
@@ -63,7 +63,7 @@ struct KeyCombo: Codable, Hashable {
     ]
 
     static func keyName(_ code: Int) -> String {
-        functionKeys[code] ?? names[code] ?? "Key \(code)"
+        functionKeys[code] ?? names[code] ?? String(localized: "Key \(code)", comment: "Shortcut display: a key with no known name; the argument is the key code")
     }
 }
 
@@ -75,15 +75,15 @@ enum HotKeyAction: String, CaseIterable, Codable, Identifiable {
 
     var title: String {
         switch self {
-        case .captureRegion: "Capture area"
-        case .captureWindow: "Capture window"
-        case .captureScreen: "Capture screen"
-        case .captureText: "Capture text (OCR)"
-        case .quickNote: "Quick note"
-        case .snipBrowserTab: "Snip browser tab"
-        case .saveClipboard: "Save clipboard"
-        case .pickColor: "Pick color"
-        case .openLibrary: "Search library"
+        case .captureRegion: String(localized: "Capture area", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .captureWindow: String(localized: "Capture window", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .captureScreen: String(localized: "Capture screen", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .captureText: String(localized: "Capture text (OCR)", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .quickNote: String(localized: "Quick note", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .snipBrowserTab: String(localized: "Snip browser tab", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .saveClipboard: String(localized: "Save clipboard", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .pickColor: String(localized: "Pick color", comment: "Action name in menus, the menu bar panel and shortcut settings")
+        case .openLibrary: String(localized: "Search library", comment: "Action name in menus, the menu bar panel and shortcut settings")
         }
     }
 
@@ -253,7 +253,7 @@ struct ShortcutRecorder: View {
             Button {
                 isRecording ? stop() : start()
             } label: {
-                Text(isRecording ? "Type shortcut…" : (combo?.display ?? "Record"))
+                Text(isRecording ? String(localized: "Type shortcut…", comment: "Shortcut recorder button while it waits for keys") : (combo?.display ?? String(localized: "Record", comment: "Shortcut recorder button when no shortcut is set")))
                     .font(.system(size: 12, weight: .medium, design: .rounded))
                     .monospacedDigit()
                     .frame(minWidth: 92)

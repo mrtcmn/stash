@@ -1,0 +1,33 @@
+---
+// The homepage in every language: / for English, /<code>/ for the rest.
+import Base from '../../layouts/Base.astro'
+import Landing from '../../components/Landing'
+import { allPosts, SITE } from '../../lib/posts'
+import { LIVE, homePath, stringsFor, type Lang } from '../../i18n'
+
+export function getStaticPaths() {
+  return LIVE.map((lang) => ({ params: { locale: lang.web === 'en' ? undefined : lang.web }, props: { lang } }))
+}
+const { lang } = Astro.props as { lang: Lang }
+const strings = stringsFor(lang)
+const [post] = await allPosts()
+const latest = post && { title: post.data.title, href: `/blog/${post.id}/` }
+const languages = LIVE.map((l) => ({ name: l.native, href: homePath(l), lang: l.hreflang, current: l === lang }))
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Stash',
+  description: strings['meta.description'],
+  url: SITE + homePath(lang),
+  inLanguage: lang.hreflang,
+  image: `${SITE}/og.jpg`,
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'macOS 26',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}]
+---
+<Base title={strings['meta.title']} description={strings['meta.description']} path={homePath(lang)} lang={lang} alternates={homePath} jsonLd={jsonLd}>
+  <link slot="head" rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
+  <link slot="head" rel="preload" as="font" type="font/woff2" href="/fonts/instrument-serif-italic-latin.woff2" crossorigin="anonymous" />
+  <Landing client:load latest={latest} strings={strings} languages={languages} />
+</Base>

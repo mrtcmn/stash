@@ -13,9 +13,9 @@ enum SearchEngineChoice: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .gemma: "EmbeddingGemma 2 (on-device, text + images)"
-        case .apple: "Apple Natural Language (built-in, text only)"
-        case .off: "Keywords only"
+        case .gemma: String(localized: "EmbeddingGemma 2 (on-device, text + images)", comment: "Search settings: semantic search engine choice")
+        case .apple: String(localized: "Apple Natural Language (built-in, text only)", comment: "Search settings: semantic search engine choice")
+        case .off: String(localized: "Keywords only", comment: "Search settings: semantic search engine choice")
         }
     }
 }
@@ -25,10 +25,10 @@ enum AfterCaptureAction: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .saveAndCopy: "Save to library and copy"
-        case .save: "Save to library"
-        case .copy: "Copy to clipboard only"
-        case .annotate: "Open the annotation editor"
+        case .saveAndCopy: String(localized: "Save to library and copy", comment: "Capture settings: what happens after an area capture")
+        case .save: String(localized: "Save to library", comment: "Capture settings: what happens after an area capture")
+        case .copy: String(localized: "Copy to clipboard only", comment: "Capture settings: what happens after an area capture")
+        case .annotate: String(localized: "Open the annotation editor", comment: "Capture settings: what happens after an area capture")
         }
     }
 }

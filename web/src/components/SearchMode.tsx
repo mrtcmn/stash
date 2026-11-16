@@ -1,3 +1,4 @@
+import type { T } from '#/i18n/t'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { posts, rank } from '#/data/posts'
 import { globeLayout, wrap } from '#/lib/globeLayout'
@@ -22,9 +23,10 @@ type Props = {
   query: string
   setQuery: (q: string) => void
   onClose: (reason: 'scroll' | 'dismiss') => void
+  t: T
 }
 
-export function SearchMode({ open, from, query, setQuery, onClose }: Props) {
+export function SearchMode({ open, from, query, setQuery, onClose, t }: Props) {
   const [mounted, setMounted] = useState(false)
   const barRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -219,9 +221,9 @@ export function SearchMode({ open, from, query, setQuery, onClose }: Props) {
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Describe what you remember…"
+            placeholder={t('search.placeholder')}
             className="min-w-0 flex-1 bg-transparent text-[19px] text-[#0A0A0A] outline-none placeholder:text-[#A1A1AA]"
-            aria-label="Search the sample library"
+            aria-label={t('search.label')}
           />
           <button onClick={() => onClose('dismiss')} className="rounded-md border border-[#E4E4E1] bg-[#FBFBFA] px-2.5 py-1 text-[12px] font-medium text-[#71717A]">
             esc
@@ -231,7 +233,7 @@ export function SearchMode({ open, from, query, setQuery, onClose }: Props) {
           <div className="flex h-8 items-center gap-2 rounded-full border border-white/10 bg-[#0A0A0A]/80 px-4 backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
             <span className="text-[12px] text-white/80">
-              {count ? `${count} result${count === 1 ? '' : 's'} · on-device` : 'No match yet · showing everything'}
+              {count ? t(count === 1 ? 'search.countOne' : 'search.count', { count }) : t('search.none')}
             </span>
           </div>
         ) : (
@@ -245,7 +247,7 @@ export function SearchMode({ open, from, query, setQuery, onClose }: Props) {
         )}
       </div>
       <p data-chrome className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/85 px-3.5 py-1.5 text-[12px] text-[#52525B] shadow-sm backdrop-blur">
-        Drag to spin · Scroll to continue · Esc to close
+        {t('search.help')}
       </p>
     </div>
   )

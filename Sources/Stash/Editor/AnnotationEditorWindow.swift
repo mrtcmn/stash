@@ -34,7 +34,7 @@ final class AnnotationEditorController {
             document: document,
             onCopy: { image in
                 Pasteboard.copy(image: image)
-                HUD.shared.show("Copied to clipboard", symbol: "doc.on.doc.fill")
+                HUD.shared.show(String(localized: "Copied to clipboard", comment: "HUD after an image is copied to the clipboard"), symbol: "doc.on.doc.fill")
             },
             onSave: { image in
                 onSave(image)
@@ -77,7 +77,7 @@ final class AnnotationEditorController {
             do {
                 try data?.write(to: url, options: .atomic)
             } catch {
-                HUD.shared.error("Couldn't save: \(error.localizedDescription)")
+                HUD.shared.error(String(localized: "Couldn't save: \(error.localizedDescription)", comment: "HUD error after Save As in the annotation editor; the argument is the reason"))
             }
         }
         if let window {

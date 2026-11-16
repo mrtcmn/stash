@@ -716,9 +716,9 @@ struct CaptureHint: View {
 
     private var instructions: String {
         switch mode {
-        case .region: "Drag to select · click a window · Space for window mode · Esc to cancel"
-        case .window: "Click a window to capture it · Space for area mode"
-        case .text: "Drag over text to copy it"
+        case .region: String(localized: "Drag to select · click a window · Space for window mode · Esc to cancel", comment: "Capture overlay hint in area mode")
+        case .window: String(localized: "Click a window to capture it · Space for area mode", comment: "Capture overlay hint in window mode")
+        case .text: String(localized: "Drag over text to copy it", comment: "Capture overlay hint in text (OCR) mode")
         case .screen: ""
         }
     }
@@ -745,7 +745,7 @@ struct CaptureHint: View {
         .environment(\.colorScheme, .dark)
     }
 
-    private func modeButton(_ m: CaptureMode, _ symbol: String, _ title: String) -> some View {
+    private func modeButton(_ m: CaptureMode, _ symbol: String, _ title: LocalizedStringKey) -> some View {
         Button {
             onMode(m)
         } label: {
@@ -764,7 +764,7 @@ struct CaptureHint: View {
 /// A round icon button with a hover highlight, used on glass bars.
 struct ToolbarIconButton: View {
     let symbol: String
-    var help: String
+    var help: LocalizedStringKey
     var prominent = false
     let action: @MainActor () -> Void
     @State private var hovering = false

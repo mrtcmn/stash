@@ -71,7 +71,7 @@ final class LocalServer: @unchecked Sendable {
 
     private static func describe(_ error: NWError, port: UInt16) -> String {
         if case .posix(let code) = error, code == .EADDRINUSE {
-            return "Port \(port) is already in use."
+            return String(localized: "Port \(Int(port)) is already in use.", comment: "Browser settings: local server error; the argument is the port")
         }
         return error.localizedDescription
     }

@@ -1,0 +1,26 @@
+{
+  "source": "en",
+  "note": "One list for all surfaces. Edit here only. rtl languages need dir=rtl on the web and a layout check in the app and popup.",
+  "languages": [
+    {"name": "English", "native": "English", "chrome": "en", "apple": "en", "web": "en", "hreflang": "en"},
+    {"name": "Chinese (Simplified)", "native": "简体中文", "chrome": "zh_CN", "apple": "zh-Hans", "web": "zh-cn", "hreflang": "zh-Hans"},
+    {"name": "Spanish", "native": "Español", "chrome": "es", "apple": "es", "web": "es", "hreflang": "es"},
+    {"name": "Hindi", "native": "हिन्दी", "chrome": "hi", "apple": "hi", "web": "hi", "hreflang": "hi"},
+    {"name": "Arabic", "native": "العربية", "chrome": "ar", "apple": "ar", "web": "ar", "hreflang": "ar", "rtl": true},
+    {"name": "Portuguese (Brazil)", "native": "Português (Brasil)", "chrome": "pt_BR", "apple": "pt-BR", "web": "pt-br", "hreflang": "pt-BR"},
+    {"name": "French", "native": "Français", "chrome": "fr", "apple": "fr", "web": "fr", "hreflang": "fr"},
+    {"name": "Russian", "native": "Русский", "chrome": "ru", "apple": "ru", "web": "ru", "hreflang": "ru"},
+    {"name": "Japanese", "native": "日本語", "chrome": "ja", "apple": "ja", "web": "ja", "hreflang": "ja"},
+    {"name": "German", "native": "Deutsch", "chrome": "de", "apple": "de", "web": "de", "hreflang": "de"},
+    {"name": "Korean", "native": "한국어", "chrome": "ko", "apple": "ko", "web": "ko", "hreflang": "ko"},
+    {"name": "Turkish", "native": "Türkçe", "chrome": "tr", "apple": "tr", "web": "tr", "hreflang": "tr"},
+    {"name": "Italian", "native": "Italiano", "chrome": "it", "apple": "it", "web": "it", "hreflang": "it"},
+    {"name": "Indonesian", "native": "Bahasa Indonesia", "chrome": "id", "apple": "id", "web": "id", "hreflang": "id"},
+    {"name": "Vietnamese", "native": "Tiếng Việt", "chrome": "vi", "apple": "vi", "web": "vi", "hreflang": "vi"},
+    {"name": "Polish", "native": "Polski", "chrome": "pl", "apple": "pl", "web": "pl", "hreflang": "pl"},
+    {"name": "Dutch", "native": "Nederlands", "chrome": "nl", "apple": "nl", "web": "nl", "hreflang": "nl"},
+    {"name": "Thai", "native": "ไทย", "chrome": "th", "apple": "th", "web": "th", "hreflang": "th"},
+    {"name": "Chinese (Traditional)", "native": "繁體中文", "chrome": "zh_TW", "apple": "zh-Hant", "web": "zh-tw", "hreflang": "zh-Hant"},
+    {"name": "Ukrainian", "native": "Українська", "chrome": "uk", "apple": "uk", "web": "uk", "hreflang": "uk"}
+  ]
+}

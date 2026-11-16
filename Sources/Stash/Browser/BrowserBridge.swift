@@ -21,13 +21,13 @@ enum BrowserBridge {
         var errorDescription: String? {
             switch self {
             case .noBrowser:
-                "Bring a browser window to the front first."
+                String(localized: "Bring a browser window to the front first.", comment: "HUD error when the user snips a browser tab")
             case .notAuthorized(let browser):
-                "Stash isn't allowed to read \(browser)'s tabs. Enable it in System Settings › Privacy & Security › Automation."
+                String(localized: "Stash isn't allowed to read \(browser)'s tabs. Enable it in System Settings › Privacy & Security › Automation.", comment: "HUD error when the user snips a browser tab; the argument is the browser name")
             case .noWindow(let browser):
-                "\(browser) has no open window."
+                String(localized: "\(browser) has no open window.", comment: "HUD error when the user snips a browser tab; the argument is the browser name")
             case .script(let browser, let message):
-                "Couldn't read the current tab in \(browser): \(message)"
+                String(localized: "Couldn't read the current tab in \(browser): \(message)", comment: "HUD error when the user snips a browser tab; the arguments are the browser name and the reason")
             }
         }
     }
@@ -57,12 +57,12 @@ enum BrowserBridge {
             return NSWorkspace.shared.runningApplications.first { isBrowser($0.bundleIdentifier) && !$0.isHidden }
         }()
         guard let browser = candidate, let bundleID = browser.bundleIdentifier else { throw Failure.noBrowser }
-        let name = browser.localizedName ?? "the browser"
+        let name = browser.localizedName ?? String(localized: "the browser", comment: "Browser name in tab errors when the app has no name")
 
         let dialects = safariBrowsers.contains(bundleID)
             ? ["current tab of front window", "active tab of front window"]
             : ["active tab of front window", "current tab of front window"]
-        var lastError: Failure = .script(name, "unsupported browser")
+        var lastError: Failure = .script(name, String(localized: "unsupported browser", comment: "Reason in a tab error"))
         for tabExpression in dialects {
             let titleProperty = tabExpression.hasPrefix("current") ? "name" : "title"
             let source = """
@@ -86,12 +86,12 @@ enum BrowserBridge {
     }
 
     private static func run(_ source: String, browser: String) throws -> (String, String) {
-        guard let script = NSAppleScript(source: source) else { throw Failure.script(browser, "invalid script") }
+        guard let script = NSAppleScript(source: source) else { throw Failure.script(browser, String(localized: "invalid script", comment: "Reason in a tab error")) }
         var errorInfo: NSDictionary?
         let result = script.executeAndReturnError(&errorInfo)
         if let errorInfo {
             let code = errorInfo[NSAppleScript.errorNumber] as? Int ?? 0
-            let message = errorInfo[NSAppleScript.errorMessage] as? String ?? "error \(code)"
+            let message = errorInfo[NSAppleScript.errorMessage] as? String ?? String(localized: "error \(code)", comment: "Reason in a tab error; the argument is an AppleScript error number")
             switch code {
             case -1743: throw Failure.notAuthorized(browser)
             case -1728, -1719: throw Failure.noWindow(browser)

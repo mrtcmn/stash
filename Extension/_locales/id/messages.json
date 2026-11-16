@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — Simpan ke Mac",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "Snip postingan dari X, impor semua bookmark, dan simpan halaman, teks pilihan, serta gambar ke aplikasi Stash di Mac-mu.",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "Simpan halaman atau teks terpilih ke Stash",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "Tangkap layar bagian halaman yang terlihat ke Stash",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " untuk Mac",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "Menghubungkan…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "Koneksi",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "Simpan halaman ini",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "Judul, gambar pratinjau, dan tautan",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "Simpan teks terpilih",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "Tautan sumber tetap ada",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "Tangkap area yang terlihat",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "Bisa dicari dari isinya",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "Impor bookmark X",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "Menggulir dan menyimpan semuanya",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "Buka Stash",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "Unduh Stash",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "Pengaturan",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "Port aplikasi",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "Harus sama dengan Stash › Pengaturan › Browser.",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "Terhubung · $COUNT$ snip · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "pencarian kata kunci",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "Tidak terhubung",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash tidak berjalan",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "Buka aplikasi Stash di Mac-mu. Yang kamu simpan sekarang masuk antrean dan dikirim saat aplikasi dibuka.",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "Tersimpan di Stash",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "Sudah ada di Stash — diperbarui",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash tidak berjalan — disimpan untuk nanti",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "Terjadi kesalahan.",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "Tidak ada respons",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "Muat ulang halaman untuk menghubungkan Stash lagi.",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "Simpan ke Stash",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "Tersimpan di Stash — klik untuk menghapus",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "Dihapus dari Stash",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "Tidak bisa membaca postingan ini.",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "Postingan tersimpan",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "Postingan dari @$HANDLE$ tersimpan",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "Tidak bisa menghubungi Stash",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "Bookmark tersimpan di Stash",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash tidak berjalan. Buka aplikasinya, lalu coba lagi.",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "$COUNT$ bookmark tersimpan.",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "$COUNT$ bookmark tersimpan · $NEW$ baru.",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$. $COUNT$ bookmark tersimpan sebelum berhenti.",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "Impor bookmark",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "Simpan bookmark yang ditambahkan sejak impor terakhir. Stash berhenti saat menemukan postingan yang sudah ada.",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "Impor bookmark baru",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "Pindai ulang semua",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "Simpan setiap bookmark ke Stash di Mac-mu, dengan teks lengkap dan gambar, siap untuk pencarian semantik.",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "Impor semua bookmark",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "tersimpan · $FOUND$ ditemukan · menggulir…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "Berhenti",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "Menghentikan…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "Jalankan lagi",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "Coba lagi",
+    "description": "Button."
+  },
+  "close": {
+    "message": "Tutup",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash tidak berjalan. Buka aplikasi Stash di Mac-mu, atau unduh di stash.grasco.dev.",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash menjawab $STATUS$",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "Simpan pilihan ke Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "Simpan tautan ke Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "Simpan gambar ke Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "Simpan halaman ke Stash",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "Tangkap area yang terlihat ke Stash",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "Pilihan tersimpan di Stash",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "Tautan tersimpan di Stash",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "Gambar tersimpan di Stash",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "Halaman tersimpan di Stash",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "Tangkapan layar tersimpan di Stash",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "Pilih teks di halaman terlebih dulu.",
+    "description": "Error."
+  }
+}

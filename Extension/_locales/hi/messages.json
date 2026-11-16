@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — Mac में सहेजें",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "X से पोस्ट स्निप करें, सारे बुकमार्क इंपोर्ट करें, और पेज, चुना हुआ टेक्स्ट व इमेज अपने Mac पर Stash ऐप में सहेजें।",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "पेज या चुना हुआ टेक्स्ट Stash में सहेजें",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "पेज के दिखने वाले हिस्से का स्क्रीनशॉट Stash में लें",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " Mac के लिए",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "कनेक्ट हो रहा है…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "कनेक्शन",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "यह पेज सहेजें",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "टाइटल, प्रीव्यू इमेज और लिंक",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "चुना हुआ टेक्स्ट सहेजें",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "सोर्स लिंक साथ रहता है",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "दिखने वाले हिस्से का स्क्रीनशॉट",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "उसमें जो दिखता है, उससे खोजा जा सकता है",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "X बुकमार्क इंपोर्ट करें",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "स्क्रॉल करके सब सहेजता है",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "Stash खोलें",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "Stash डाउनलोड करें",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "सेटिंग्ज़",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "ऐप पोर्ट",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "Stash › सेटिंग्ज़ › ब्राउज़र से मेल खाना चाहिए।",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "कनेक्टेड · $COUNT$ स्निप · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "कीवर्ड सर्च",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "कनेक्ट नहीं है",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash नहीं चल रहा",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "अपने Mac पर Stash ऐप खोलें। अभी सहेजी गई चीज़ें कतार में रहेंगी और ऐप शुरू होने पर भेजी जाएँगी।",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "Stash में सहेजा गया",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "पहले से Stash में है — अपडेट किया गया",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash नहीं चल रहा — बाद के लिए सहेजा गया",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "कुछ गड़बड़ हो गई।",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "कोई जवाब नहीं",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "Stash को फिर से कनेक्ट करने के लिए पेज रीलोड करें।",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "Stash में सहेजें",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "Stash में सहेजा गया — हटाने के लिए क्लिक करें",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "Stash से हटाया गया",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "यह पोस्ट पढ़ी नहीं जा सकी।",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "पोस्ट सहेजी गई",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "@$HANDLE$ की पोस्ट सहेजी गई",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "Stash से संपर्क नहीं हो सका",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "बुकमार्क Stash में सहेजा गया",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash नहीं चल रहा। ऐप खोलें, फिर दोबारा कोशिश करें।",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "$COUNT$ बुकमार्क सहेजे गए।",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "$COUNT$ बुकमार्क सहेजे गए · $NEW$ नए।",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$। रुकने से पहले $COUNT$ बुकमार्क सहेजे गए।",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "बुकमार्क इंपोर्ट",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "पिछले इंपोर्ट के बाद जोड़े गए बुकमार्क सहेजें। पहले से मौजूद पोस्ट तक पहुँचते ही Stash रुक जाता है।",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "नए बुकमार्क इंपोर्ट करें",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "सब फिर से स्कैन करें",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "हर बुकमार्क को पूरे टेक्स्ट और इमेज के साथ अपने Mac पर Stash में सहेजें, सिमैंटिक सर्च के लिए तैयार।",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "सारे बुकमार्क इंपोर्ट करें",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "सहेजे गए · $FOUND$ मिले · स्क्रॉल हो रहा है…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "रोकें",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "रोक रहे हैं…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "फिर से चलाएँ",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "दोबारा कोशिश करें",
+    "description": "Button."
+  },
+  "close": {
+    "message": "बंद करें",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash नहीं चल रहा। अपने Mac पर Stash ऐप खोलें, या stash.grasco.dev से डाउनलोड करें।",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash ने $STATUS$ लौटाया",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "चुना हुआ हिस्सा Stash में सहेजें",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "लिंक Stash में सहेजें",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "इमेज Stash में सहेजें",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "पेज Stash में सहेजें",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "दिखने वाले हिस्से का स्क्रीनशॉट Stash में लें",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "चुना हुआ हिस्सा Stash में सहेजा गया",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "लिंक Stash में सहेजा गया",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "इमेज Stash में सहेजी गई",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "पेज Stash में सहेजा गया",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "स्क्रीनशॉट Stash में सहेजा गया",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "पहले पेज पर कुछ टेक्स्ट चुनें।",
+    "description": "Error."
+  }
+}

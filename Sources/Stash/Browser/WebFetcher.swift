@@ -19,8 +19,8 @@ enum WebFetcher {
 
         var errorDescription: String? {
             switch self {
-            case .status(let code): "The server answered with status \(code)."
-            case .unreadable: "The page couldn't be read."
+            case .status(let code): String(localized: "The server answered with status \(code).", comment: "Error when a post or page download fails; the argument is the HTTP status code")
+            case .unreadable: String(localized: "The page couldn't be read.", comment: "Error when a post or page download fails")
             }
         }
     }

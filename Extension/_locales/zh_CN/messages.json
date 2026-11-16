@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — 保存到 Mac",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "摘录 X 帖子，导入全部书签，并将网页、所选文本和图片保存到 Mac 上的 Stash 应用。",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "将网页或所选文本保存到 Stash",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "将网页可见部分截图保存到 Stash",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " Mac 版",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "正在连接…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "连接状态",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "保存此网页",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "标题、预览图和链接",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "保存所选文本",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "保留来源链接",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "截取可见区域",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "可按画面内容搜索",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "导入 X 书签",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "自动滚动并全部保存",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "打开 Stash",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "下载 Stash",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "设置",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "应用端口",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "须与 Stash › 设置 › 浏览器 一致。",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "已连接 · $COUNT$ 条摘录 · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "关键词搜索",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "未连接",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash 未运行",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "请在 Mac 上打开 Stash 应用。现在保存的内容会先排队，应用启动后再发送。",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "已保存到 Stash",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "已在 Stash 中 — 已更新",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash 未运行 — 已暂存，稍后保存",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "出了点问题。",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "无响应",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "重新加载页面以重新连接 Stash。",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "保存到 Stash",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "已保存到 Stash — 点击移除",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "已从 Stash 移除",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "无法读取此帖子。",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "已保存帖子",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "已保存 @$HANDLE$ 的帖子",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "无法连接 Stash",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "书签已保存到 Stash",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash 未运行。请打开应用，然后重试。",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "已保存 $COUNT$ 个书签。",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "已保存 $COUNT$ 个书签 · $NEW$ 个新书签。",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$。停止前已保存 $COUNT$ 个书签。",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "书签导入",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "保存上次导入后新增的书签。遇到已有的帖子时，Stash 会停止。",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "导入新书签",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "全部重新扫描",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "将所有书签连同全文和图片保存到 Mac 上的 Stash，随时可进行语义搜索。",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "导入全部书签",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "个已保存 · 找到 $FOUND$ 个 · 正在滚动…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "停止",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "正在停止…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "再次运行",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "重试",
+    "description": "Button."
+  },
+  "close": {
+    "message": "关闭",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash 未运行。请在 Mac 上打开 Stash 应用，或前往 stash.grasco.dev 下载。",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash 返回了 $STATUS$",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "将所选内容保存到 Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "将链接保存到 Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "将图片保存到 Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "将网页保存到 Stash",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "将可见区域截图保存到 Stash",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "所选内容已保存到 Stash",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "链接已保存到 Stash",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "图片已保存到 Stash",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "网页已保存到 Stash",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "截图已保存到 Stash",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "请先在页面上选择一些文本。",
+    "description": "Error."
+  }
+}

@@ -23,9 +23,9 @@ final class GemmaRuntime {
 
         var errorDescription: String? {
             switch self {
-            case .missingPage: "The embedding runtime page is missing from the app bundle."
-            case .bootTimeout: "The embedding runtime did not start. Check your internet connection for the first download."
-            case .badResponse: "The embedding runtime returned an unexpected result."
+            case .missingPage: String(localized: "The embedding runtime page is missing from the app bundle.", comment: "Search engine error shown in search settings")
+            case .bootTimeout: String(localized: "The embedding runtime did not start. Check your internet connection for the first download.", comment: "Search engine error shown in search settings")
+            case .badResponse: String(localized: "The embedding runtime returned an unexpected result.", comment: "Search engine error shown in search settings")
             case .script(let message): message
             }
         }
@@ -157,6 +157,17 @@ final class GemmaRuntime {
         }
     }
 
+    /// The runtime page sends fixed English labels (see gemma-runtime.html); show them in the user's language.
+    private static func localizedProgressLabel(_ label: String?) -> String {
+        switch label {
+        case nil: String(localized: "Loading", comment: "Search engine progress label")
+        case "Loading runtime": String(localized: "Loading runtime", comment: "Search engine progress label")
+        case "Downloading EmbeddingGemma 2": String(localized: "Downloading EmbeddingGemma 2", comment: "Search engine progress label while the model downloads")
+        case "Warming up": String(localized: "Warming up", comment: "Search engine progress label just before the engine is ready")
+        case let other?: other
+        }
+    }
+
     private func handle(_ body: Any) {
         guard let message = body as? [String: Any], let type = message["type"] as? String else { return }
         switch type {
@@ -166,7 +177,7 @@ final class GemmaRuntime {
             bootWaiters.removeAll()
             waiters.forEach { $0.resume() }
         case "progress":
-            let label = message["label"] as? String ?? "Loading"
+            let label = Self.localizedProgressLabel(message["label"] as? String)
             var fraction = message["fraction"] as? Double
             // Transformers.js reports totals only for files it has started; stay monotonic.
             if let loaded = message["loaded"] as? Double, loaded > 0 {
@@ -177,7 +188,7 @@ final class GemmaRuntime {
         case "ready":
             onEvent?(.ready(device: message["device"] as? String ?? "webgpu", dtype: message["dtype"] as? String ?? "q4"))
         case "failed":
-            onEvent?(.failed(message["message"] as? String ?? "Unknown error"))
+            onEvent?(.failed(message["message"] as? String ?? String(localized: "Unknown error", comment: "Search engine error when the runtime gives no reason")))
         case "log":
             logger.debug("Gemma runtime: \(message["message"] as? String ?? "", privacy: .public)")
         default:

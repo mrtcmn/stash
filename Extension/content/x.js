@@ -9,6 +9,7 @@
   const saved = new Set();
   const checked = new Set();
   const MAX_CACHE = 6000;
+  const t = (key, subs) => chrome.i18n.getMessage(key, subs) || key;
 
   // ---------------------------------------------------------------------------
   // Messaging
@@ -18,11 +19,11 @@
       try {
         chrome.runtime.sendMessage(message, (response) => {
           if (chrome.runtime.lastError) resolve({ ok: false, error: chrome.runtime.lastError.message });
-          else resolve(response || { ok: false, error: "No response" });
+          else resolve(response || { ok: false, error: t("noResponse") });
         });
       } catch (error) {
         // The extension was reloaded; this page's script is orphaned.
-        resolve({ ok: false, error: "Reload the page to reconnect Stash." });
+        resolve({ ok: false, error: t("reloadToReconnect") });
       }
     });
   }
@@ -141,8 +142,8 @@
     button.type = "button";
     button.className = "stash-btn";
     button.dataset.stashId = id;
-    button.setAttribute("aria-label", "Save to Stash");
-    button.title = "Save to Stash";
+    button.setAttribute("aria-label", t("saveToStash"));
+    button.title = t("saveToStash");
     button.innerHTML = `<span class="stash-btn-circle">${ICON}</span>`;
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -163,7 +164,7 @@
 
   function markSaved(button, isSaved) {
     button.dataset.saved = isSaved ? "true" : "false";
-    button.title = isSaved ? "Saved in Stash — click to remove" : "Save to Stash";
+    button.title = isSaved ? t("savedClickRemove") : t("saveToStash");
     button.setAttribute("aria-label", button.title);
   }
 
@@ -181,10 +182,10 @@
         if (!result.ok) throw result;
         saved.delete(id);
         buttonsFor(id).forEach((b) => markSaved(b, false));
-        toast("Removed from Stash");
+        toast(t("removed"));
       } else {
         const post = postFor(article);
-        if (!post) throw { error: "Couldn't read this post." };
+        if (!post) throw { error: t("cannotReadPost") };
         const result = await send({ type: "save", source: "x-button", items: [{ type: "tweet", tweet: post }], queueIfOffline: true });
         if (!result.ok && !result.queued) throw result;
         saved.add(id);
@@ -194,11 +195,11 @@
           void b.offsetWidth;
           b.classList.add("stash-pop");
         });
-        const who = post.author?.handle ? ` by @${post.author.handle}` : "";
-        toast(result.queued ? "Stash isn't running — saved for later" : `Saved post${who}`, result.queued ? "warn" : "ok");
+        const done = post.author?.handle ? t("savedPostBy", [post.author.handle]) : t("savedPost");
+        toast(result.queued ? t("savedForLater") : done, result.queued ? "warn" : "ok");
       }
     } catch (failure) {
-      toast(failure?.error || "Couldn't reach Stash", "error");
+      toast(failure?.error || t("cannotReach"), "error");
     } finally {
       delete button.dataset.busy;
     }
@@ -211,12 +212,12 @@
     if (!post) return;
     const result = await send({ type: "save", source: "x-bookmarks", items: [{ type: "tweet", tweet: post }], queueIfOffline: true });
     if (!result.ok && !result.queued) {
-      toast(result.error || "Couldn't reach Stash", "error");
+      toast(result.error || t("cannotReach"), "error");
       return;
     }
     saved.add(id);
     buttonsFor(id).forEach((b) => markSaved(b, true));
-    toast(result.queued ? "Stash isn't running — saved for later" : "Bookmark saved to Stash", result.queued ? "warn" : "ok");
+    toast(result.queued ? t("savedForLater") : t("bookmarkSaved"), result.queued ? "warn" : "ok");
   }
 
   // Ask the app which visible posts are already saved, in batches.
@@ -262,9 +263,9 @@
   let toastTimer = null;
   const DOWNLOAD_URL = "https://stash.grasco.dev/";
   function toast(text, kind = "ok", action = null) {
-    // ponytail: matches the offline texts by wording, switch to a flag if more offline texts appear
-    if (!action && /isn't running|Couldn't reach/.test(text)) {
-      action = { label: "Download Stash", run: () => window.open(DOWNLOAD_URL, "_blank", "noopener") };
+    // ponytail: matches the offline texts by message, switch to a flag if more offline texts appear
+    if (!action && ["savedForLater", "cannotReach", "importOffline", "appOffline"].some((k) => t(k) === text)) {
+      action = { label: t("downloadStash"), run: () => window.open(DOWNLOAD_URL, "_blank", "noopener") };
     }
     if (!toastHost) {
       toastHost = document.createElement("div");
@@ -353,7 +354,7 @@
       const status = await send({ type: "status" });
       if (!status.ok) {
         this.state = "error";
-        this.message = "Stash isn't running. Open the app, then try again.";
+        this.message = t("importOffline");
         this.render();
         return;
       }
@@ -442,11 +443,11 @@
           chrome.storage.local.set({ bookmarksScanned: true });
         }
         this.state = "done";
-        this.message = `Saved ${this.sent.size.toLocaleString()} bookmarks${this.added ? ` · ${this.added.toLocaleString()} new` : ""}.`;
+        this.message = this.added ? t("importDoneNew", [this.sent.size.toLocaleString(), this.added.toLocaleString()]) : t("importDone", [this.sent.size.toLocaleString()]);
         send({ type: "progress", done: true, count: this.sent.size });
       } catch (error) {
         this.state = "error";
-        this.message = `${error.message || error}. ${this.sent.size} bookmarks were saved before it stopped.`;
+        this.message = t("importFailed", [String(error.message || error), this.sent.size.toLocaleString()]);
       }
       this.render();
     },
@@ -475,26 +476,26 @@
       let body = "";
       let actions = "";
       if (this.state === "idle" && this.scanned) {
-        body = `<p>Save bookmarks added since the last import. Stash stops when it reaches posts it already has.</p>`;
-        actions = `<button class="stash-primary" data-act="start">Import new bookmarks</button><button data-act="full">Rescan all</button>`;
+        body = `<p>${escapeHTML(t("importIncrementalHint"))}</p>`;
+        actions = `<button class="stash-primary" data-act="start">${escapeHTML(t("importNew"))}</button><button data-act="full">${escapeHTML(t("rescanAll"))}</button>`;
       } else if (this.state === "idle") {
-        body = `<p>Save every bookmark to Stash on your Mac, with full text and images, ready for semantic search.</p>`;
-        actions = `<button class="stash-primary" data-act="start">Import all bookmarks</button>`;
+        body = `<p>${escapeHTML(t("importFullHint"))}</p>`;
+        actions = `<button class="stash-primary" data-act="start">${escapeHTML(t("importAll"))}</button>`;
       } else if (this.state === "running" || this.state === "stopping") {
-        body = `<p class="stash-count"><strong>${count.toLocaleString()}</strong> saved <span>· ${found.toLocaleString()} found · scrolling…</span></p><div class="stash-bar"><i></i></div>`;
-        actions = `<button data-act="stop">${this.state === "stopping" ? "Stopping…" : "Stop"}</button>`;
+        body = `<p class="stash-count"><strong>${count.toLocaleString()}</strong> <span>${escapeHTML(t("importProgress", [found.toLocaleString()]))}</span></p><div class="stash-bar"><i></i></div>`;
+        actions = `<button data-act="stop">${escapeHTML(this.state === "stopping" ? t("stopping") : t("stop"))}</button>`;
       } else if (this.state === "done") {
         body = `<p>${escapeHTML(this.message)}</p>`;
-        actions = `<button class="stash-primary" data-act="open">Open Stash</button><button data-act="start">Run again</button>`;
+        actions = `<button class="stash-primary" data-act="open">${escapeHTML(t("openStash"))}</button><button data-act="start">${escapeHTML(t("runAgain"))}</button>`;
       } else {
         body = `<p class="stash-error">${escapeHTML(this.message)}</p>`;
-        actions = `<button class="stash-primary" data-act="start">Try again</button><button data-act="launch">Open Stash</button><button data-act="download">Download Stash</button>`;
+        actions = `<button class="stash-primary" data-act="start">${escapeHTML(t("tryAgain"))}</button><button data-act="launch">${escapeHTML(t("openStash"))}</button><button data-act="download">${escapeHTML(t("downloadStash"))}</button>`;
       }
       this.panel.innerHTML = `
         <div class="stash-panel-head">
           <span class="stash-logo">${ICON}</span>
-          <div><strong>Stash</strong><small>Bookmarks import</small></div>
-          <button class="stash-close" data-act="close" aria-label="Close">×</button>
+          <div><strong>Stash</strong><small>${escapeHTML(t("importTitle"))}</small></div>
+          <button class="stash-close" data-act="close" aria-label="${escapeHTML(t("close"))}">×</button>
         </div>
         ${body}
         <div class="stash-actions">${actions}</div>`;

@@ -69,9 +69,9 @@ enum EngineError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .webGPUUnavailable: "WebGPU isn't available, which EmbeddingGemma 2 needs. Using Apple's built-in embeddings instead."
-        case .modelUnavailable: "The embedding model isn't available on this Mac."
-        case .imagesUnsupported: "This search engine can't read images."
+        case .webGPUUnavailable: String(localized: "WebGPU isn't available, which EmbeddingGemma 2 needs. Using Apple's built-in embeddings instead.", comment: "Search settings notice when the app falls back to Apple embeddings")
+        case .modelUnavailable: String(localized: "The embedding model isn't available on this Mac.", comment: "Search engine error shown in search settings")
+        case .imagesUnsupported: String(localized: "This search engine can't read images.", comment: "Search engine error shown in the search bar")
         }
     }
 }
@@ -87,7 +87,7 @@ final class AppleSentenceEngine: EmbeddingEngine {
     var supportsImages: Bool { false }
 
     func prepare(progress: @escaping @MainActor (String, Double?) -> Void) async throws {
-        progress("Loading Apple embeddings", nil)
+        progress(String(localized: "Loading Apple embeddings", comment: "Search engine progress label while Apple embeddings load"), nil)
         let loaded = await Task.detached(priority: .userInitiated) {
             NLEmbedding.sentenceEmbedding(for: .english).map(SendableEmbedding.init)
         }.value

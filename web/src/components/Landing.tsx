@@ -4,12 +4,12 @@ import { posts } from '#/data/posts'
 import { SearchIcon, SearchMode } from '#/components/SearchMode'
 import { FooterWordmark } from '#/components/FooterWordmark'
 import { initAnalytics, track } from '#/lib/analytics'
-
-const TYPED = ['meaning.', 'color.', 'features.']
+import { makeT, type Strings } from '#/i18n/t'
 
 const brand = (file: string) => <img src={`/brands/${file}.svg`} alt="" loading="lazy" className="h-5 w-5 opacity-75" />
 const SOURCES: { name: string; icon: React.ReactNode }[] = [
-  { name: 'X bookmarks', icon: brand('x') },
+  // ponytail: brand names pass through t() unchanged because they have no key
+  { name: 'source.xBookmarks', icon: brand('x') },
   { name: 'Chrome', icon: brand('googlechrome') },
   {
     name: 'Edge',
@@ -24,7 +24,7 @@ const SOURCES: { name: string; icon: React.ReactNode }[] = [
   { name: 'Opera', icon: brand('opera') },
   { name: 'Vivaldi', icon: brand('vivaldi') },
   {
-    name: 'Screenshots',
+    name: 'source.screenshots',
     icon: (
       <span className="flex gap-1">
         {['⌃', '⇧', '4'].map((k) => (
@@ -34,7 +34,7 @@ const SOURCES: { name: string; icon: React.ReactNode }[] = [
     ),
   },
   {
-    name: 'Notes',
+    name: 'source.notes',
     icon: (
       <svg className="h-5 w-5 fill-none stroke-[#3F3F46] stroke-[1.6] [stroke-linecap:round] [stroke-linejoin:round]" viewBox="0 0 20 20" aria-hidden>
         <path d="M17.5 7.5a2 2 0 0 0-.59-1.42l-3-3A2 2 0 0 0 12.5 2.5H4.17c-.92 0-1.67.75-1.67 1.67v11.66c0 .92.75 1.67 1.67 1.67h11.66c.92 0 1.67-.75 1.67-1.67ZM12.5 2.5v4.17c0 .46.37.83.83.83h4.17" />
@@ -51,7 +51,10 @@ const EXTENSION = 'https://chromewebstore.google.com/detail/stash-%E2%80%94-save
 
 export type Latest = { title: string; href: string }
 
-export default function Landing({ latest }: { latest?: Latest }) {
+export default function Landing({ latest, strings, languages }: { latest?: Latest; strings: Strings; languages: { name: string; href: string; lang: string; current: boolean }[] }) {
+  const t = makeT(strings)
+  const TYPED = t('hero.typed').split('|')
+  const [findBefore, findAfter = ''] = t('hero.find').split('{word}')
   const [open, setOpen] = useState(false)
   const [from, setFrom] = useState<DOMRect | null>(null)
   const [query, setQuery] = useState('')
@@ -110,7 +113,7 @@ export default function Landing({ latest }: { latest?: Latest }) {
 
   return (
     <div className="flex min-h-full w-full flex-col items-center overflow-x-clip bg-[#FBFBFA] text-[#0A0A0A]">
-      <SearchMode open={open} from={from} query={query} setQuery={setQuery} onClose={close} />
+      <SearchMode open={open} from={from} query={query} setQuery={setQuery} onClose={close} t={t} />
 
       <header data-where="header" className={`sticky top-0 z-40 flex w-full justify-center border-b backdrop-blur-md transition-colors duration-300 ${onSky ? 'border-white/15 bg-white/5 text-white' : 'border-[#E8E8E5] bg-[#FBFBFA]/85'}`}>
         <div className={`flex h-16 w-full max-w-[1120px] items-center justify-between border-x px-6 ${onSky ? 'border-white/15' : 'border-[#E8E8E5]'}`}>
@@ -119,16 +122,16 @@ export default function Landing({ latest }: { latest?: Latest }) {
             <img src="/wordmark.webp" alt="Stash" width={83} height={22} className={`h-[22px] w-auto transition-[filter] duration-300 ${onSky ? '' : 'invert'}`} />
           </a>
           <nav className={`hidden items-center gap-8 text-[14px] md:flex ${onSky ? 'text-white/80' : 'text-[#52525B]'}`}>
-            <a href="#product">Product</a>
-            <a href="#how">How it works</a>
-            <a href="/privacy.html">Privacy</a>
-            <a href="/blog/">Blog</a>
-            <a href="#pricing">Pricing</a>
-            <a href={CHANGELOG}>Changelog</a>
+            <a href="#product">{t('nav.product')}</a>
+            <a href="#how">{t('nav.how')}</a>
+            <a href="/privacy.html">{t('nav.privacy')}</a>
+            <a href="/blog/">{t('nav.blog')}</a>
+            <a href="#pricing">{t('nav.pricing')}</a>
+            <a href={CHANGELOG}>{t('nav.changelog')}</a>
           </nav>
           <a href={DOWNLOAD} className={`inline-flex h-9 items-center gap-2 rounded-full px-4 ${onSky ? 'bg-white text-[#0A0A0A]' : 'bg-[#0A0A0A] text-white'}`}>
             <AppleIcon className="h-4 w-4 -mt-0.5" />
-            <span className="text-[14px] font-medium">Download</span>
+            <span className="text-[14px] font-medium">{t('nav.download')}</span>
           </a>
         </div>
       </header>
@@ -138,26 +141,27 @@ export default function Landing({ latest }: { latest?: Latest }) {
       {/* Hero */}
       <section data-where="hero" className="relative mx-auto flex w-full max-w-[1120px] flex-col items-center border-x border-white/15 px-4 pt-20">
         <a href={latest?.href ?? '#how'} className="inline-flex h-8 max-w-full items-center gap-2.5 rounded-full border border-white/30 bg-white/15 pl-1.5 pr-3.5 backdrop-blur-md">
-          <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-white px-2 text-[11px] font-medium text-[#0A0A0A]">{latest ? 'Latest' : 'New'}</span>
-          <span className="truncate text-[13px] text-white/90">{latest?.title ?? 'Semantic search now runs on WebGPU'}</span>
+          <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-white px-2 text-[11px] font-medium text-[#0A0A0A]">{latest ? t('hero.latest') : t('hero.new')}</span>
+          <span className="truncate text-[13px] text-white/90">{latest?.title ?? t('hero.news')}</span>
           <Arrow />
         </a>
         <h1 data-anim="headline" className="mt-7 text-center [text-shadow:0_2px_30px_rgba(10,30,90,0.25)] text-[52px] font-medium leading-[0.98] tracking-[-0.03em] md:text-[88px]">
-          Save anything.
+          {t('hero.line1')}
           <br />
-          <span className="text-white/60">Find it by </span>
-          <span data-typewriter className="font-['Instrument_Serif'] font-normal italic tracking-[-0.01em]">meaning.</span>
+          {findBefore && <span className="text-white/60">{findBefore}</span>}
+          <span data-typewriter className="font-['Instrument_Serif'] font-normal italic tracking-[-0.01em]">{TYPED[0]}</span>
+          {findAfter && <span className="text-white/60">{findAfter}</span>}
         </h1>
         <p className="mt-7 max-w-[540px] text-center text-[19px] leading-[1.55] text-white/80">
-          Every post, page and screenshot you keep, in one library on your Mac. Describe what you remember and Stash finds it.
+          {t('hero.sub')}
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a href={DOWNLOAD} className="inline-flex h-12 items-center gap-2.5 rounded-full bg-white px-6 text-[#0A0A0A] shadow-[0_8px_24px_-8px_rgba(10,30,80,0.5)]">
             <AppleIcon className="h-[18px] w-[18px] -mt-0.5" />
-            <span className="text-[15px] font-medium">Download for Mac</span>
+            <span className="text-[15px] font-medium">{t('cta.downloadMac')}</span>
           </a>
         </div>
-        <p className="mt-5 text-[13px] text-white/60">macOS 26+ · Apple Silicon · Free · <a href={EXTENSION} className="underline hover:text-white">Get the Chrome extension</a></p>
+        <p className="mt-5 text-[13px] text-white/60">{t('hero.requirements')} · <a href={EXTENSION} className="underline hover:text-white">{t('hero.extension')}</a></p>
 
       </section>
 
@@ -172,7 +176,7 @@ export default function Landing({ latest }: { latest?: Latest }) {
             className="relative z-10 mx-auto mb-10 flex h-[68px] w-[min(660px,100%)] items-center gap-3.5 rounded-full border border-white/70 bg-white px-6 text-left shadow-[0_24px_60px_-20px_rgba(10,30,80,0.45),0_2px_6px_rgba(0,0,0,0.06)]"
           >
             <SearchIcon />
-            <span className="truncate text-[19px]">{query || 'that latte with the heart in a blue cup'}</span>
+            <span className="truncate text-[19px]">{query || t('search.pillExample')}</span>
             <span data-anim="caret" className="h-6 w-[2px] rounded-full bg-[#0A0A0A]" />
             <span className="flex-1" />
             <span className="hidden h-7 items-center rounded-md border border-[#E4E4E1] bg-[#FBFBFA] px-2.5 text-[12px] font-medium text-[#71717A] sm:inline-flex">⌘ K</span>
@@ -186,7 +190,7 @@ export default function Landing({ latest }: { latest?: Latest }) {
               loop
               playsInline
               poster="/hero-poster.webp"
-              aria-label="The Stash library: saved posts on the globe view, with filters and search by meaning"
+              aria-label={t('hero.videoLabel')}
               className="block aspect-[1920/1230] w-full rounded-[20px] bg-black ring-1 ring-black/40"
               width={1920}
               height={1230}
@@ -202,19 +206,19 @@ export default function Landing({ latest }: { latest?: Latest }) {
 
       <section id="product" className="relative grid w-full max-w-[1120px] scroll-mt-16 grid-cols-1 border-x border-t border-[#E8E8E5] md:grid-cols-3">
         <Corners />
-        <Feature n="Globe view" text="Every snip on one sphere. Spin it, filter it, fall into it." />
-        <Feature n="Instant filters" text="Posts, screenshots, notes and links — one keystroke apart." border />
-        <Feature n="EmbeddingGemma" text="A local model reads what you save. Nothing leaves the Mac." border />
+        <Feature n={t('feature.globe.title')} text={t('feature.globe.text')} />
+        <Feature n={t('feature.filters.title')} text={t('feature.filters.text')} border />
+        <Feature n={t('feature.model.title')} text={t('feature.model.text')} border />
       </section>
 
       <section className="relative w-full max-w-[1120px] border-x border-t border-[#E8E8E5]">
         <Corners />
-        <p className="px-10 pb-6 pt-8 text-center text-[13px] text-[#71717A]">Pulls from the places good ideas already live — X, every Chromium browser, your screen</p>
+        <p className="px-10 pb-6 pt-8 text-center text-[13px] text-[#71717A]">{t('sources.lead')}</p>
         <div className="grid grid-cols-3 border-t border-[#E8E8E5] md:grid-cols-9">
           {SOURCES.map(({ name, icon }, i) => (
             <div key={name} className={`flex h-[96px] flex-col items-center justify-center gap-2 border-[#E8E8E5] text-[13px] font-medium text-[#3F3F46] ${i % 3 ? 'border-l' : ''} ${i >= 3 ? 'border-t md:border-t-0' : ''} ${i % 3 === 0 && i ? 'md:border-l' : ''}`}>
               {icon}
-              {name}
+              {t(name)}
             </div>
           ))}
         </div>
@@ -224,32 +228,32 @@ export default function Landing({ latest }: { latest?: Latest }) {
         <Corners />
         <div className="grid grid-cols-1 gap-10 px-10 pb-16 pt-24 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <Eyebrow>How it works</Eyebrow>
-            <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">Your second brain,<br />without the filing.</h2>
+            <Eyebrow>{t('how.eyebrow')}</Eyebrow>
+            <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">{t('how.title1')}<br />{t('how.title2')}</h2>
           </div>
-          <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">Folders and tags take work, so most bookmarks never get looked at again. Stash reads each snip as you save it, so the thing you half-remember turns up in milliseconds.</p>
+          <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">{t('how.text')}</p>
         </div>
         <div className="grid grid-cols-1 border-t border-[#E8E8E5] md:grid-cols-3">
-          <Step title="Capture in one keystroke" text="Save a post, a page or a region of your screen from anywhere. X bookmarks sync on their own.">
+          <Step title={t('how.capture.title')} text={t('how.capture.text')}>
             <div className="flex h-[180px] items-center justify-center gap-2.5 rounded-[14px] border border-[#E8E8E5] bg-white">
               <Key>⌃</Key><Key delay={180}>⇧</Key><Key dark delay={360}>4</Key>
             </div>
           </Step>
-          <Step border title="Search by meaning" text="Describe it the way you remember it. Ranked results in about 2 ms, even with no exact keyword.">
+          <Step border title={t('how.search.title')} text={t('how.search.text')}>
             <div className="flex h-[180px] flex-col gap-3 rounded-[14px] border border-[#E8E8E5] bg-white p-4">
-              <div className="flex h-9 items-center gap-2 rounded-full border border-[#E4E4E1] px-3"><SearchIcon className="h-3.5 w-3.5" /><span className="text-[13px]">latte with a heart</span></div>
-              <Bar label="Blue cup" pct={71} color="#0A0A0A" delay={0} />
-              <Bar label="Cappuccino" pct={54} color="#A1A1AA" delay={150} />
-              <Bar label="Bakery" pct={38} color="#D4D4D8" delay={300} />
+              <div className="flex h-9 items-center gap-2 rounded-full border border-[#E4E4E1] px-3"><SearchIcon className="h-3.5 w-3.5" /><span className="text-[13px]">{t('how.search.query')}</span></div>
+              <Bar label={t('how.search.bar1')} pct={71} color="#0A0A0A" delay={0} />
+              <Bar label={t('how.search.bar2')} pct={54} color="#A1A1AA" delay={150} />
+              <Bar label={t('how.search.bar3')} pct={38} color="#D4D4D8" delay={300} />
             </div>
           </Step>
-          <Step border title="Private by default" text="Embeddings run locally on Apple Silicon. Your library stays yours — no account needed.">
+          <Step border title={t('how.private.title')} text={t('how.private.text')}>
             <div className="flex h-[180px] flex-col items-center justify-center gap-4 rounded-[14px] border border-[#E8E8E5] bg-white">
               <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#E4E4E1]">
                 <span className="absolute inset-0 rounded-full border border-[#16A34A]/40 opacity-0 motion-safe:animate-[ring_2.8s_ease-out_infinite]" />
                 <LockIcon />
               </div>
-              <div className="inline-flex h-7 items-center gap-2 rounded-full bg-[#F4F4F2] px-3"><span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] motion-safe:animate-pulse" /><span className="text-[12px] font-medium text-[#3F3F46]">On-device · no account</span></div>
+              <div className="inline-flex h-7 items-center gap-2 rounded-full bg-[#F4F4F2] px-3"><span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] motion-safe:animate-pulse" /><span className="text-[12px] font-medium text-[#3F3F46]">{t('how.private.badge')}</span></div>
             </div>
           </Step>
         </div>
@@ -262,72 +266,72 @@ export default function Landing({ latest }: { latest?: Latest }) {
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex flex-col gap-5 px-10 pb-10 pt-14">
-            <Eyebrow>The reader</Eyebrow>
-            <h2 className="text-[32px] font-medium leading-[1.12] tracking-[-0.02em]">Every snip opens exactly as you saved it.</h2>
+            <Eyebrow>{t('reader.eyebrow')}</Eyebrow>
+            <h2 className="text-[32px] font-medium leading-[1.12] tracking-[-0.02em]">{t('reader.title')}</h2>
           </div>
-          <Point lead="Full-fidelity posts." text="Media, threads and replies, archived even if the original gets deleted." />
-          <Point lead="Arrow through results." text="← → moves through every match without losing your place." />
-          <Point lead="Share back out." text="Post, copy or open the source in one click." />
+          <Point lead={t('reader.p1.lead')} text={t('reader.p1.text')} />
+          <Point lead={t('reader.p2.lead')} text={t('reader.p2.text')} />
+          <Point lead={t('reader.p3.lead')} text={t('reader.p3.text')} />
         </div>
       </section>
 
       {/* TODO(owner): placeholder numbers from the design — replace with real ones before launch. */}
       <section className="relative grid w-full max-w-[1120px] grid-cols-2 border-x border-t border-[#E8E8E5] md:grid-cols-4">
         <Corners />
-        <Stat v="2 ms" l="Median search time" />
-        <Stat v="0 bytes" l="Sent to a server" border />
-        <Stat v="1.2M" l="Snips saved in beta" border />
-        <Stat v="4.9★" l="From early users" border />
+        <Stat v="2 ms" l={t('stat.search')} />
+        <Stat v={t('stat.bytes')} l={t('stat.server')} border />
+        <Stat v="1.2M" l={t('stat.snips')} border />
+        <Stat v="4.9★" l={t('stat.users')} border />
       </section>
 
       <section id="pricing" data-where="pricing" className="relative w-full max-w-[1120px] scroll-mt-16 border-x border-t border-[#E8E8E5]">
         <Corners />
         <div className="grid grid-cols-1 gap-10 px-10 pb-14 pt-24 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <Eyebrow>Pricing</Eyebrow>
-            <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">Free. All of it.</h2>
+            <Eyebrow>{t('pricing.eyebrow')}</Eyebrow>
+            <h2 className="text-[48px] font-medium leading-[1.05] tracking-[-0.02em]">{t('pricing.title')}</h2>
           </div>
-          <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">The Mac app and the browser extension are free, with no snip limit and no account. Cloud sync and mobile apps are on the way.</p>
+          <p className="self-end text-[17px] leading-[1.6] text-[#52525B]">{t('pricing.text')}</p>
         </div>
         <div className="grid grid-cols-1 border-t border-[#E8E8E5] md:grid-cols-3">
-          <Plan dark badge="Available now" name="Mac + extension" price="Free" sub="Everything, on your Mac" cta="Download for Mac" items={['Unlimited snips', 'Search by meaning, on-device', 'Globe view and filters', 'X bookmark import and sync']} />
-          <Plan border soon badge="Coming soon" name="Cloud" price="Soon" sub="Your library on every device" cta="Coming soon" items={['End-to-end encrypted sync', 'Backups you control', 'Search across devices']} />
-          <Plan border soon badge="Coming soon" name="Mobile" price="Soon" sub="iPhone and iPad" cta="Coming soon" items={['Save from the share sheet', 'The same search by meaning', 'Works offline']} />
+          <Plan dark badge={t('pricing.available')} name={t('pricing.mac.name')} price={t('pricing.free')} sub={t('pricing.mac.sub')} cta={t('cta.downloadMac')} items={[t('pricing.mac.i1'), t('pricing.mac.i2'), t('pricing.mac.i3'), t('pricing.mac.i4')]} />
+          <Plan border soon badge={t('pricing.soon')} name={t('pricing.cloud.name')} price={t('pricing.soonPrice')} sub={t('pricing.cloud.sub')} cta={t('pricing.soon')} items={[t('pricing.cloud.i1'), t('pricing.cloud.i2'), t('pricing.cloud.i3')]} />
+          <Plan border soon badge={t('pricing.soon')} name={t('pricing.mobile.name')} price={t('pricing.soonPrice')} sub={t('pricing.mobile.sub')} cta={t('pricing.soon')} items={[t('pricing.mobile.i1'), t('pricing.mobile.i2'), t('pricing.mobile.i3')]} />
         </div>
       </section>
 
       <section className="relative flex w-full max-w-[1120px] flex-col border-x border-t border-[#E8E8E5] md:flex-row">
         <Corners />
         <div className="flex shrink-0 flex-col gap-5 border-[#E8E8E5] px-10 pb-10 pt-24 md:w-[400px] md:border-r">
-          <Eyebrow>FAQ</Eyebrow>
-          <h2 className="text-[40px] font-medium leading-[1.08] tracking-[-0.02em]">Questions, answered.</h2>
-          <p className="text-[15px] leading-[1.6] text-[#71717A]">Something else? Open an issue on <a className="text-[#0A0A0A] underline" href={SOURCE}>GitHub</a>.</p>
+          <Eyebrow>{t('faq.eyebrow')}</Eyebrow>
+          <h2 className="text-[40px] font-medium leading-[1.08] tracking-[-0.02em]">{t('faq.title')}</h2>
+          <p className="text-[15px] leading-[1.6] text-[#71717A]">{t('faq.more').split('{github}').flatMap((part, i) => (i ? [<a key="gh" className="text-[#0A0A0A] underline" href={SOURCE}>GitHub</a>, part] : [part]))}</p>
         </div>
         <div className="flex min-w-0 flex-1 flex-col py-14">
-          <Faq open q="Does anything I save leave my Mac?" a="No. Indexing and search run on your Mac with EmbeddingGemma on WebGPU. The app downloads the model once; your snips are never uploaded." />
-          <Faq q="How does X bookmark sync work?" a="The browser extension scrolls your bookmarks once, then only picks up new ones. Bookmarking a post on X also saves it to Stash." />
-          <Faq q="Can I import from Raindrop or Pocket?" a="Import files from the app's Import menu; dedicated importers are on the list." />
-          <Faq q="Which Macs are supported?" a="Apple Silicon Macs running macOS 26 or later." />
-          <Faq last q="Is there an iPhone app?" a="Coming soon, together with optional cloud sync. The Mac app and the browser extension come first." />
+          <Faq open q={t('faq.q1')} a={t('faq.a1')} />
+          <Faq q={t('faq.q2')} a={t('faq.a2')} />
+          <Faq q={t('faq.q3')} a={t('faq.a3')} />
+          <Faq q={t('faq.q4')} a={t('faq.a4')} />
+          <Faq last q={t('faq.q5')} a={t('faq.a5')} />
         </div>
       </section>
 
       <section data-where="cta" className="relative flex w-full max-w-[1120px] flex-col items-center border-x border-t border-[#E8E8E5] px-10 py-28">
         <Corners />
         <img src="/icon-128.png" alt="" loading="lazy" className="h-[72px] w-[72px] rounded-[17px] shadow-[0_20px_40px_-14px_rgba(0,0,0,0.5)]" />
-        <h2 className="mt-10 text-center text-[44px] font-medium leading-[1.02] tracking-[-0.02em] md:text-[64px]">Stop losing the good stuff.</h2>
-        <p className="mt-5 text-[18px] text-[#71717A]">Free download. No account, no limits.</p>
+        <h2 className="mt-10 text-center text-[44px] font-medium leading-[1.02] tracking-[-0.02em] md:text-[64px]">{t('final.title')}</h2>
+        <p className="mt-5 text-[18px] text-[#71717A]">{t('final.sub')}</p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <a href={DOWNLOAD} className="inline-flex h-12 items-center gap-2.5 rounded-full bg-[#0A0A0A] px-6 text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)]">
             <AppleIcon className="h-[18px] w-[18px] -mt-0.5" />
-            <span className="text-[15px] font-medium text-white">Download for Mac</span>
+            <span className="text-[15px] font-medium text-white">{t('cta.downloadMac')}</span>
           </a>
           <a href={EXTENSION} className="inline-flex h-12 items-center gap-2.5 rounded-full border border-[#E4E4E1] bg-white px-6">
             {brand('googlechrome')}
-            <span className="text-[15px] font-medium">Add to Chrome</span>
+            <span className="text-[15px] font-medium">{t('final.chrome')}</span>
           </a>
           <a href={SOURCE} className="inline-flex h-12 items-center gap-2 rounded-full border border-[#E4E4E1] bg-white px-6">
-            <span className="text-[15px] font-medium">Read the changelog</span>
+            <span className="text-[15px] font-medium">{t('final.changelog')}</span>
             <Arrow up />
           </a>
         </div>
@@ -341,16 +345,22 @@ export default function Landing({ latest }: { latest?: Latest }) {
                 <img src="/icon-128.png" alt="" loading="lazy" className="h-7 w-7 rounded-[7px]" />
                 <span className="text-[17px] font-semibold tracking-[-0.01em]">Stash</span>
               </div>
-              <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#71717A]">A quiet library for everything worth keeping.</p>
+              <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#71717A]">{t('footer.tagline')}</p>
             </div>
-            <FooterCol t="Product" l={[['Features', '#product'], ['Pricing', '#pricing'], ['Chrome extension', EXTENSION], ['Changelog', CHANGELOG]]} />
-            <FooterCol t="Company" l={[['Blog', '/blog/'], ['Privacy', '/privacy.html'], ['Terms', '/terms.html'], ['Source', SOURCE]]} />
-            <FooterCol t="Follow" l={[['GitHub', SOURCE]]} />
+            <FooterCol t={t('footer.product')} l={[[t('footer.features'), '#product'], [t('nav.pricing'), '#pricing'], [t('footer.extension'), EXTENSION], [t('nav.changelog'), CHANGELOG]]} />
+            <FooterCol t={t('footer.company')} l={[[t('nav.blog'), '/blog/'], [t('nav.privacy'), '/privacy.html'], [t('footer.terms'), '/terms.html'], [t('footer.source'), SOURCE]]} />
+            <FooterCol t={t('footer.follow')} l={[['GitHub', SOURCE]]} />
           </div>
           <div className="flex items-center justify-between border-t border-[#E8E8E5] px-10 py-5">
             <span className="text-[13px] text-[#71717A]">© 2026 Stash</span>
-            <span className="text-[13px] text-[#71717A]">Sample posts are fictional · photos from Pexels</span>
+            <span className="text-[13px] text-[#71717A]">{t('footer.note')}</span>
           </div>
+          {/* Plain links: crawlers follow them and the switcher works without JS. */}
+          <nav aria-label={t('footer.language')} className="flex flex-wrap gap-x-4 gap-y-2 border-t border-[#E8E8E5] px-10 py-5 text-[13px] text-[#71717A]">
+            {languages.map((l) => (
+              <a key={l.lang} href={l.href} hrefLang={l.lang} lang={l.lang} aria-current={l.current ? 'page' : undefined} className={l.current ? 'font-medium text-[#0A0A0A]' : 'hover:text-[#0A0A0A]'}>{l.name}</a>
+            ))}
+          </nav>
           <FooterWordmark />
         </div>
       </footer>

@@ -12,10 +12,10 @@ struct ImportSummary: Sendable {
 
     var message: String {
         var parts: [String] = []
-        if added > 0 { parts.append("\(added) new") }
-        if updated > 0 { parts.append("\(updated) updated") }
-        if unchanged > 0 { parts.append("\(unchanged) already saved") }
-        return parts.isEmpty ? "Nothing to import" : parts.joined(separator: " · ")
+        if added > 0 { parts.append(String(localized: "\(added) new", comment: "Import summary item: count of new snips")) }
+        if updated > 0 { parts.append(String(localized: "\(updated) updated", comment: "Import summary item: count of updated snips")) }
+        if unchanged > 0 { parts.append(String(localized: "\(unchanged) already saved", comment: "Import summary item: count of snips that were already saved")) }
+        return parts.isEmpty ? String(localized: "Nothing to import", comment: "Import summary when no snip was found") : parts.joined(separator: " · ")
     }
 }
 

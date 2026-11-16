@@ -63,7 +63,8 @@ struct MenuBarPanel: View {
 
     private var statusText: String {
         let count = model.library.snips.count
-        return "\(count.formatted()) snips · \(model.index.isReady ? model.index.engineName : "keyword search")"
+        let engine = model.index.isReady ? model.index.engineName : String(localized: "keyword search", comment: "Menu bar panel status: search engine when semantic search is off")
+        return String(localized: "\(count.formatted()) snips · \(engine)", comment: "Menu bar panel status: snip count and search engine name")
     }
 
     private var searchField: some View {
@@ -143,7 +144,7 @@ struct MenuBarPanel: View {
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundStyle(Theme.ink)
                                 .lineLimit(1)
-                            Text("\(snip.kind.label) · \(RelativeDate.short(snip.savedAt))")
+                            Text("\(snip.kind.localizedLabel) · \(RelativeDate.short(snip.savedAt))")
                                 .font(.system(size: 11))
                                 .foregroundStyle(Theme.inkSecondary)
                         }
@@ -264,7 +265,7 @@ struct QuickNoteView: View {
     private func save() {
         let tagList = tags.split(whereSeparator: { $0 == "," || $0.isWhitespace }).map(String.init)
         if model.addNote(title: title, body: text, tags: tagList) != nil {
-            HUD.shared.show("Note saved", symbol: "checkmark.circle.fill")
+            HUD.shared.show(String(localized: "Note saved", comment: "HUD after a quick note is saved"), symbol: "checkmark.circle.fill")
         }
         onClose()
     }

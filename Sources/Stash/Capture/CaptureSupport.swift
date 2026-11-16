@@ -43,8 +43,8 @@ enum ScreenCapturer {
 
         var errorDescription: String? {
             switch self {
-            case .noDisplays: "No display could be captured."
-            case .windowGone: "That window is no longer available."
+            case .noDisplays: String(localized: "No display could be captured.", comment: "Capture error shown in a HUD")
+            case .windowGone: String(localized: "That window is no longer available.", comment: "Capture error shown in a HUD")
             }
         }
     }

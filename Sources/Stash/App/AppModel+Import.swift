@@ -57,10 +57,10 @@ extension AppModel {
         }
 
         if request.method == "OPTIONS" {
-            return LocalAPIAccess.isAllowedOrigin(origin) ? HTTPResponse(status: 204, headers: cors) : .error(403, "Origin not allowed")
+            return LocalAPIAccess.isAllowedOrigin(origin) ? HTTPResponse(status: 204, headers: cors) : .error(403, String(localized: "Origin not allowed", comment: "Error the local server sends to the browser extension, which shows it"))
         }
-        guard request.path.hasPrefix("/api/") else { return .error(404, "Not found") }
-        guard LocalAPIAccess.authorize(request) else { return .error(403, "Forbidden") }
+        guard request.path.hasPrefix("/api/") else { return .error(404, String(localized: "Not found", comment: "Error the local server sends to the browser extension, which shows it")) }
+        guard LocalAPIAccess.authorize(request) else { return .error(403, String(localized: "Forbidden", comment: "Error the local server sends to the browser extension, which shows it")) }
         noteExtensionContact()
 
         let body = request.jsonObject() as? [String: Any] ?? [:]
@@ -77,7 +77,7 @@ extension AppModel {
 
         case ("POST", "/api/snips"):
             guard let envelope = try? JSONDecoder().decode(ExtensionEnvelope.self, from: request.body) else {
-                return reply(.error(400, "Invalid payload"))
+                return reply(.error(400, String(localized: "Invalid payload", comment: "Error the local server sends to the browser extension, which shows it")))
             }
             let summary = await ingest(envelope)
             return reply(.json([
@@ -109,14 +109,14 @@ extension AppModel {
             if let done = body["done"] as? Bool, done {
                 setActivity(nil)
                 let count = body["count"] as? Int ?? 0
-                HUD.shared.show("Imported \(count) bookmarks from X", symbol: "bookmark.fill")
+                HUD.shared.show(String(localized: "Imported \(count) bookmarks from X", comment: "HUD after the extension imports X bookmarks; the argument is the count"), symbol: "bookmark.fill")
             } else if let count = body["count"] as? Int {
-                setActivity("Importing X bookmarks… \(count)")
+                setActivity(String(localized: "Importing X bookmarks… \(count)", comment: "Library caption while the extension imports X bookmarks; the argument is the count so far"))
             }
             return reply(.json(["ok": true]))
 
         default:
-            return reply(.error(404, "Not found"))
+            return reply(.error(404, String(localized: "Not found", comment: "Error the local server sends to the browser extension, which shows it")))
         }
     }
 
@@ -125,7 +125,7 @@ extension AppModel {
         guard let url = URL(string: "https://x.com/i/bookmarks#stash-import") else { return }
         NSWorkspace.shared.open(url)
         if lastExtensionContact == nil {
-            HUD.shared.show("Install the Stash browser extension to import bookmarks", symbol: "puzzlepiece.extension", duration: 4)
+            HUD.shared.show(String(localized: "Install the Stash browser extension to import bookmarks", comment: "HUD when the user imports X bookmarks without the extension"), symbol: "puzzlepiece.extension", duration: 4)
         }
     }
 
@@ -136,8 +136,8 @@ extension AppModel {
         panel.allowsMultipleSelection = true
         panel.canChooseDirectories = true
         panel.canChooseFiles = true
-        panel.message = "Choose an X archive (.zip or folder), a JSON or CSV export, browser bookmarks (.html), Markdown or images."
-        panel.prompt = "Import"
+        panel.message = String(localized: "Choose an X archive (.zip or folder), a JSON or CSV export, browser bookmarks (.html), Markdown or images.", comment: "Import open panel message")
+        panel.prompt = String(localized: "Import", comment: "Import open panel button")
         NSApp.activate()
         guard panel.runModal() == .OK else { return }
         let urls = panel.urls
@@ -145,7 +145,7 @@ extension AppModel {
     }
 
     func importURLs(_ urls: [URL]) async {
-        setActivity("Importing…")
+        setActivity(String(localized: "Importing…", comment: "Library caption while files are imported"))
         defer { setActivity(nil) }
         var outcome = ImportOutcome()
         var images: [URL] = []
@@ -175,7 +175,7 @@ extension AppModel {
             HUD.shared.show(summary.message, symbol: "tray.and.arrow.down.fill", duration: 3)
         } else {
             let alert = NSAlert()
-            alert.messageText = "Import finished: \(summary.message)"
+            alert.messageText = String(localized: "Import finished: \(summary.message)", comment: "Alert title after an import with warnings; the argument is the import summary")
             alert.informativeText = outcome.warnings.prefix(8).joined(separator: "\n")
             _ = alert.runModal()
         }
@@ -249,8 +249,8 @@ extension AppModel {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.canCreateDirectories = true
-        panel.prompt = "Export Here"
-        panel.message = "Choose where to create the export folder. Each snip becomes a Markdown file; images go in media/."
+        panel.prompt = String(localized: "Export Here", comment: "Markdown export open panel button")
+        panel.message = String(localized: "Choose where to create the export folder. Each snip becomes a Markdown file; images go in media/.", comment: "Markdown export open panel message")
         NSApp.activate()
         guard panel.runModal() == .OK, let base = panel.url else { return }
 
@@ -275,7 +275,7 @@ extension AppModel {
                 }
                 return written
             }.value
-            HUD.shared.show("Exported \(count) snips", symbol: "square.and.arrow.up.fill")
+            HUD.shared.show(String(localized: "Exported \(count) snips", comment: "HUD after an export; the argument is the snip count"), symbol: "square.and.arrow.up.fill")
             NSWorkspace.shared.activateFileViewerSelecting([folder])
         }
     }
@@ -288,9 +288,9 @@ extension AppModel {
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do {
             try SnipCoding.exportEncoder().encode(snips).write(to: url, options: .atomic)
-            HUD.shared.show("Exported \(snips.count) snips", symbol: "square.and.arrow.up.fill")
+            HUD.shared.show(String(localized: "Exported \(snips.count) snips", comment: "HUD after an export; the argument is the snip count"), symbol: "square.and.arrow.up.fill")
         } catch {
-            HUD.shared.error("Export failed: \(error.localizedDescription)")
+            HUD.shared.error(String(localized: "Export failed: \(error.localizedDescription)", comment: "HUD error; the argument is the reason"))
         }
     }
 }

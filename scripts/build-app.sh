@@ -36,6 +36,9 @@ if [ -n "${BUILD_NUMBER:-}" ]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$APP/Contents/Info.plist"
 fi
 cp -R Sources/Stash/Resources/. "$APP/Contents/Resources/"
+# The String Catalog becomes <lang>.lproj/Localizable.strings; SwiftPM does not compile it for us.
+rm -f "$APP/Contents/Resources/Localizable.xcstrings"
+xcrun xcstringstool compile --output-directory "$APP/Contents/Resources" Sources/Stash/Resources/Localizable.xcstrings
 # Ship the browser extension inside the app so "Show Extension Folder" works.
 rsync -a --exclude tests --exclude node_modules --exclude '*.md' Extension/ "$APP/Contents/Resources/ChromeExtension/"
 

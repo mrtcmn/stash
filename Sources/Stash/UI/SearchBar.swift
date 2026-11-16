@@ -33,10 +33,9 @@ struct SearchBar: View {
                     }
                 } else if let similar = search.similarTo, let snip = model.library.snip(similar) {
                     HStack(spacing: 6) {
-                        Text("More like")
+                        // One sentence, so translators can move the title.
+                        Text("More like “\(Text(verbatim: String(snip.displayTitle.prefix(40))).foregroundStyle(Theme.ink))”")
                             .foregroundStyle(Theme.inkSecondary)
-                        Text("“\(snip.displayTitle.prefix(40))”")
-                            .foregroundStyle(Theme.ink)
                             .lineLimit(1)
                         Spacer()
                     }
@@ -79,8 +78,10 @@ struct SearchBar: View {
     }
 
     private var placeholder: String {
-        if model.library.snips.isEmpty { return "Search your snips" }
-        return model.index.isReady ? "Search by meaning — “charts about growth”, “funny cats”…" : "Search posts, screenshots and notes"
+        if model.library.snips.isEmpty { return String(localized: "Search your snips", comment: "Search field placeholder when the library is empty") }
+        return model.index.isReady
+            ? String(localized: "Search by meaning — “charts about growth”, “funny cats”…", comment: "Search field placeholder when semantic search is ready")
+            : String(localized: "Search posts, screenshots and notes", comment: "Search field placeholder for keyword search")
     }
 
     @ViewBuilder
@@ -102,7 +103,7 @@ struct SearchBar: View {
                     if let ms = search.elapsedMilliseconds {
                         Text("\(Int(ms.rounded())) ms").monospacedDigit()
                     }
-                    Text(search.usedSemantic ? model.index.engineName : "keywords")
+                    Text(search.usedSemantic ? model.index.engineName : String(localized: "keywords", comment: "Search caption: the results came from keyword search"))
                     Button("Clear") { search.clear() }
                         .buttonStyle(.plain)
                         .underline()
@@ -116,7 +117,9 @@ struct SearchBar: View {
             } else if model.index.isIndexing, model.index.pendingCount > 0 {
                 HStack(spacing: 8) {
                     ProgressRing(progress: nil, size: 12)
-                    Text("Indexing \(model.index.pendingCount) snip\(model.index.pendingCount == 1 ? "" : "s") with \(model.index.engineName)…")
+                    Text(model.index.pendingCount == 1
+                         ? String(localized: "Indexing 1 snip with \(model.index.engineName)…", comment: "Search caption: one snip is indexed; the argument is the engine name")
+                         : String(localized: "Indexing \(model.index.pendingCount) snips with \(model.index.engineName)…", comment: "Search caption: snips are indexed; the arguments are the count and the engine name"))
                 }
             } else if case .preparing(let label, let progress) = model.index.state {
                 HStack(spacing: 8) {
@@ -133,11 +136,12 @@ struct SearchBar: View {
 
     private var resultSummary: String {
         let count = model.settings.viewMode == .grid ? search.relevantItems.count : search.items.count
-        if count == 0 { return "No results" }
-        return "\(count) result\(count == 1 ? "" : "s")"
+        if count == 0 { return String(localized: "No results", comment: "Search caption: result count") }
+        if count == 1 { return String(localized: "1 result", comment: "Search caption: result count") }
+        return String(localized: "\(count) results", comment: "Search caption: result count")
     }
 
-    private func iconButton(_ symbol: String, help: String, action: @escaping () -> Void) -> some View {
+    private func iconButton(_ symbol: String, help: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
                 .font(.system(size: 15, weight: .medium))

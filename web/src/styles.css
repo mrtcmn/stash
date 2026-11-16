@@ -66,3 +66,7 @@ body {
 .prose pre code { background: none; padding: 0; }
 .prose img { height: auto; max-width: 100%; border-radius: 12px; }
 .prose blockquote { border-left: 3px solid #e4e4e1; padding-left: 1em; color: #71717a; }
+
+/* Instrument Serif covers Latin only. Other scripts fall back to a system serif with a fake slant (in Arabic the alef looks like a "/"), so they use the page font, upright. */
+:lang(ar) [data-typewriter], :lang(hi) [data-typewriter], :lang(ja) [data-typewriter], :lang(ko) [data-typewriter],
+:lang(th) [data-typewriter], :lang(zh-Hans) [data-typewriter], :lang(zh-Hant) [data-typewriter] { font-family: inherit; font-style: normal; }

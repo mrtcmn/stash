@@ -23,10 +23,10 @@ enum LibraryFilter: Hashable, Identifiable {
 
     var title: String {
         switch self {
-        case .all: "All"
-        case .favorites: "Favorites"
-        case .bookmarks: "X Bookmarks"
-        case .kind(let k): k.pluralLabel
+        case .all: String(localized: "All", comment: "Library filter: every snip")
+        case .favorites: String(localized: "Favorites", comment: "Library filter")
+        case .bookmarks: String(localized: "X Bookmarks", comment: "Library filter: bookmarks imported from X")
+        case .kind(let k): k.localizedPluralLabel
         case .tag(let t): "#\(t)"
         }
     }

@@ -5,6 +5,7 @@ options:
   bundleIdPrefix: dev.grasco
   deploymentTarget:
     macOS: "26.0"
+    iOS: "26.0"
 packages:
   StashCore:
     path: .
@@ -35,3 +36,68 @@ targets:
         CODE_SIGN_STYLE: Automatic
         SWIFT_VERSION: "5.0"
         MACOSX_DEPLOYMENT_TARGET: "26.0"
+  "Stash iOS":
+    type: application
+    platform: iOS
+    sources:
+      - path: iOS/App
+      - path: iOS/Shared
+    dependencies:
+      - package: StashCore
+        product: StashCore
+      - target: StashShare
+    entitlements:
+      path: iOS/App/StashiOS.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.grasco.stash]
+    settings:
+      base:
+        PRODUCT_NAME: Stash
+        PRODUCT_BUNDLE_IDENTIFIER: dev.grasco.stash.ios
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "1.0"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_CFBundleDisplayName: Stash
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: 6V3D85J7DM
+  StashShare:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: iOS/ShareExtension
+      - path: iOS/Shared
+    dependencies:
+      - package: StashCore
+        product: StashCore
+    entitlements:
+      path: iOS/ShareExtension/StashShare.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.grasco.stash]
+    info:
+      path: iOS/ShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: Stash
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1
+              NSExtensionActivationSupportsText: true
+    settings:
+      base:
+        PRODUCT_NAME: StashShare
+        PRODUCT_BUNDLE_IDENTIFIER: dev.grasco.stash.ios.share
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "1.0"
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: 6V3D85J7DM

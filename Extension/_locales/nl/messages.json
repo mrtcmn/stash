@@ -1,0 +1,328 @@
+{
+  "extName": {
+    "message": "Stash — Bewaren op je Mac",
+    "description": "Extension name in Chrome and the Web Store. Max 75 characters. Keep 'Stash'."
+  },
+  "extDescription": {
+    "message": "Bewaar posts van X, importeer al je bladwijzers en bewaar pagina's, selecties en afbeeldingen in de Stash-app op je Mac.",
+    "description": "Store short description. Max 132 characters."
+  },
+  "cmdSavePage": {
+    "message": "Bewaar de pagina of geselecteerde tekst in Stash",
+    "description": "Keyboard shortcut description in chrome://extensions/shortcuts."
+  },
+  "cmdScreenshot": {
+    "message": "Screenshot van het zichtbare deel van de pagina naar Stash",
+    "description": "Keyboard shortcut description."
+  },
+  "forMac": {
+    "message": " voor Mac",
+    "description": "Popup header, after the bold word 'Stash'. Keep the leading space."
+  },
+  "connecting": {
+    "message": "Verbinden…",
+    "description": "Popup status while it checks the app."
+  },
+  "connection": {
+    "message": "Verbinding",
+    "description": "Tooltip of the green or red status dot."
+  },
+  "savePage": {
+    "message": "Deze pagina bewaren",
+    "description": "Popup button."
+  },
+  "savePageHint": {
+    "message": "Titel, voorbeeldafbeelding en link",
+    "description": "Popup button subtitle: what gets saved."
+  },
+  "saveSelection": {
+    "message": "Geselecteerde tekst bewaren",
+    "description": "Popup button."
+  },
+  "saveSelectionHint": {
+    "message": "Behoudt de bronlink",
+    "description": "Popup button subtitle."
+  },
+  "screenshot": {
+    "message": "Screenshot van zichtbaar deel",
+    "description": "Popup button."
+  },
+  "screenshotHint": {
+    "message": "Vindbaar op wat erop staat",
+    "description": "Popup button subtitle: the app finds screenshots by their content."
+  },
+  "importBookmarks": {
+    "message": "X-bladwijzers importeren",
+    "description": "Popup button. X is the social network; keep 'X'."
+  },
+  "importBookmarksHint": {
+    "message": "Scrolt erdoorheen en bewaart ze allemaal",
+    "description": "Popup button subtitle."
+  },
+  "openStash": {
+    "message": "Stash openen",
+    "description": "Button that opens the Mac app."
+  },
+  "downloadStash": {
+    "message": "Stash downloaden",
+    "description": "Link to the download page."
+  },
+  "settings": {
+    "message": "Instellingen",
+    "description": "Popup collapsible section title."
+  },
+  "appPort": {
+    "message": "App-poort",
+    "description": "Label of the number field for the local network port."
+  },
+  "portHint": {
+    "message": "Moet overeenkomen met Stash › Instellingen › Browser.",
+    "description": "Hint under the port field. Use the app's translated menu names."
+  },
+  "statusConnected": {
+    "message": "Verbonden · $COUNT$ snips · $SEARCH$",
+    "description": "Popup status. COUNT is a number of saved items. SEARCH is the search mode name.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,204"
+      },
+      "search": {
+        "content": "$2",
+        "example": "semantic search"
+      }
+    }
+  },
+  "keywordSearch": {
+    "message": "zoeken op trefwoord",
+    "description": "Search mode name shown in the popup status, lower case."
+  },
+  "notConnected": {
+    "message": "Niet verbonden",
+    "description": "Popup status."
+  },
+  "appNotRunning": {
+    "message": "Stash is niet actief",
+    "description": "Popup status when the Mac app is closed."
+  },
+  "openAppHint": {
+    "message": "Open de Stash-app op je Mac. Wat je nu bewaart, komt in een wachtrij en gaat mee zodra de app start.",
+    "description": "Popup message when the app is closed."
+  },
+  "savedToStash": {
+    "message": "Bewaard in Stash",
+    "description": "Confirmation after a save."
+  },
+  "alreadyUpdated": {
+    "message": "Al in Stash — bijgewerkt",
+    "description": "Confirmation when the item was saved before."
+  },
+  "savedForLater": {
+    "message": "Stash is niet actief — bewaard voor later",
+    "description": "The app is closed; the save waits in a queue."
+  },
+  "somethingWrong": {
+    "message": "Er ging iets mis.",
+    "description": "Generic error."
+  },
+  "noResponse": {
+    "message": "Geen reactie",
+    "description": "Error: the extension did not answer."
+  },
+  "reloadToReconnect": {
+    "message": "Laad de pagina opnieuw om Stash weer te verbinden.",
+    "description": "Error after the extension was updated."
+  },
+  "saveToStash": {
+    "message": "Bewaren in Stash",
+    "description": "Tooltip of the button on each X post."
+  },
+  "savedClickRemove": {
+    "message": "Bewaard in Stash — klik om te verwijderen",
+    "description": "Tooltip of the button on a saved X post."
+  },
+  "removed": {
+    "message": "Verwijderd uit Stash",
+    "description": "Toast after removing a post."
+  },
+  "cannotReadPost": {
+    "message": "Kon deze post niet lezen.",
+    "description": "Error on X."
+  },
+  "savedPost": {
+    "message": "Post bewaard",
+    "description": "Toast after saving an X post."
+  },
+  "savedPostBy": {
+    "message": "Post van @$HANDLE$ bewaard",
+    "description": "Toast after saving an X post. HANDLE is the X user name.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "jack"
+      }
+    }
+  },
+  "cannotReach": {
+    "message": "Kon Stash niet bereiken",
+    "description": "Error: the extension cannot talk to the Mac app."
+  },
+  "bookmarkSaved": {
+    "message": "Bladwijzer bewaard in Stash",
+    "description": "Toast after the user bookmarks a post on X."
+  },
+  "importOffline": {
+    "message": "Stash is niet actief. Open de app en probeer het opnieuw.",
+    "description": "Bookmark import error."
+  },
+  "importDone": {
+    "message": "$COUNT$ bladwijzers bewaard.",
+    "description": "Bookmark import result.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      }
+    }
+  },
+  "importDoneNew": {
+    "message": "$COUNT$ bladwijzers bewaard · $NEW$ nieuw.",
+    "description": "Bookmark import result with the number of new ones.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importFailed": {
+    "message": "$ERROR$. Er zijn $COUNT$ bladwijzers bewaard voordat het stopte.",
+    "description": "Bookmark import error. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importTitle": {
+    "message": "Bladwijzers importeren",
+    "description": "Title of the import panel on X."
+  },
+  "importIncrementalHint": {
+    "message": "Bewaar bladwijzers die sinds de vorige import zijn toegevoegd. Stash stopt bij posts die het al heeft.",
+    "description": "Import panel text, second run."
+  },
+  "importNew": {
+    "message": "Nieuwe bladwijzers importeren",
+    "description": "Import panel button."
+  },
+  "rescanAll": {
+    "message": "Alles opnieuw scannen",
+    "description": "Import panel button."
+  },
+  "importFullHint": {
+    "message": "Bewaar elke bladwijzer in Stash op je Mac, met volledige tekst en afbeeldingen, klaar voor semantisch zoeken.",
+    "description": "Import panel text, first run."
+  },
+  "importAll": {
+    "message": "Alle bladwijzers importeren",
+    "description": "Import panel button."
+  },
+  "importProgress": {
+    "message": "bewaard · $FOUND$ gevonden · scrollen…",
+    "description": "Import progress, shown right after a bold number of saved bookmarks.",
+    "placeholders": {
+      "found": {
+        "content": "$1",
+        "example": "512"
+      }
+    }
+  },
+  "stop": {
+    "message": "Stoppen",
+    "description": "Button."
+  },
+  "stopping": {
+    "message": "Stoppen…",
+    "description": "Button while it stops."
+  },
+  "runAgain": {
+    "message": "Opnieuw uitvoeren",
+    "description": "Button."
+  },
+  "tryAgain": {
+    "message": "Opnieuw proberen",
+    "description": "Button."
+  },
+  "close": {
+    "message": "Sluiten",
+    "description": "Accessible name of the close button."
+  },
+  "appOffline": {
+    "message": "Stash is niet actief. Open de Stash-app op je Mac of download hem via stash.grasco.dev.",
+    "description": "Error when the Mac app is closed. Keep the domain."
+  },
+  "appAnswered": {
+    "message": "Stash antwoordde $STATUS$",
+    "description": "Error with an HTTP status code.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "500"
+      }
+    }
+  },
+  "menuSaveSelection": {
+    "message": "Selectie bewaren in Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveLink": {
+    "message": "Link bewaren in Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSaveImage": {
+    "message": "Afbeelding bewaren in Stash",
+    "description": "Right-click menu item."
+  },
+  "menuSavePage": {
+    "message": "Pagina bewaren in Stash",
+    "description": "Right-click menu item."
+  },
+  "menuScreenshot": {
+    "message": "Screenshot van zichtbaar deel naar Stash",
+    "description": "Right-click menu item."
+  },
+  "selectionSaved": {
+    "message": "Selectie bewaard in Stash",
+    "description": "Toast."
+  },
+  "linkSaved": {
+    "message": "Link bewaard in Stash",
+    "description": "Toast."
+  },
+  "imageSaved": {
+    "message": "Afbeelding bewaard in Stash",
+    "description": "Toast."
+  },
+  "pageSaved": {
+    "message": "Pagina bewaard in Stash",
+    "description": "Toast."
+  },
+  "screenshotSaved": {
+    "message": "Screenshot bewaard in Stash",
+    "description": "Toast."
+  },
+  "selectTextFirst": {
+    "message": "Selecteer eerst wat tekst op de pagina.",
+    "description": "Error."
+  }
+}

@@ -128,12 +128,12 @@ struct SnipViewer: View {
 
     private var kindDetail: String {
         switch snip.kind {
-        case .tweet: return "Post on X"
+        case .tweet: return String(localized: "Post on X", comment: "Snip viewer toolbar: kind of the open snip")
         case .screenshot, .image:
-            if let m = snip.primaryMedia, let w = m.width, let h = m.height { return "\(snip.kind.label) · \(w) × \(h)" }
-            return snip.kind.label
-        case .link: return snip.link?.siteName ?? snip.domain ?? "Link"
-        default: return snip.kind.label
+            if let m = snip.primaryMedia, let w = m.width, let h = m.height { return "\(snip.kind.localizedLabel) · \(w) × \(h)" }
+            return snip.kind.localizedLabel
+        case .link: return snip.link?.siteName ?? snip.domain ?? snip.kind.localizedLabel
+        default: return snip.kind.localizedLabel
         }
     }
 
@@ -168,23 +168,23 @@ struct SnipViewer: View {
     }
 
     private var subtitle: String {
-        var parts = ["Saved \(RelativeDate.long(snip.savedAt))"]
+        var parts = [String(localized: "Saved \(RelativeDate.long(snip.savedAt))", comment: "Snip viewer subtitle: date and time the snip was saved")]
         if let source = snip.source { parts.append(Self.describe(source: source)) }
         return parts.joined(separator: " · ")
     }
 
     static func describe(source: String) -> String {
         switch source {
-        case "x-bookmarks", "import:x-bookmarks": return "from X bookmarks"
-        case "x-button": return "from X"
-        case "capture": return "screen capture"
-        case "capture:text": return "text capture"
-        case "clipboard": return "from clipboard"
-        case "note": return "note"
-        case "service": return "Services menu"
+        case "x-bookmarks", "import:x-bookmarks": return String(localized: "from X bookmarks", comment: "Snip viewer subtitle: where the snip came from")
+        case "x-button": return String(localized: "from X", comment: "Snip viewer subtitle: saved with the Snip button on X")
+        case "capture": return String(localized: "screen capture", comment: "Snip viewer subtitle: where the snip came from")
+        case "capture:text": return String(localized: "text capture", comment: "Snip viewer subtitle: saved by a text (OCR) capture")
+        case "clipboard": return String(localized: "from clipboard", comment: "Snip viewer subtitle: where the snip came from")
+        case "note": return String(localized: "note", comment: "Snip viewer subtitle: the snip is a note written in Stash")
+        case "service": return String(localized: "Services menu", comment: "Snip viewer subtitle: saved with the macOS Services menu")
         default:
-            if source.hasPrefix("browser:") { return "from \(source.dropFirst(8))" }
-            if source.hasPrefix("import:") { return "imported" }
+            if source.hasPrefix("browser:") { return String(localized: "from \(String(source.dropFirst(8)))", comment: "Snip viewer subtitle: the argument is a browser name, such as Safari") }
+            if source.hasPrefix("import:") { return String(localized: "imported", comment: "Snip viewer subtitle: the snip came from an imported file") }
             return source
         }
     }
@@ -215,7 +215,7 @@ private struct PostDetail: View {
                 AvatarView(author: snip.author, size: 46)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 5) {
-                        Text(snip.author?.name ?? "Post").font(.system(size: 17, weight: .semibold))
+                        Text(snip.author?.name ?? SnipKind.tweet.localizedLabel).font(.system(size: 17, weight: .semibold))
                         if snip.author?.verified == true {
                             Image(systemName: "checkmark.seal.fill").foregroundStyle(Color(hex: 0x8ECBFF))
                         }
@@ -300,7 +300,7 @@ private struct ImageDetail: View {
                         Spacer()
                         Button("Copy Text", systemImage: "text.viewfinder") {
                             Pasteboard.copy(text: ocr)
-                            HUD.shared.show("Text copied", symbol: "text.viewfinder")
+                            HUD.shared.show(String(localized: "Text copied", comment: "HUD after the recognized text of an image is copied"), symbol: "text.viewfinder")
                         }
                         .buttonStyle(.glass)
                         .controlSize(.small)

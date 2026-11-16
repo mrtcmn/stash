@@ -153,7 +153,7 @@ final class ServicesProvider: NSObject {
     @objc func saveToStash(_ pasteboard: NSPasteboard, userData: String?, error: AutoreleasingUnsafeMutablePointer<NSString?>) {
         guard let model else { return }
         if !model.saveFromPasteboard(pasteboard, source: "service") {
-            error.pointee = "Nothing to save" as NSString
+            error.pointee = String(localized: "Nothing to save", comment: "Services menu error when the selection holds nothing to save") as NSString
         }
     }
 }

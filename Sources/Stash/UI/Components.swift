@@ -42,7 +42,33 @@ struct KindChip: View {
     var detail: String?
 
     var body: some View {
-        GlassChip(text: detail.map { "\(kind.label) · \($0)" } ?? kind.label, symbol: Theme.symbol(for: kind), tint: Theme.tint(for: kind))
+        GlassChip(text: detail.map { "\(kind.localizedLabel) · \($0)" } ?? kind.localizedLabel, symbol: Theme.symbol(for: kind), tint: Theme.tint(for: kind))
+    }
+}
+
+extension SnipKind {
+    /// `label` in the user's language. StashCore keeps the English one.
+    var localizedLabel: String {
+        switch self {
+        case .tweet: String(localized: "Post", comment: "Snip kind: a post from X, shown on chips and cards")
+        case .screenshot: String(localized: "Screenshot", comment: "Snip kind, shown on chips and cards")
+        case .note: String(localized: "Note", comment: "Snip kind, shown on chips and cards")
+        case .link: String(localized: "Link", comment: "Snip kind, shown on chips and cards")
+        case .image: String(localized: "Image", comment: "Snip kind, shown on chips and cards")
+        case .text: String(localized: "Clip", comment: "Snip kind: clipped text, shown on chips and cards")
+        }
+    }
+
+    /// `pluralLabel` in the user's language, for the filter menu.
+    var localizedPluralLabel: String {
+        switch self {
+        case .tweet: String(localized: "Posts", comment: "Library filter: posts from X")
+        case .screenshot: String(localized: "Screenshots", comment: "Library filter")
+        case .note: String(localized: "Notes", comment: "Library filter")
+        case .link: String(localized: "Links", comment: "Library filter")
+        case .image: String(localized: "Images", comment: "Library filter")
+        case .text: String(localized: "Clips", comment: "Library filter: clipped text")
+        }
     }
 }
 
@@ -104,10 +130,10 @@ enum RelativeDate {
     /// "now", "5m", "3h", "2d", or "Mar 4" / "Mar 4, 2023".
     static func short(_ date: Date, now: Date = Date()) -> String {
         let seconds = now.timeIntervalSince(date)
-        if seconds < 60 { return "now" }
-        if seconds < 3_600 { return "\(Int(seconds / 60))m" }
-        if seconds < 86_400 { return "\(Int(seconds / 3_600))h" }
-        if seconds < 7 * 86_400 { return "\(Int(seconds / 86_400))d" }
+        if seconds < 60 { return String(localized: "now", comment: "Short relative date: saved less than a minute ago") }
+        if seconds < 3_600 { return String(localized: "\(Int(seconds / 60))m", comment: "Short relative date: minutes ago") }
+        if seconds < 86_400 { return String(localized: "\(Int(seconds / 3_600))h", comment: "Short relative date: hours ago") }
+        if seconds < 7 * 86_400 { return String(localized: "\(Int(seconds / 86_400))d", comment: "Short relative date: days ago") }
         let sameYear = Calendar.current.component(.year, from: date) == Calendar.current.component(.year, from: now)
         let style: Date.FormatStyle = sameYear
             ? Date.FormatStyle.dateTime.month(.abbreviated).day()

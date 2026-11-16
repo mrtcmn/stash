@@ -66,7 +66,7 @@ final class AppModel {
         capturePreview = CapturePreviewController(model: self)
         quickNote = QuickNoteController(model: self)
         server = LocalServer { [weak self] request in
-            await self?.handleAPI(request) ?? .error(503, "Stash is shutting down")
+            await self?.handleAPI(request) ?? .error(503, String(localized: "Stash is shutting down", comment: "Error the local server sends to the browser extension"))
         }
     }
 
@@ -101,7 +101,7 @@ final class AppModel {
         downloader.scan()
         showLibrary()
         if databaseError != nil {
-            HUD.shared.error("Stash couldn't open its library file, so changes won't be saved this session.")
+            HUD.shared.error(String(localized: "Stash couldn't open its library file, so changes won't be saved this session.", comment: "HUD error at launch when the database cannot open"))
         }
 
         if settings.didOnboard {
@@ -205,7 +205,7 @@ final class AppModel {
 
     func saveClipboard() {
         if !saveFromPasteboard(.general, source: "clipboard") {
-            HUD.shared.error("The clipboard is empty.")
+            HUD.shared.error(String(localized: "The clipboard is empty.", comment: "HUD error when the user saves the clipboard"))
         }
     }
 
@@ -219,8 +219,8 @@ final class AppModel {
         }
         if let data = pasteboard.data(forType: .png) ?? pasteboard.data(forType: .tiff) {
             Task {
-                if await saveImageData(data, title: "Pasted image", source: source) != nil {
-                    HUD.shared.show("Saved image", symbol: "photo.fill")
+                if await saveImageData(data, title: String(localized: "Pasted image", comment: "Default title of an image saved from the clipboard"), source: source) != nil {
+                    HUD.shared.show(String(localized: "Saved image", comment: "HUD after an image is saved from the clipboard"), symbol: "photo.fill")
                 }
             }
             return true
@@ -232,7 +232,7 @@ final class AppModel {
             Task { await saveURL(url, title: nil, source: source) }
         } else {
             library.add(Snip(kind: .text, body: string, source: source))
-            HUD.shared.show("Saved clip", symbol: "text.quote")
+            HUD.shared.show(String(localized: "Saved clip", comment: "HUD after text is saved as a clip"), symbol: "text.quote")
         }
         return true
     }
@@ -249,7 +249,7 @@ final class AppModel {
             return
         }
         guard let url = URL(string: tab.url), url.scheme?.hasPrefix("http") == true else {
-            HUD.shared.error("This tab isn't a web page.")
+            HUD.shared.error(String(localized: "This tab isn't a web page.", comment: "HUD error when the user snips a browser tab"))
             return
         }
         await saveURL(url, title: tab.title, source: "browser:\(tab.browser)")
@@ -259,32 +259,44 @@ final class AppModel {
     func saveURL(_ url: URL, title: String?, source: String) async {
         // Links can arrive from the URL scheme or drops; never fetch local files for them.
         guard url.scheme == "https" || url.scheme == "http" else {
-            HUD.shared.error("Only web links can be saved.")
+            HUD.shared.error(String(localized: "Only web links can be saved.", comment: "HUD error when a link is not http or https"))
             return
         }
         if let reference = TweetURL.parse(url.absoluteString) {
-            HUD.shared.show("Saving post…", symbol: "arrow.down.circle")
+            HUD.shared.show(String(localized: "Saving post…", comment: "HUD while a post from X downloads"), symbol: "arrow.down.circle")
             do {
                 let post = try await WebFetcher.post(reference, source: source)
                 let result = library.add(post)
-                let who = result.snip.author.map { " by @\($0.handle)" } ?? ""
-                HUD.shared.show(result.isNew ? "Saved post\(who)" : "Post already saved — refreshed", symbol: "checkmark.circle.fill")
+                let message: String
+                if !result.isNew {
+                    message = String(localized: "Post already saved — refreshed", comment: "HUD when a saved post from X is saved again")
+                } else if let handle = result.snip.author?.handle {
+                    message = String(localized: "Saved post by @\(handle)", comment: "HUD after a post from X is saved; the argument is the author handle")
+                } else {
+                    message = String(localized: "Saved post", comment: "HUD after a post from X is saved")
+                }
+                HUD.shared.show(message, symbol: "checkmark.circle.fill")
                 return
             } catch {
                 logger.info("Post fetch failed, saving as a link: \(error.localizedDescription, privacy: .public)")
             }
         }
-        HUD.shared.show("Saving page…", symbol: "arrow.down.circle")
+        HUD.shared.show(String(localized: "Saving page…", comment: "HUD while a web page downloads"), symbol: "arrow.down.circle")
         let snip = await WebFetcher.link(url, title: title, source: source)
         let result = library.add(snip)
-        HUD.shared.show(result.isNew ? "Saved “\(result.snip.displayTitle.prefix(48))”" : "Already saved — refreshed", symbol: "checkmark.circle.fill")
+        HUD.shared.show(
+            result.isNew
+                ? String(localized: "Saved “\(String(result.snip.displayTitle.prefix(48)))”", comment: "HUD after a web page is saved; the argument is the page title")
+                : String(localized: "Already saved — refreshed", comment: "HUD when a saved web page is saved again"),
+            symbol: "checkmark.circle.fill"
+        )
     }
 
     // MARK: Screenshots and images
 
     func saveScreenshot(_ image: CGImage, context: CaptureContext, source: String = "capture") async -> Snip? {
         guard let media = await storeImage(image) else {
-            HUD.shared.error("Couldn't save the screenshot.")
+            HUD.shared.error(String(localized: "Couldn't save the screenshot.", comment: "HUD error after a capture"))
             return nil
         }
         let snip = Snip(kind: .screenshot, title: context.title, media: [media], source: source, appName: context.appName)
@@ -295,7 +307,8 @@ final class AppModel {
 
     func saveTextCapture(_ text: String, image: CGImage, context: CaptureContext) async {
         let media = await storeImage(image)
-        let title = context.appName.map { "Text from \($0)" } ?? "Recognized text"
+        let title = context.appName.map { String(localized: "Text from \($0)", comment: "Default title of a text (OCR) capture; the argument is the app name") }
+            ?? String(localized: "Recognized text", comment: "Default title of a text (OCR) capture when the app is not known")
         library.add(Snip(kind: .text, title: title, body: text, media: media.map { [$0] } ?? [], source: "capture:text", ocrText: nil, appName: context.appName))
     }
 
@@ -350,15 +363,15 @@ final class AppModel {
     // MARK: Annotation
 
     func openEditor(image: CGImage, context: CaptureContext, snipID: UUID?) {
-        editor.open(image: image, title: "Annotate — \(context.title)") { [weak self] edited in
+        editor.open(image: image, title: String(localized: "Annotate — \(context.title)", comment: "Annotation editor window title; the argument is the snip or app name")) { [weak self] edited in
             guard let self else { return }
             Task {
                 if let snipID, self.library.snip(snipID) != nil {
                     await self.replaceImage(of: snipID, with: edited)
-                    HUD.shared.show("Saved changes", symbol: "checkmark.circle.fill")
+                    HUD.shared.show(String(localized: "Saved changes", comment: "HUD after an annotated image replaces the snip image"), symbol: "checkmark.circle.fill")
                 } else if await self.saveScreenshot(edited, context: context) != nil {
                     Pasteboard.copy(image: edited)
-                    HUD.shared.show("Saved and copied", symbol: "checkmark.circle.fill")
+                    HUD.shared.show(String(localized: "Saved and copied", comment: "HUD after an annotated capture is saved and copied"), symbol: "checkmark.circle.fill")
                 }
             }
         }
@@ -366,7 +379,7 @@ final class AppModel {
 
     func annotate(_ snip: Snip) {
         guard let file = snip.primaryMedia?.localFile, let image = library.media.cgImage(file) else {
-            HUD.shared.error("This snip has no local image to annotate.")
+            HUD.shared.error(String(localized: "This snip has no local image to annotate.", comment: "HUD error when the user annotates a snip"))
             return
         }
         openEditor(image: image, context: CaptureContext(appName: snip.appName ?? snip.displayTitle), snipID: snip.id)
@@ -415,7 +428,7 @@ final class AppModel {
         case .screenshot, .image:
             if let file = snip.primaryMedia?.localFile, let image = library.media.cgImage(file) {
                 Pasteboard.copy(image: image)
-                HUD.shared.show("Image copied", symbol: "doc.on.doc.fill")
+                HUD.shared.show(String(localized: "Image copied", comment: "HUD after the image of a snip is copied"), symbol: "doc.on.doc.fill")
                 return
             }
             fallthrough
@@ -423,14 +436,14 @@ final class AppModel {
             var text = snip.body.isEmpty ? snip.displayTitle : snip.body
             if let url = snip.url, !text.contains(url) { text += "\n\(url)" }
             Pasteboard.copy(text: text)
-            HUD.shared.show("Copied", symbol: "doc.on.doc.fill")
+            HUD.shared.show(String(localized: "Copied", comment: "HUD after the text of a snip is copied"), symbol: "doc.on.doc.fill")
         }
     }
 
     func copyMarkdown(_ snip: Snip) {
         let markdown = MarkdownExporter.markdown(for: snip, mediaFolder: paths.media.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
         Pasteboard.copy(text: markdown)
-        HUD.shared.show("Copied as Markdown", symbol: "doc.richtext")
+        HUD.shared.show(String(localized: "Copied as Markdown", comment: "HUD after a snip is copied as Markdown"), symbol: "doc.richtext")
     }
 
     func openOriginal(_ snip: Snip) {
@@ -451,7 +464,7 @@ final class AppModel {
 
     func revealExtensionFolder() {
         guard let folder = AppResources.extensionFolder else {
-            HUD.shared.error("The extension folder wasn't found.")
+            HUD.shared.error(String(localized: "The extension folder wasn't found.", comment: "HUD error in the browser settings"))
             return
         }
         NSWorkspace.shared.activateFileViewerSelecting([folder])
@@ -484,7 +497,7 @@ final class AppModel {
                 Task { await saveURL(target, title: value("title"), source: "url-scheme") }
             } else if let text = value("text") {
                 library.add(Snip(kind: .text, body: text, source: "url-scheme"))
-                HUD.shared.show("Saved clip", symbol: "text.quote")
+                HUD.shared.show(String(localized: "Saved clip", comment: "HUD after text is saved as a clip"), symbol: "text.quote")
             }
         case "import-bookmarks":
             importXBookmarksInBrowser()
