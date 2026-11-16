@@ -1,0 +1,6 @@
+*
+!i18n
+!web
+web/node_modules
+web/dist
+web/.astro

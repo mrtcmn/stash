@@ -1,16 +1,18 @@
+# Build context: the repository root. The site reads the language list from i18n/.
 FROM node:24-slim AS build
-WORKDIR /app
-COPY package.json package-lock.json ./
+WORKDIR /app/web
+COPY web/package.json web/package-lock.json ./
 # ponytail: npm ci rejects the lockfile on Linux (npm bug with the bundled @emnapi deps of tailwind oxide-wasm32); npm install still honours it.
 RUN npm install --no-audit --no-fund
-COPY . .
+COPY i18n /app/i18n
+COPY web ./
 RUN npm run build
 
 FROM oven/bun:1.4.2-slim
 WORKDIR /app
 ENV NODE_ENV=production PORT=3000
-COPY --from=build /app/dist ./dist
-COPY server.ts ./
+COPY --from=build /app/web/dist ./dist
+COPY web/server.ts ./
 EXPOSE 3000
 USER bun
 CMD ["bun", "server.ts"]
