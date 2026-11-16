@@ -38,7 +38,7 @@ final class PinnedImageController {
         panel.contentAspectRatio = size
         panel.minSize = CGSize(width: 80, height: 80 * size.height / max(size.width, 1))
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
-        panel.contentView = NSHostingView(rootView: PinnedImageView(
+        let host = NSHostingView(rootView: PinnedImageView(
             image: NSImage(cgImage: image),
             onClose: { [weak self, weak panel] in
                 guard let panel else { return }
@@ -46,6 +46,10 @@ final class PinnedImageController {
             },
             onCopy: { Pasteboard.copy(image: image) }
         ))
+        // The panel owns its size. SwiftUI min/max sizes on a resizable, aspect-locked
+        // panel loop the constraint pass after a display change and crash AppKit.
+        host.sizingOptions = []
+        panel.contentView = host
 
         if let screen {
             let frame = screen.visibleFrame
@@ -160,7 +164,9 @@ final class CapturePreviewController {
         panel.isReleasedWhenClosed = false
         panel.hidesOnDeactivate = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .ignoresCycle]
-        panel.contentView = NSHostingView(rootView: view)
+        let host = NSHostingView(rootView: view)
+        host.sizingOptions = []  // Fixed-size panel: see PinnedImageController.pin.
+        panel.contentView = host
 
         let screen = NSScreen.underMouse ?? NSScreen.main
         if let frame = screen?.visibleFrame {

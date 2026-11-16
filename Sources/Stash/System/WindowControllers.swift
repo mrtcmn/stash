@@ -105,6 +105,7 @@ final class QuickNoteController {
         let view = QuickNoteView(initialText: prefill ?? "", onClose: { [weak self] in self?.close() })
             .environment(model)
         let host = NSHostingView(rootView: view)
+        host.sizingOptions = []  // Fixed-size panel: see PinnedImageController.pin.
         panel.contentView = host
         let size = NSSize(width: 620, height: 340)
         panel.setContentSize(size)
