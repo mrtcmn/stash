@@ -18,12 +18,23 @@ Posts are Markdown files in `web/src/content/blog/`. The file name is the URL: `
    date: YYYY-MM-DD
    updated: YYYY-MM-DD   # only when you edit an existing post
    tags: [changelog]
+   cover: /blog/<post id>/cover.webp      # optional, see step 5
+   coverAlt: "What the cover shows"
+   og: /blog/<post id>/og.jpg             # social card, same image as JPEG
    commit: <short sha of HEAD>
    ---
    ```
-5. Body: 80 to 250 words. Use `##` headings, never `#`. Start with what the user gains. Link to `/` or `/blog/` pages when it helps. Use only absolute paths from the site root.
-6. Run `cd web && npm run build`. The schema fails the build on a bad field. Fix it and run again.
-7. Tell the user the file path. Do not commit. Offer the `blog-check` and `blog-publish` skills.
+   `<post id>` is the file name without `.md`.
+5. Images. Make a cover for every post:
+   `scripts/blog-cover.py web/public/blog/<post id> "<short title>" "<subtitle>" [chip ...]`
+   It writes `cover.webp` and `og.jpg` (1200x630) in the site style. Chips are optional short labels. Open the result and look at it.
+   For real screenshots of the site, build it, run `PORT=4173 bun server.ts` in `web/`, and use headless Chrome:
+   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1280,800 --force-device-scale-factor=1 --virtual-time-budget=1600 --user-data-dir=<scratch dir> --screenshot=<file>.png <url>`
+   Keep the budget under 3000 ms: the hero typewriter starts at 3 s. Crop and convert with `ffmpeg -vf "crop=1280:640:0:0,scale=1200:-1"` and `cwebp -q 80`. Chrome may not exit by itself: stop it after the file appears.
+   In the body, use `<img src="/blog/<post id>/x.webp" alt="…" width="1200" height="600" loading="lazy" />`, not Markdown images, so the page has no layout shift.
+6. Body: 80 to 250 words. Use `##` headings, never `#`. Start with what the user gains. Link to `/` or `/blog/` pages when it helps. Use only absolute paths from the site root.
+7. Run `cd web && npm run build`. The schema fails the build on a bad field. Fix it and run again.
+8. Tell the user the file path. Do not commit. Offer the `blog-check` and `blog-publish` skills.
 
 ## Rules
 
