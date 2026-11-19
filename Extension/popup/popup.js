@@ -45,7 +45,7 @@ document.querySelectorAll("[data-action]").forEach((button) => {
     show("");
     const result = await send({ type: action });
     button.disabled = false;
-    if (action === "import-bookmarks") {
+    if (action === "import-bookmarks" || (action.startsWith("import-") && result.ok)) {
       window.close();
       return;
     }
@@ -75,6 +75,12 @@ portInput.addEventListener("change", async () => {
     await chrome.storage.local.set({ port });
     refresh();
   }
+});
+
+// The board import works only on Pinterest. The host permission lets the popup read that tab's URL.
+chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
+  const onPinterest = /^https:\/\/([a-z0-9-]+\.)?pinterest\.(com|co\.[a-z]{2}|com\.[a-z]{2}|[a-z]{2})\//.test(tab?.url || "");
+  document.querySelector('[data-action="import-pinterest-board"]').hidden = !onPinterest;
 });
 
 refresh();

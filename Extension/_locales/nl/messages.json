@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "Selecteer eerst wat tekst op de pagina.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Bewaarde Reddit-items importeren",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "Bewaarde posts en reacties van je account",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "Dit bord importeren",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Scrolt door het Pinterest-bord en bewaart elke pin",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "Open eerst een Pinterest-bord.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "Log eerst in bij Reddit en probeer het opnieuw.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Importeren naar Stash… bewaard: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "Import klaar · bewaard: $COUNT$ · nieuw: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. Bewaard voor de stop: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "Browserbladwijzers synchroniseren",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "Bewaart ze allemaal, daarna elke nieuwe",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

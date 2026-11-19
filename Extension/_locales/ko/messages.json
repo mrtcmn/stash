@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "먼저 페이지에서 텍스트를 선택하세요.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Reddit 저장 항목 가져오기",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "계정에 저장한 게시물과 댓글",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "이 보드 가져오기",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Pinterest 보드를 스크롤하며 모든 핀을 저장합니다",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "먼저 Pinterest 보드를 여세요.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "먼저 Reddit에 로그인한 다음 다시 시도하세요.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Stash로 가져오는 중… 저장됨: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "가져오기 완료 · 저장됨: $COUNT$ · 새 항목: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. 중단 전 저장됨: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "브라우저 북마크 동기화",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "모두 저장하고, 이후 새 북마크도 저장",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

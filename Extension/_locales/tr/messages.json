@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "Önce sayfada biraz metin seç.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Reddit kayıtlılarını içe aktar",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "Hesabındaki kayıtlı gönderiler ve yorumlar",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "Bu panoyu içe aktar",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Pinterest panosunu kaydırır ve her pini kaydeder",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "Önce bir Pinterest panosu aç.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "Önce Reddit'e giriş yap, sonra tekrar dene.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Stash'e aktarılıyor… kaydedilen: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "İçe aktarma bitti · kaydedilen: $COUNT$ · yeni: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. Durmadan önce kaydedilen: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "Tarayıcı yer imlerini eşitle",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "Hepsini kaydeder, sonra her yenisini",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

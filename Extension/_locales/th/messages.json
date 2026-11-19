@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "เลือกข้อความบนหน้าเว็บก่อน",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "นำเข้ารายการที่บันทึกไว้ใน Reddit",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "โพสต์และความคิดเห็นที่บันทึกไว้ในบัญชีของคุณ",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "นำเข้าบอร์ดนี้",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "เลื่อนดูบอร์ด Pinterest และบันทึกทุกพิน",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "เปิดบอร์ด Pinterest ก่อน",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "เข้าสู่ระบบ Reddit ก่อน แล้วลองอีกครั้ง",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "กำลังนำเข้าไปยัง Stash… บันทึกแล้ว: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "นำเข้าเสร็จแล้ว · บันทึก: $COUNT$ · ใหม่: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$ บันทึกก่อนหยุด: $COUNT$",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "ซิงค์บุ๊กมาร์กของเบราว์เซอร์",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "บันทึกทั้งหมด แล้วบันทึกทุกรายการใหม่",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

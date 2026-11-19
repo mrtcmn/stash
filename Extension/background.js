@@ -110,6 +110,7 @@ async function pageItem(tab) {
     siteName: meta.siteName,
     favicon: meta.favicon || tab.favIconUrl,
     selection: meta.selection,
+    content: meta.content,
   };
 }
 
@@ -132,6 +133,8 @@ function collectPageMeta() {
     siteName: meta('meta[property="og:site_name"]'),
     favicon: absolute(icon) || absolute("/favicon.ico"),
     selection: String(window.getSelection ? window.getSelection() : "").trim() || undefined,
+    // The readable text, so the app can search the page and summarize it, also behind a login.
+    content: (document.querySelector("article, main, [role=main]") || document.body)?.innerText?.trim().slice(0, 20000) || undefined,
   };
 }
 
@@ -174,7 +177,7 @@ async function screenshotItem(tab) {
 async function notify(tabId, text, kind = "ok") {
   if (tabId == null) return;
   try {
-    // x.com has our content script with its own toasts.
+    // x.com, Reddit and Pinterest have our content scripts with their own toasts.
     await chrome.tabs.sendMessage(tabId, { type: "toast", text, kind });
     return;
   } catch {}
@@ -339,6 +342,29 @@ async function openBookmarksImport() {
   }
 }
 
+async function openRedditImport() {
+  const tabs = await chrome.tabs.query({ url: ["https://www.reddit.com/*", "https://old.reddit.com/*"] });
+  for (const tab of tabs) {
+    try {
+      await chrome.tabs.sendMessage(tab.id, { type: "start-reddit-import" });
+      await chrome.tabs.update(tab.id, { active: true });
+      await chrome.windows.update(tab.windowId, { focused: true });
+      return;
+    } catch {
+      // The tab was open before the extension loaded; try the next one.
+    }
+  }
+  await chrome.tabs.create({ url: "https://www.reddit.com/#stash-import-saved" });
+}
+
+async function startBoardImport() {
+  const tab = await activeTab();
+  if (!/^https:\/\/([a-z0-9-]+\.)?pinterest\.com\//.test(tab?.url || "")) throw new Error(t("openPinterestBoard"));
+  const reply = await chrome.tabs.sendMessage(tab.id, { type: "start-board-import" }).catch(() => null);
+  if (!reply) throw new Error(t("reloadToReconnect"));
+  if (!reply.ok) throw new Error(reply.error || t("openPinterestBoard"));
+}
+
 async function handle(message, sender) {
   switch (message?.type) {
     case "status": {
@@ -354,7 +380,7 @@ async function handle(message, sender) {
     case "remove":
       return callApp("/api/remove", { tweetIds: message.ids || [] });
     case "progress":
-      return callApp("/api/import-progress", { count: message.count || 0, done: Boolean(message.done) });
+      return callApp("/api/import-progress", { count: message.count || 0, done: Boolean(message.done), source: message.source });
     case "open":
       return callApp("/api/open", { query: message.query ?? undefined }).catch(() => openApp());
     case "launch":
@@ -385,10 +411,61 @@ async function handle(message, sender) {
     case "import-bookmarks":
       await openBookmarksImport();
       return { ok: true };
+    case "import-reddit-saved":
+      await openRedditImport();
+      return { ok: true };
+    case "import-pinterest-board":
+      await startBoardImport();
+      return { ok: true };
+    case "import-browser-bookmarks":
+      syncBrowserBookmarks().catch(() => {});
+      return { ok: true };
     default:
       throw new Error(`Unknown message ${message?.type}`);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Browser bookmarks
+
+const BOOKMARKS_SOURCE = "import:browser-bookmarks";
+
+/** A bookmark as a link item, tagged with the name of its folder. */
+function bookmarkItem(node, folder) {
+  if (!node.url || !/^https?:/i.test(node.url)) return null;
+  return { type: "link", url: node.url, title: node.title || undefined, tags: folder ? [folder] : [] };
+}
+
+/** Sends every bookmark to Stash, then keeps new bookmarks in sync. */
+async function syncBrowserBookmarks() {
+  const [root] = await chrome.bookmarks.getTree();
+  const items = [];
+  const walk = (node, folder) => {
+    const item = bookmarkItem(node, folder);
+    if (item) items.push(item);
+    for (const child of node.children || []) walk(child, node.url ? folder : node.title);
+  };
+  // The top level holds the browser's own folders (Bookmarks Bar, Other Bookmarks); they are not tags.
+  for (const top of root.children || []) for (const child of top.children || []) walk(child, null);
+
+  let sent = 0;
+  for (let i = 0; i < items.length; i += 40) {
+    await callApp("/api/snips", { source: BOOKMARKS_SOURCE, items: items.slice(i, i + 40) });
+    sent = Math.min(i + 40, items.length);
+    await callApp("/api/import-progress", { count: sent, source: BOOKMARKS_SOURCE }).catch(() => {});
+  }
+  await callApp("/api/import-progress", { count: sent, done: true, source: BOOKMARKS_SOURCE }).catch(() => {});
+  await chrome.storage.local.set({ bookmarkSync: true });
+}
+
+// After the first sync, every new bookmark goes to Stash too (queued while the app is closed).
+chrome.bookmarks.onCreated.addListener(async (_id, node) => {
+  const { bookmarkSync } = await chrome.storage.local.get({ bookmarkSync: false });
+  if (!bookmarkSync) return;
+  const [parent] = await chrome.bookmarks.get(node.parentId).catch(() => []);
+  const item = bookmarkItem(node, parent?.parentId === "0" ? null : parent?.title);
+  if (item) await save([item], BOOKMARKS_SOURCE, { queueIfOffline: true }).catch(() => {});
+});
 
 async function openApp() {
   // Opening the custom URL scheme launches Stash (the browser asks once).

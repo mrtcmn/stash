@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "請先在頁面上選取一些文字。",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "匯入 Reddit 已儲存項目",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "你帳號中儲存的貼文和留言",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "匯入此看板",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "捲動 Pinterest 看板並儲存每個 Pin",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "請先開啟一個 Pinterest 看板。",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "請先登入 Reddit，然後再試一次。",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "正在匯入 Stash… 已儲存：$COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "匯入完成 · 已儲存：$COUNT$ · 新增：$NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$。停止前已儲存：$COUNT$。",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "同步瀏覽器書籤",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "儲存全部書籤，之後也儲存每個新書籤",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

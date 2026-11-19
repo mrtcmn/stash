@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "Najpierw zaznacz tekst na stronie.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Importuj zapisane z Reddita",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "Zapisane posty i komentarze z twojego konta",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "Importuj tę tablicę",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Przewija tablicę Pinterest i zapisuje każdy pin",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "Najpierw otwórz tablicę Pinterest.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "Najpierw zaloguj się do Reddita, a potem spróbuj ponownie.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Import do Stash… zapisano: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "Import zakończony · zapisano: $COUNT$ · nowe: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. Przed zatrzymaniem zapisano: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "Synchronizuj zakładki przeglądarki",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "Zapisuje wszystkie, a potem każdą nową",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

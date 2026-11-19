@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "Hãy chọn một đoạn văn bản trên trang trước.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Nhập mục đã lưu trên Reddit",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "Bài viết và bình luận đã lưu trong tài khoản của bạn",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "Nhập bảng này",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Cuộn bảng Pinterest và lưu mọi ghim",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "Hãy mở một bảng Pinterest trước.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "Hãy đăng nhập Reddit trước rồi thử lại.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Đang nhập vào Stash… đã lưu: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "Nhập xong · đã lưu: $COUNT$ · mới: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. Đã lưu trước khi dừng: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "Đồng bộ dấu trang trình duyệt",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "Lưu tất cả, rồi lưu từng dấu trang mới",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

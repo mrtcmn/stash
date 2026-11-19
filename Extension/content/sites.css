@@ -1,0 +1,109 @@
+/* Stash on Reddit and Pinterest. Toast styles come from x.css. Everything is prefixed. */
+
+.stash-site-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 12px 6px 8px;
+  border: 0;
+  border-radius: 999px;
+  color: rgb(113, 118, 123);
+  background: transparent;
+  font: 600 12px/1 -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stash-site-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.stash-site-btn:hover,
+.stash-site-btn:focus-visible {
+  outline: none;
+  color: #8e8e93;
+  background: rgba(142, 142, 147, 0.12);
+}
+
+.stash-site-btn[data-saved="true"] {
+  color: #8e8e93;
+  background: rgba(142, 142, 147, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(142, 142, 147, 0.35);
+}
+
+.stash-site-btn[data-busy="true"] {
+  opacity: 0.55;
+}
+
+/* Reddit: a row under each post (new Reddit) or a link in the button list (old Reddit). */
+.stash-reddit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px 8px 4px;
+}
+
+.stash-old-reddit .stash-site-btn {
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  font-weight: bold;
+  background: transparent;
+  box-shadow: none;
+}
+
+.stash-old-reddit .stash-site-btn svg {
+  display: none;
+}
+
+/* Pinterest: a floating button on pin pages and a hover button on grid pins. */
+.stash-pin-fab {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 2147483640;
+  padding: 10px 16px 10px 12px;
+  color: #f2f2f2;
+  font-size: 14px;
+  background: rgba(21, 21, 21, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.stash-pin-fab:hover,
+.stash-pin-fab:focus-visible {
+  color: #fff;
+  background: rgba(40, 40, 40, 0.9);
+}
+
+.stash-pin-host-relative {
+  position: relative;
+}
+
+.stash-pin-hover {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 5;
+  padding: 7px;
+  color: #f2f2f2;
+  background: rgba(21, 21, 21, 0.78);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.stash-pin-host:hover .stash-pin-hover,
+.stash-pin-hover:focus-visible,
+.stash-pin-hover[data-saved="true"] {
+  opacity: 1;
+}
+
+.stash-pin-hover:hover {
+  color: #fff;
+  background: rgba(40, 40, 40, 0.9);
+}

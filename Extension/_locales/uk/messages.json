@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "Спершу виділи текст на сторінці.",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Імпорт збереженого з Reddit",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "Збережені дописи й коментарі твого акаунта",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "Імпорт цієї дошки",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Прокручує дошку Pinterest і зберігає кожен пін",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "Спершу відкрий дошку Pinterest.",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "Спершу увійди в Reddit, потім спробуй ще раз.",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Імпорт у Stash… збережено: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "Імпорт завершено · збережено: $COUNT$ · нових: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$. До зупинки збережено: $COUNT$.",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "Синхронізувати закладки браузера",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "Зберігає всі, а потім кожну нову",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }

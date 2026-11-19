@@ -56,6 +56,7 @@ header {
 .dot.off { background: #ff9ba7; }
 
 .actions { display: grid; gap: 6px; }
+.actions button[hidden] { display: none; }
 
 .actions button {
   display: flex;

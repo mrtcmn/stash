@@ -324,5 +324,75 @@
   "selectTextFirst": {
     "message": "先にページ上のテキストを選択してください。",
     "description": "Error."
+  },
+  "importRedditSaved": {
+    "message": "Reddit の保存済みをインポート",
+    "description": "Popup button: imports the user's saved posts and comments from Reddit. Keep 'Reddit'."
+  },
+  "importRedditSavedHint": {
+    "message": "アカウントで保存した投稿とコメント",
+    "description": "Popup button subtitle."
+  },
+  "importBoard": {
+    "message": "このボードをインポート",
+    "description": "Popup button, shown on Pinterest: imports the pins of the open board."
+  },
+  "importBoardHint": {
+    "message": "Pinterest ボードをスクロールして、すべてのピンを保存します",
+    "description": "Popup button subtitle. Keep 'Pinterest'."
+  },
+  "openPinterestBoard": {
+    "message": "先に Pinterest のボードを開いてください。",
+    "description": "Error when the board import starts on a page that is not a Pinterest board."
+  },
+  "redditLoginFirst": {
+    "message": "先に Reddit にログインしてから、もう一度お試しください。",
+    "description": "Error when the Reddit import cannot find a logged-in Reddit account."
+  },
+  "importingCount": {
+    "message": "Stash にインポート中… 保存済み: $COUNT$",
+    "description": "Toast that updates during a Reddit or Pinterest import. COUNT is a number.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "120"
+      }
+    }
+  },
+  "importSavedDone": {
+    "message": "インポート完了 · 保存: $COUNT$ · 新規: $NEW$",
+    "description": "Toast when a Reddit or Pinterest import ends.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "320"
+      },
+      "new": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "importStopped": {
+    "message": "$ERROR$。停止するまでに保存: $COUNT$。",
+    "description": "Toast when a Reddit or Pinterest import fails. ERROR is the reason.",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network error"
+      },
+      "count": {
+        "content": "$2",
+        "example": "45"
+      }
+    }
+  },
+  "importBrowserBookmarks": {
+    "message": "ブラウザのブックマークを同期",
+    "description": "Popup button: imports all bookmarks of this browser into Stash and keeps new ones in sync."
+  },
+  "importBrowserBookmarksHint": {
+    "message": "すべて保存し、その後は新しいものも保存",
+    "description": "Popup hint under 'Sync browser bookmarks'."
   }
 }
