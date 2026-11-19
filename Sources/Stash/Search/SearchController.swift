@@ -10,6 +10,8 @@ enum LibraryFilter: Hashable, Identifiable {
     case bookmarks
     case kind(SnipKind)
     case tag(String)
+    /// A smart category: snips whose meaning is close to its name.
+    case category(String)
 
     var id: String {
         switch self {
@@ -18,6 +20,7 @@ enum LibraryFilter: Hashable, Identifiable {
         case .bookmarks: "bookmarks"
         case .kind(let k): "kind:\(k.rawValue)"
         case .tag(let t): "tag:\(t)"
+        case .category(let c): "category:\(c)"
         }
     }
 
@@ -28,6 +31,7 @@ enum LibraryFilter: Hashable, Identifiable {
         case .bookmarks: String(localized: "X Bookmarks", comment: "Library filter: bookmarks imported from X")
         case .kind(let k): k.localizedPluralLabel
         case .tag(let t): "#\(t)"
+        case .category(let c): c
         }
     }
 
@@ -38,6 +42,7 @@ enum LibraryFilter: Hashable, Identifiable {
         case .bookmarks: "bookmark"
         case .kind(let k): Theme.symbol(for: k)
         case .tag: "number"
+        case .category: "sparkles"
         }
     }
 
@@ -48,7 +53,14 @@ enum LibraryFilter: Hashable, Identifiable {
         case .bookmarks: snip.source == "x-bookmarks" || snip.source == "import:x-bookmarks" || snip.tags.contains("bookmark")
         case .kind(let k): snip.kind == k
         case .tag(let t): snip.tags.contains(t)
+        // Membership needs similarity scores; SearchController narrows categories itself.
+        case .category: true
         }
+    }
+
+    var categoryName: String? {
+        if case .category(let name) = self { return name }
+        return nil
     }
 }
 
@@ -141,11 +153,48 @@ final class SearchController {
         refresh(debounce: 0.22)
     }
 
+    /// Search candidates for the whole library, rebuilt only when the library changed.
+    /// The MCP server uses them too, so every search shares one copy.
+    func currentCandidates() -> [SearchCandidate] {
+        refreshCandidates()
+        return candidates
+    }
+
+    private func refreshCandidates() {
+        guard candidatesRevision != library.revision else { return }
+        candidates = library.snips.map(SearchCandidate.init)
+        candidatesRevision = library.revision
+    }
+
+    // MARK: Categories
+
+    @ObservationIgnored private var categoryCache: [String: [UUID: RankedHit]] = [:]
+    @ObservationIgnored private var categoryCacheKey: (revision: Int, vectors: Int) = (-1, -1)
+
+    /// Snips that belong to a smart category: the same ranking as a search for its name,
+    /// keeping keyword matches and the hits close to the best one.
+    private func categoryMembers(_ name: String) async -> [UUID: RankedHit] {
+        let key = (library.revision, index.embeddedCount)
+        if key != categoryCacheKey {
+            categoryCache = [:]
+            categoryCacheKey = key
+        }
+        if let cached = categoryCache[name] { return cached }
+        let parsed = QueryParser.parse(name)
+        let semantic = index.isReady ? try? await index.scores(forQuery: parsed.text) : nil
+        refreshCandidates()
+        // ponytail: a category is a saved meaning search; a fixed cosine floor if the relative window feels loose.
+        let hits = HybridRanker.relevant(HybridRanker.rank(candidates, query: parsed, semantic: semantic), window: 0.15, limit: 2_000)
+        let members = Dictionary(hits.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+        categoryCache[name] = members
+        return members
+    }
+
     // MARK: Running
 
     func refresh(debounce: Double) {
         task?.cancel()
-        guard isQueryActive else {
+        guard isQueryActive || filter.categoryName != nil else {
             let filter = filter
             items = library.snips.filter(filter.matches).map { DisplayItem(snip: $0) }
             relevantItems = items
@@ -185,16 +234,26 @@ final class SearchController {
         }
         guard !Task.isCancelled else { return }
 
-        if candidatesRevision != library.revision {
-            candidates = library.snips.map(SearchCandidate.init)
-            candidatesRevision = library.revision
-        }
-        let scoped = candidates.filter { c in
+        refreshCandidates()
+        var scoped = candidates.filter { c in
             guard let snip = library.snip(c.id) else { return false }
             return filter.matches(snip)
         }
-        let hits = HybridRanker.rank(scoped, query: parsed, semantic: semantic)
-        let relevant = Set(HybridRanker.relevant(hits).map(\.id))
+        var hits: [RankedHit]
+        if let category = filter.categoryName {
+            let members = await categoryMembers(category)
+            guard !Task.isCancelled else { return }
+            if isQueryActive {
+                scoped = scoped.filter { members[$0.id] != nil }
+                hits = HybridRanker.rank(scoped, query: parsed, semantic: semantic)
+            } else {
+                // No search text: list the category, closest first.
+                hits = members.values.sorted { $0.score > $1.score }
+            }
+        } else {
+            hits = HybridRanker.rank(scoped, query: parsed, semantic: semantic)
+        }
+        let relevant = isQueryActive ? Set(HybridRanker.relevant(hits).map(\.id)) : Set(hits.map(\.id))
 
         var all: [DisplayItem] = []
         var focused: [DisplayItem] = []
@@ -207,7 +266,7 @@ final class SearchController {
         }
         items = all
         relevantItems = focused
-        usedSemantic = semantic != nil
+        usedSemantic = semantic != nil || (filter.categoryName != nil && index.isReady)
         elapsedMilliseconds = Date().timeIntervalSince(start) * 1000
         isSearching = false
     }

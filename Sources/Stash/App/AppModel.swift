@@ -31,6 +31,7 @@ final class AppModel {
 
     @ObservationIgnored let paths: AppPaths
     @ObservationIgnored let downloader: MediaDownloader
+    @ObservationIgnored let analyzer: MediaAnalyzer
     @ObservationIgnored private(set) var capture: CaptureCoordinator!
     @ObservationIgnored private(set) var capturePreview: CapturePreviewController!
     @ObservationIgnored private(set) var quickNote: QuickNoteController!
@@ -40,6 +41,7 @@ final class AppModel {
     @ObservationIgnored private var statusItem: StatusItemController?
     @ObservationIgnored private let services = ServicesProvider()
     @ObservationIgnored private var started = false
+    @ObservationIgnored private var summaryChain: Task<Void, Never>?
     @ObservationIgnored private var databaseError: String?
 
     private init() {
@@ -62,6 +64,7 @@ final class AppModel {
         self.index = index
         search = SearchController(library: library, index: index)
         downloader = MediaDownloader(library: library, settings: settings)
+        analyzer = MediaAnalyzer(library: library)
         capture = CaptureCoordinator(model: self)
         capturePreview = CapturePreviewController(model: self)
         quickNote = QuickNoteController(model: self)
@@ -99,6 +102,7 @@ final class AppModel {
         Analytics.capture("app_opened", ["snip_count": library.snips.count])
         search.refresh(debounce: 0)
         downloader.scan()
+        analyzer.scan()
         showLibrary()
         if databaseError != nil {
             HUD.shared.error(String(localized: "Stash couldn't open its library file, so changes won't be saved this session.", comment: "HUD error at launch when the database cannot open"))
@@ -114,12 +118,33 @@ final class AppModel {
     private func libraryDidChange(_ change: LibraryChange) {
         index.libraryDidChange(change)
         search.libraryChanged()
+        if case .updated(let ids) = change { analyzer.enqueue(ids) }
         if case .added(let ids) = change {
             downloader.enqueue(ids)
+            analyzer.enqueue(ids)
+            summarize(ids)
             let kinds = Set(ids.compactMap { library.snip($0)?.kind.rawValue })
             Analytics.capture("snips_added", ["count": ids.count, "kinds": kinds.sorted()])
         }
         if case .removed(let ids) = change, let viewerID, ids.contains(viewerID) { self.viewerID = nil }
+    }
+
+    /// Adds an on-device summary to new pages that have enough text to need one.
+    private func summarize(_ ids: [UUID]) {
+        guard Summarizer.isAvailable else { return }
+        let pages = ids.compactMap { library.snip($0) }.filter { snip in
+            snip.kind == .link && snip.summary == nil && (snip.link?.content ?? snip.body).count >= 600
+        }
+        for page in pages {
+            // One at a time: a bulk import must not start hundreds of model sessions.
+            let previous = summaryChain
+            summaryChain = Task {
+                await previous?.value
+                let text = [page.body, page.link?.content ?? ""].filter { !$0.isEmpty }.joined(separator: "\n\n")
+                guard let summary = await Summarizer.summarize(title: page.displayTitle, text: text) else { return }
+                library.mutate(page.id) { $0.summary = summary }
+            }
+        }
     }
 
     func applyDockPolicy() {

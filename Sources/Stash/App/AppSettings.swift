@@ -63,6 +63,9 @@ final class AppSettings {
         }
     }
     var hotKeyData: Data? { didSet { defaults.set(hotKeyData, forKey: Keys.hotKeys) } }
+    var showSidebar: Bool { didSet { defaults.set(showSidebar, forKey: Keys.showSidebar) } }
+    /// Names of the user's smart categories, e.g. "AI" or "Design". Members are found by meaning.
+    var categories: [String] { didSet { defaults.set(categories, forKey: Keys.categories) } }
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -79,6 +82,7 @@ final class AppSettings {
             Keys.showInDock: true,
             Keys.didOnboard: false,
             Keys.shareUsageData: false,
+            Keys.showSidebar: true,
         ])
         searchEngine = SearchEngineChoice(rawValue: defaults.string(forKey: Keys.searchEngine) ?? "") ?? .gemma
         indexPostImages = defaults.bool(forKey: Keys.indexPostImages)
@@ -94,6 +98,8 @@ final class AppSettings {
         didOnboard = defaults.bool(forKey: Keys.didOnboard)
         shareUsageData = defaults.bool(forKey: Keys.shareUsageData)
         hotKeyData = defaults.data(forKey: Keys.hotKeys)
+        showSidebar = defaults.bool(forKey: Keys.showSidebar)
+        categories = defaults.stringArray(forKey: Keys.categories) ?? []
     }
 
     private enum Keys {
@@ -110,5 +116,7 @@ final class AppSettings {
         static let didOnboard = "didOnboard"
         static let shareUsageData = "shareUsageData"
         static let hotKeys = "hotKeys"
+        static let showSidebar = "showSidebar"
+        static let categories = "categories"
     }
 }

@@ -61,11 +61,13 @@ public enum EmbeddingDocumentBuilder {
     /// - Parameters:
     ///   - includePostImages: attach a post's first photo, so posts can be found by what their images show.
     ///   - maxCharacters: text budget; long notes are truncated to stay inside the model's batch limits.
+    ///   - maxImages: images per snip, counting video frames. Each costs vision tokens.
     public static func document(
         for snip: Snip,
         style: PromptStyle,
         includePostImages: Bool = true,
-        maxCharacters: Int = 6_000
+        maxCharacters: Int = 6_000,
+        maxImages: Int = 6
     ) -> EmbeddingDocument {
         var title: String?
         var parts: [String] = []
@@ -74,6 +76,22 @@ public enum EmbeddingDocumentBuilder {
         func localImage(_ media: [SnipMedia]) -> String? {
             media.first { $0.kind == .image && $0.localFile != nil }?.localFile
                 ?? media.first { $0.localFile != nil }?.localFile
+        }
+        /// Every local photo, then the sampled frames of each video (its poster is frame 0's stand-in).
+        func postImages(_ media: [SnipMedia]) -> [String] {
+            var files: [String] = []
+            for m in media {
+                if let frames = m.frames, !frames.isEmpty {
+                    files += frames
+                } else if let file = m.localFile {
+                    files.append(file)
+                }
+            }
+            return files
+        }
+        func recognized() {
+            if let ocr = snip.ocrText, !ocr.isEmpty { parts.append(String(ocr.prefix(1_500))) }
+            if !snip.labels.isEmpty { parts.append(snip.labels.joined(separator: ", ")) }
         }
 
         switch snip.kind {
@@ -90,12 +108,13 @@ public enum EmbeddingDocumentBuilder {
                 parts.append([card.title, card.summary].compactMap { $0 }.joined(separator: " — "))
             }
             for alt in snip.media.compactMap(\.alt) where !alt.isEmpty { parts.append(alt) }
-            if includePostImages, let file = localImage(snip.media) { images.append(file) }
+            recognized()
+            if includePostImages { images += postImages(snip.media) }
 
         case .screenshot, .image:
             title = snip.title.isEmpty ? (snip.appName ?? snip.kind.label) : snip.title
             if !snip.body.isEmpty { parts.append(snip.body) }
-            if let ocr = snip.ocrText, !ocr.isEmpty { parts.append(String(ocr.prefix(1_500))) }
+            recognized()
             if let file = localImage(snip.media) { images.append(file) }
 
         case .note, .text:
@@ -106,12 +125,17 @@ public enum EmbeddingDocumentBuilder {
 
         case .link:
             title = snip.title.isEmpty ? snip.link?.title : snip.title
+            if let summary = snip.summary, !summary.isEmpty { parts.append(summary) }
             if let summary = snip.link?.summary, !summary.isEmpty { parts.append(summary) }
             if !snip.body.isEmpty { parts.append(snip.body) }
+            if let content = snip.link?.content, !content.isEmpty { parts.append(String(content.prefix(3_000))) }
             if let site = snip.link?.siteName ?? snip.domain { parts.append(site) }
+            recognized()
+            if includePostImages { images += postImages(snip.media) }
         }
 
         if !snip.tags.isEmpty { parts.append(snip.tags.map { "#\($0)" }.joined(separator: " ")) }
+        images = Array(images.prefix(maxImages))
 
         var body = parts.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }

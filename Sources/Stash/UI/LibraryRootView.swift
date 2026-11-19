@@ -31,8 +31,22 @@ struct LibraryRootView: View {
                     MasonryGrid(items: items, isSearching: search.isQueryActive) { open($0) }
                 }
             }
+            .padding(.leading, sidebarInset)
             .blur(radius: model.viewerID == nil ? 0 : 14)
             .animation(.easeOut(duration: 0.25), value: model.viewerID == nil)
+
+            if model.settings.showSidebar {
+                HStack {
+                    Sidebar()
+                        .padding(.leading, 8)
+                        .padding(.vertical, 8)
+                    Spacer()
+                }
+                .ignoresSafeArea()
+                .opacity(model.viewerID == nil ? 1 : 0)
+                .allowsHitTesting(model.viewerID == nil)
+                .transition(.move(edge: .leading).combined(with: .opacity))
+            }
 
             VStack(spacing: 0) {
                 TopBar()
@@ -50,6 +64,9 @@ struct LibraryRootView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 26)
             }
+            .padding(.leading, sidebarInset)
+            // The top bar sits in the title bar, on the window buttons' line.
+            .ignoresSafeArea(.container, edges: .top)
             .opacity(model.viewerID == nil ? 1 : 0)
             .allowsHitTesting(model.viewerID == nil)
 
@@ -84,7 +101,12 @@ struct LibraryRootView: View {
         .environment(\.colorScheme, .dark)
         .animation(.spring(response: 0.38, dampingFraction: 0.86), value: model.viewerID)
         .animation(.easeOut(duration: 0.2), value: fileDropTargeted)
+        .animation(.snappy(duration: 0.3), value: model.settings.showSidebar)
         .onDrop(of: [.fileURL, .image, .url, .plainText], isTargeted: $fileDropTargeted, perform: handleDrop)
+    }
+
+    private var sidebarInset: CGFloat {
+        model.settings.showSidebar ? Sidebar.width + 8 : 0
     }
 
     private func open(_ snip: Snip) {

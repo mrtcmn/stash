@@ -76,6 +76,8 @@ public struct SnipMedia: Codable, Hashable, Sendable, Identifiable {
     public var width: Int?
     public var height: Int?
     public var alt: String?
+    /// Still frames sampled from a video (files in the media folder), so search can see inside it.
+    public var frames: [String]?
 
     public var id: String { localFile ?? remoteURL ?? videoURL ?? "media-\(kind.rawValue)" }
 
@@ -91,8 +93,10 @@ public struct SnipMedia: Codable, Hashable, Sendable, Identifiable {
         videoURL: String? = nil,
         width: Int? = nil,
         height: Int? = nil,
-        alt: String? = nil
+        alt: String? = nil,
+        frames: [String]? = nil
     ) {
+        self.frames = frames
         self.kind = kind
         self.localFile = localFile
         self.remoteURL = remoteURL
@@ -111,12 +115,13 @@ public struct SnipMedia: Codable, Hashable, Sendable, Identifiable {
             videoURL: try c.decodeIfPresent(String.self, forKey: .videoURL),
             width: try c.decodeIfPresent(Int.self, forKey: .width),
             height: try c.decodeIfPresent(Int.self, forKey: .height),
-            alt: try c.decodeIfPresent(String.self, forKey: .alt)
+            alt: try c.decodeIfPresent(String.self, forKey: .alt),
+            frames: try? c.decodeIfPresent([String].self, forKey: .frames)
         )
     }
 
     private enum CodingKeys: String, CodingKey {
-        case kind, localFile, remoteURL, videoURL, width, height, alt
+        case kind, localFile, remoteURL, videoURL, width, height, alt, frames
     }
 }
 
@@ -127,6 +132,8 @@ public struct LinkInfo: Codable, Hashable, Sendable {
     public var siteName: String?
     public var imageURL: String?
     public var faviconURL: String?
+    /// The page's readable text, kept for search. Not shown.
+    public var content: String?
 
     public init(
         url: String? = nil,
@@ -134,7 +141,8 @@ public struct LinkInfo: Codable, Hashable, Sendable {
         summary: String? = nil,
         siteName: String? = nil,
         imageURL: String? = nil,
-        faviconURL: String? = nil
+        faviconURL: String? = nil,
+        content: String? = nil
     ) {
         self.url = url
         self.title = title
@@ -142,6 +150,7 @@ public struct LinkInfo: Codable, Hashable, Sendable {
         self.siteName = siteName
         self.imageURL = imageURL
         self.faviconURL = faviconURL
+        self.content = content
     }
 
     public var isEmpty: Bool {
@@ -279,6 +288,12 @@ public struct Snip: Identifiable, Codable, Hashable, Sendable {
     public var link: LinkInfo?
     /// App that was frontmost when a screenshot was taken.
     public var appName: String?
+    /// What the images show, from on-device image classification (e.g. "chart", "cat").
+    public var labels: [String]
+    /// A short machine-written summary of a saved page.
+    public var summary: String?
+    /// Version of the on-device media analysis (OCR, labels, video frames) already run.
+    public var analysisVersion: Int?
 
     public init(
         id: UUID = UUID(),
@@ -298,8 +313,14 @@ public struct Snip: Identifiable, Codable, Hashable, Sendable {
         externalID: String? = nil,
         tweet: TweetInfo? = nil,
         link: LinkInfo? = nil,
-        appName: String? = nil
+        appName: String? = nil,
+        labels: [String] = [],
+        summary: String? = nil,
+        analysisVersion: Int? = nil
     ) {
+        self.labels = labels
+        self.summary = summary
+        self.analysisVersion = analysisVersion
         self.id = id
         self.kind = kind
         self.title = title
@@ -344,13 +365,16 @@ public struct Snip: Identifiable, Codable, Hashable, Sendable {
             externalID: try? c.decodeIfPresent(String.self, forKey: .externalID),
             tweet: try? c.decodeIfPresent(TweetInfo.self, forKey: .tweet),
             link: try? c.decodeIfPresent(LinkInfo.self, forKey: .link),
-            appName: try? c.decodeIfPresent(String.self, forKey: .appName)
+            appName: try? c.decodeIfPresent(String.self, forKey: .appName),
+            labels: (try? c.decodeIfPresent([String].self, forKey: .labels)) ?? [],
+            summary: try? c.decodeIfPresent(String.self, forKey: .summary),
+            analysisVersion: try? c.decodeIfPresent(Int.self, forKey: .analysisVersion)
         )
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, kind, title, body, url, author, media, tags, isFavorite, createdAt, savedAt, updatedAt
-        case source, ocrText, externalID, tweet, link, appName
+        case source, ocrText, externalID, tweet, link, appName, labels, summary, analysisVersion
     }
 }
 
@@ -387,18 +411,24 @@ extension Snip {
     public var searchableText: String {
         var parts: [String] = [title, body]
         if let author { parts.append("\(author.name) @\(author.handle) \(author.handle)") }
-        if let ocrText { parts.append(ocrText) }
         if let quoted = tweet?.quoted {
             parts.append(quoted.text)
             if let a = quoted.author { parts.append("\(a.name) @\(a.handle)") }
         }
         if let card = tweet?.card { parts.append([card.title, card.summary, card.siteName].compactMap { $0 }.joined(separator: " ")) }
-        if let link { parts.append([link.title, link.summary, link.siteName].compactMap { $0 }.joined(separator: " ")) }
+        if let link { parts.append([link.title, link.summary, link.siteName, link.content].compactMap { $0 }.joined(separator: " ")) }
+        if let summary { parts.append(summary) }
         if let appName { parts.append(appName) }
         if let url { parts.append(url) }
         parts.append(contentsOf: media.compactMap(\.alt))
         parts.append(contentsOf: tags)
         return parts.filter { !$0.isEmpty }.joined(separator: "\n")
+    }
+
+    /// Text machines read from the media (OCR and image labels). Search trusts it less
+    /// than what people wrote, because recognition makes mistakes.
+    public var recognizedText: String {
+        ([ocrText ?? ""] + labels).filter { !$0.isEmpty }.joined(separator: "\n")
     }
 }
 

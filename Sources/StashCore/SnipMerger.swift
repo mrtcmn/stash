@@ -33,6 +33,9 @@ public enum SnipMerger {
         // A real post date beats a placeholder "now" from a sparse import.
         if incoming.kind == .tweet, incoming.createdAt < existing.createdAt { merged.createdAt = incoming.createdAt }
         merged.ocrText = existing.ocrText ?? incoming.ocrText
+        merged.summary = existing.summary ?? incoming.summary
+        // New media has not been through OCR, labels and frame sampling yet.
+        if merged.media.count != existing.media.count { merged.analysisVersion = nil }
         merged.source = existing.source ?? incoming.source
         merged.link = mergeLink(existing.link, incoming.link)
         merged.tweet = mergeTweet(existing.tweet, incoming.tweet)
@@ -83,6 +86,7 @@ public enum SnipMerger {
         a.siteName = a.siteName ?? b.siteName
         a.imageURL = a.imageURL ?? b.imageURL
         a.faviconURL = a.faviconURL ?? b.faviconURL
+        a.content = b.content ?? a.content
         return a
     }
 

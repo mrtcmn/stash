@@ -91,8 +91,9 @@ final class LocalServer: @unchecked Sendable {
         }
         connection.start(queue: queue)
         receive(on: connection, buffer: Data())
-        // Drop clients that never finish their request.
-        queue.asyncAfter(deadline: .now() + 30) { [weak connection] in connection?.cancel() }
+        // Drop clients that never finish. ponytail: one deadline for the whole exchange; it must
+        // cover an MCP search that waits behind a re-index, so it is long. Split it if slow clients matter.
+        queue.asyncAfter(deadline: .now() + 120) { [weak connection] in connection?.cancel() }
     }
 
     private static func isLoopback(_ host: NWEndpoint.Host) -> Bool {

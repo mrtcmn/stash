@@ -33,6 +33,18 @@ public enum QueryParser {
         "clip": .text, "clips": .text, "text": .text, "selection": .text,
     ]
 
+    /// The `type:` name for a kind, e.g. "post" for `.tweet`.
+    public static func typeName(_ kind: SnipKind) -> String {
+        switch kind {
+        case .tweet: "post"
+        case .screenshot: "screenshot"
+        case .note: "note"
+        case .link: "link"
+        case .image: "image"
+        case .text: "clip"
+        }
+    }
+
     public static func parse(_ raw: String) -> ParsedQuery {
         var query = ParsedQuery()
         var freeWords: [String] = []
@@ -124,6 +136,8 @@ public struct SearchCandidate: Sendable {
     public var id: UUID
     public var kind: SnipKind
     public var haystack: String
+    /// OCR text and image labels, matched with less weight than `haystack`.
+    public var recognized: String
     public var title: String
     public var authorHandle: String?
     public var tags: [String]
@@ -134,6 +148,7 @@ public struct SearchCandidate: Sendable {
         id = snip.id
         kind = snip.kind
         haystack = TextNormalizer.normalize(snip.searchableText)
+        recognized = TextNormalizer.normalize(snip.recognizedText)
         title = TextNormalizer.normalize(snip.displayTitle + " " + (snip.author.map { "\($0.name) \($0.handle)" } ?? ""))
         authorHandle = snip.author.map { TextNormalizer.normalize($0.handle) }
         tags = snip.tags.map(TextNormalizer.normalize)
@@ -152,8 +167,16 @@ public struct RankedHit: Sendable, Equatable {
 }
 
 /// Combines keyword matching with embedding similarity.
+///
+/// The fusion is a convex combination: `semanticWeight * cosine + (1 - semanticWeight) * keyword`.
+/// Bruch et al. (ACM TOIS 2023, arXiv:2210.11934) found a tuned convex combination beats
+/// reciprocal rank fusion; no single weight is best for every library, so 0.75 is a starting
+/// point. Tune it with a labeled set of queries, not by feel.
 public enum HybridRanker {
     public static let semanticWeight: Float = 0.75
+    /// A word found only in OCR text or image labels counts this much of a written-text match.
+    /// OCR misreads words and labels are guesses, so they rank below the same word in the post.
+    public static let recognizedTextWeight: Float = 0.7
 
     public static func keywordScore(_ query: ParsedQuery, _ c: SearchCandidate) -> Float {
         guard !query.terms.isEmpty || !query.phrases.isEmpty else { return 0 }
@@ -161,15 +184,22 @@ public enum HybridRanker {
         var possible: Float = 0
         for term in query.terms {
             possible += 1
-            guard c.haystack.contains(term) else { continue }
-            var s: Float = 0.7
-            if containsWordPrefix(c.haystack, term) { s += 0.15 }
-            if c.title.contains(term) { s += 0.15 }
-            total += s
+            if c.haystack.contains(term) {
+                var s: Float = 0.7
+                if containsWordPrefix(c.haystack, term) { s += 0.15 }
+                if c.title.contains(term) { s += 0.15 }
+                total += s
+            } else if c.recognized.contains(term) {
+                total += recognizedTextWeight * (containsWordPrefix(c.recognized, term) ? 0.85 : 0.7)
+            }
         }
         for phrase in query.phrases {
             possible += 1
-            if c.haystack.contains(phrase) { total += 1 }
+            if c.haystack.contains(phrase) {
+                total += 1
+            } else if c.recognized.contains(phrase) {
+                total += recognizedTextWeight
+            }
         }
         return possible > 0 ? min(1, total / possible) : 0
     }

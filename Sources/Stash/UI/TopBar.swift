@@ -9,23 +9,36 @@ struct TopBar: View {
     private let filters: [LibraryFilter] = [.all, .kind(.tweet), .kind(.screenshot), .kind(.note), .kind(.link), .favorites]
 
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
+        HStack(alignment: .center, spacing: 10) {
+            sidebarToggle
+                .padding(.leading, model.settings.showSidebar ? 0 : 66) // window buttons
             brand
-                .padding(.leading, 82) // traffic lights
             Spacer(minLength: 12)
-            filterPills
+            // The sidebar holds the filters; without it they sit in the bar.
+            if !model.settings.showSidebar { filterPills }
             Spacer(minLength: 12)
             actions
         }
         .padding(.horizontal, 18)
-        .padding(.top, 10)
-        .frame(height: 64)
+        .frame(height: 52) // the title bar's height, so the window buttons share this line
         .background(
             // Drag the window by the empty parts of the bar.
             Color.clear
                 .contentShape(Rectangle())
                 .gesture(WindowDragGesture())
         )
+    }
+
+    private var sidebarToggle: some View {
+        Button {
+            withAnimation(.snappy) { model.settings.showSidebar.toggle() }
+        } label: {
+            Image(systemName: "sidebar.left")
+        }
+        .buttonStyle(.glass)
+        .buttonBorderShape(.circle)
+        .controlSize(.large)
+        .help(model.settings.showSidebar ? "Hide sidebar (⌃⌘S)" : "Show sidebar (⌃⌘S)")
     }
 
     // MARK: Brand

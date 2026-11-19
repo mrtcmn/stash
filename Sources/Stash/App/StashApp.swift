@@ -99,6 +99,10 @@ struct StashCommands: Commands {
                 .keyboardShortcut("1")
             Button("Grid") { model.settings.viewMode = .grid }
                 .keyboardShortcut("2")
+            Button(model.settings.showSidebar ? "Hide Sidebar" : "Show Sidebar") {
+                withAnimation(.snappy) { model.settings.showSidebar.toggle() }
+            }
+            .keyboardShortcut("s", modifiers: [.command, .control])
             Divider()
             Button("Search") { model.showLibrary(focusSearch: true) }
                 .keyboardShortcut("f")

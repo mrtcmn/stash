@@ -59,6 +59,7 @@ extension AppModel {
         if request.method == "OPTIONS" {
             return LocalAPIAccess.isAllowedOrigin(origin) ? HTTPResponse(status: 204, headers: cors) : .error(403, String(localized: "Origin not allowed", comment: "Error the local server sends to the browser extension, which shows it"))
         }
+        if request.path == "/mcp" { return reply(await handleMCP(request)) }
         guard request.path.hasPrefix("/api/") else { return .error(404, String(localized: "Not found", comment: "Error the local server sends to the browser extension, which shows it")) }
         guard LocalAPIAccess.authorize(request) else { return .error(403, String(localized: "Forbidden", comment: "Error the local server sends to the browser extension, which shows it")) }
         noteExtensionContact()
@@ -109,9 +110,15 @@ extension AppModel {
             if let done = body["done"] as? Bool, done {
                 setActivity(nil)
                 let count = body["count"] as? Int ?? 0
-                HUD.shared.show(String(localized: "Imported \(count) bookmarks from X", comment: "HUD after the extension imports X bookmarks; the argument is the count"), symbol: "bookmark.fill")
+                if body["source"] == nil {
+                    HUD.shared.show(String(localized: "Imported \(count) bookmarks from X", comment: "HUD after the extension imports X bookmarks; the argument is the count"), symbol: "bookmark.fill")
+                } else {
+                    HUD.shared.show(String(localized: "Imported \(count) items", comment: "HUD after the extension imports browser bookmarks, Reddit saved items or a Pinterest board; the argument is the count"), symbol: "tray.and.arrow.down.fill")
+                }
             } else if let count = body["count"] as? Int {
-                setActivity(String(localized: "Importing X bookmarks… \(count)", comment: "Library caption while the extension imports X bookmarks; the argument is the count so far"))
+                setActivity(body["source"] == nil
+                    ? String(localized: "Importing X bookmarks… \(count)", comment: "Library caption while the extension imports X bookmarks; the argument is the count so far")
+                    : String(localized: "Importing… \(count)", comment: "Library caption while the extension imports browser bookmarks, Reddit saved items or a Pinterest board; the argument is the count so far"))
             }
             return reply(.json(["ok": true]))
 

@@ -17,6 +17,10 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate {
         window.title = "Stash"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
+        // An empty unified toolbar makes the title bar 52 pt tall, which centers the window
+        // buttons on the same line as the top bar and the sidebar's first row.
+        window.toolbar = NSToolbar(identifier: "StashLibrary")
+        window.toolbarStyle = .unified
         window.contentViewController = hosting
         window.setContentSize(NSSize(width: 1280, height: 820))
         window.minSize = NSSize(width: 880, height: 560)

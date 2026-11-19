@@ -64,6 +64,22 @@ public enum HTMLText {
         return s.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    /// The main text of a whole page: the `<article>`, else `<main>`, else `<body>`, without
+    /// navigation, headers, footers, forms and scripts. Capped at `limit` characters.
+    public static func readableText(fromPage html: String, limit: Int = 20_000) -> String {
+        var s = replace(html, #"<(script|style|noscript|svg|template|iframe)\b[^>]*>[\s\S]*?</\1>"#, "")
+        s = replace(s, #"<!--[\s\S]*?-->"#, "")
+        for tag in ["article", "main", "body"] {
+            if let inner = matches(s, "<\(tag)\\b[^>]*>([\\s\\S]*)</\(tag)>").first?[1], inner.count > 200 || tag == "body" {
+                s = inner
+                break
+            }
+        }
+        s = replace(s, #"<(nav|header|footer|aside|form|button|menu)\b[^>]*>[\s\S]*?</\1>"#, "")
+        let text = plainText(fromHTML: s)
+        return text.count > limit ? String(text.prefix(limit)) : text
+    }
+
     static func replace(_ s: String, _ pattern: String, _ template: String) -> String {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else { return s }
         return regex.stringByReplacingMatches(in: s, range: NSRange(s.startIndex..., in: s), withTemplate: template)

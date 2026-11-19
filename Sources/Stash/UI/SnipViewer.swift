@@ -205,6 +205,64 @@ struct SnipViewer: View {
 
 // MARK: - Kinds
 
+/// What on-device analysis found in a post's or page's media: image labels and image text.
+private struct MediaInsights: View {
+    let snip: Snip
+    @State private var showText = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            if !snip.labels.isEmpty { LabelRow(labels: snip.labels) }
+            if let ocr = snip.ocrText, !ocr.isEmpty {
+                Button {
+                    withAnimation(.snappy) { showText.toggle() }
+                } label: {
+                    Label("Text in media", systemImage: showText ? "chevron.down" : "chevron.right")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.ink)
+                }
+                .buttonStyle(.plain)
+                if showText {
+                    Text(ocr)
+                        .font(.system(size: 13, design: .monospaced))
+                        .foregroundStyle(Theme.ink.opacity(0.85))
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(.black.opacity(0.25)))
+                }
+            }
+        }
+    }
+}
+
+/// Image labels from on-device classification. Tapping one searches for it.
+private struct LabelRow: View {
+    let labels: [String]
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "eye")
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(Theme.inkTertiary)
+                .help("What the images show, recognized on this Mac")
+            ForEach(labels, id: \.self) { label in
+                Button(label) {
+                    model.viewerID = nil
+                    model.search.text = label
+                }
+                .buttonStyle(.plain)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(Theme.inkSecondary)
+                .padding(.horizontal, 9)
+                .padding(.vertical, 4)
+                .background(Capsule().fill(.white.opacity(0.07)))
+            }
+        }
+    }
+}
+
 private struct PostDetail: View {
     let snip: Snip
     @Environment(AppModel.self) private var model
@@ -251,6 +309,7 @@ private struct PostDetail: View {
                 MetricsRow(info: snip.tweet)
                 Spacer()
             }
+            MediaInsights(snip: snip)
             TagEditor(snip: snip)
         }
     }
@@ -320,6 +379,7 @@ private struct ImageDetail: View {
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.inkTertiary)
             }
+            if !snip.labels.isEmpty { LabelRow(labels: snip.labels) }
             TagEditor(snip: snip)
         }
     }
@@ -387,20 +447,31 @@ private struct LinkDetail: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            if let media = snip.primaryMedia {
+            if snip.media.count > 1 || snip.media.contains(where: { $0.kind != .image }) {
+                MediaGallery(media: snip.media)
+            } else if let media = snip.primaryMedia {
                 AsyncThumbnail(source: ImageSource.of(media), maxPixels: 1600)
                     .aspectRatio(1.91, contentMode: .fill)
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
-            Text(snip.link?.siteName ?? snip.domain ?? "")
+            Text([snip.link?.siteName ?? snip.domain, snip.author.map { "@\($0.handle)" }].compactMap { $0 }.joined(separator: " · "))
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(Theme.inkSecondary)
             Text(snip.displayTitle)
                 .headline(28, weight: .semibold)
                 .foregroundStyle(Theme.ink)
                 .textSelection(.enabled)
-            if let summary = snip.link?.summary, !summary.isEmpty {
+            if let summary = snip.summary, !summary.isEmpty {
+                Label {
+                    Text(summary).textSelection(.enabled)
+                } icon: {
+                    Image(systemName: "apple.intelligence").foregroundStyle(Theme.accent)
+                }
+                .font(.system(size: 16))
+                .foregroundStyle(Theme.ink.opacity(0.9))
+                .help("Summary written on this Mac by Apple Intelligence")
+            } else if let summary = snip.link?.summary, !summary.isEmpty {
                 Text(summary)
                     .font(.system(size: 16))
                     .foregroundStyle(Theme.ink.opacity(0.8))
@@ -425,6 +496,7 @@ private struct LinkDetail: View {
                         .textSelection(.enabled)
                 }
             }
+            MediaInsights(snip: snip)
             TagEditor(snip: snip)
         }
     }

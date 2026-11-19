@@ -51,9 +51,14 @@ enum WebFetcher {
         return try OEmbedParser.snip(from: data, reference: reference, source: source)
     }
 
-    /// Builds a link snip with title, description and preview image. Never fails: without
-    /// network it returns a bare link.
+    /// Builds a link snip with title, description, preview image and the page's readable text.
+    /// Never fails: without network it returns a bare link.
     static func link(_ url: URL, title fallbackTitle: String?, source: String) async -> Snip {
+        if let json = RedditParser.jsonURL(for: url), let data = try? await get(json),
+           let post = try? RedditParser.snip(from: data, source: source) {
+            return post
+        }
+
         var snip = Snip(
             kind: .link,
             title: fallbackTitle ?? "",
@@ -62,13 +67,25 @@ enum WebFetcher {
             externalID: "url:\(URLNormalizer.normalize(url.absoluteString))",
             link: LinkInfo(url: url.absoluteString, title: fallbackTitle)
         )
-        guard let result = try? await session.data(from: url) else { return snip }
-        let (data, response) = result
-        if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) { return snip }
-        guard (response.mimeType ?? "text/html").contains("html") else { return snip }
-        let html = decodeHTML(data, encodingName: response.textEncodingName)
-        let parsed = LinkMetadataParser.parse(html: html, pageURL: response.url ?? url)
+        var pageURL = url
+        var html: String?
+        if let (data, response) = try? await session.data(from: url),
+           (response as? HTTPURLResponse).map({ (200..<300).contains($0.statusCode) }) ?? true,
+           (response.mimeType ?? "text/html").contains("html") {
+            html = decodeHTML(data, encodingName: response.textEncodingName)
+            pageURL = response.url ?? url
+        }
+        // Pages built by JavaScript send almost no text; render them like a browser would.
+        if html.map({ HTMLText.readableText(fromPage: $0).count < 400 }) ?? true,
+           let rendered = await PageRenderer.render(url) {
+            html = rendered
+        }
+        guard let html else { return snip }
+
+        let parsed = LinkMetadataParser.parse(html: html, pageURL: pageURL)
         snip.link = parsed.info
+        let text = HTMLText.readableText(fromPage: html)
+        snip.link?.content = text.isEmpty ? nil : text
         if let title = parsed.title, !title.isEmpty { snip.title = title }
         if let image = parsed.info.imageURL {
             snip.media = [SnipMedia(kind: .image, remoteURL: image)]

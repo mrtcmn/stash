@@ -36,7 +36,7 @@ final class LibraryModel {
             if let cached = haystack[snip.id], cached.updatedAt == snip.updatedAt {
                 next[snip.id] = cached
             } else {
-                next[snip.id] = (snip.updatedAt, (snip.searchableText + " " + (snip.url ?? "")).lowercased())
+                next[snip.id] = (snip.updatedAt, (snip.searchableText + " " + snip.recognizedText + " " + (snip.url ?? "")).lowercased())
             }
         }
         haystack = next

@@ -168,7 +168,7 @@ final class LibraryStore {
         reindex()
         let removedIDs = removed.map(\.id)
         enqueue { try await $0.delete(ids: removedIDs) }
-        let files = removed.flatMap { $0.media.compactMap(\.localFile) }
+        let files = removed.flatMap { $0.media.flatMap { [$0.localFile].compactMap { $0 } + ($0.frames ?? []) } }
         let store = media
         Task.detached(priority: .utility) { store.delete(files) }
         for file in files { ImageLoader.shared.evict(localFile: file) }

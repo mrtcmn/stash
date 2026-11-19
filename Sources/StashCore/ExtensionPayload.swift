@@ -85,6 +85,12 @@ public struct ExtensionItem: Decodable, Sendable {
     /// For images and tab screenshots: inline `data:` URL bytes.
     public var dataUrl: String?
     public var tags: [String]?
+    /// For pages that are posts on another site (Reddit, Pinterest): who posted it.
+    public var author: ExtensionPost.Author?
+    /// For pages that are posts on another site: their photos and videos.
+    public var media: [ExtensionPost.Media]?
+    /// For pages: the page's readable text, for search and the summary.
+    public var content: String?
 }
 
 /// A snip built from an extension item, plus media the app still has to store.
@@ -136,13 +142,16 @@ public enum ExtensionPayload {
                 summary: item.description,
                 siteName: item.siteName,
                 imageURL: item.image,
-                faviconURL: item.favicon
+                faviconURL: item.favicon,
+                content: item.content?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfBlank
             )
             let snip = Snip(
                 kind: .link,
                 title: item.title ?? "",
                 body: item.text ?? "",
                 url: url,
+                author: item.author.map(Self.author),
+                media: (item.media ?? []).compactMap(Self.media),
                 tags: tags,
                 createdAt: now,
                 savedAt: now,
@@ -233,14 +242,15 @@ public enum ExtensionPayload {
     }
 
     static func media(_ m: ExtensionPost.Media) -> SnipMedia? {
-        guard let url = m.url, !url.isEmpty else { return nil }
+        // Reddit's JSON escapes "&" in media URLs as "&amp;".
+        guard let url = m.url?.replacingOccurrences(of: "&amp;", with: "&"), !url.isEmpty else { return nil }
         let kind: SnipMedia.Kind
         switch m.type {
         case "video": kind = .video
         case "gif", "animated_gif": kind = .gif
         default: kind = .image
         }
-        return SnipMedia(kind: kind, remoteURL: url, videoURL: m.videoUrl, width: m.width, height: m.height, alt: m.alt)
+        return SnipMedia(kind: kind, remoteURL: url, videoURL: m.videoUrl?.replacingOccurrences(of: "&amp;", with: "&"), width: m.width, height: m.height, alt: m.alt)
     }
 }
 
@@ -298,4 +308,8 @@ public enum TagNormalizer {
         let parts = s.lowercased().split { $0.isWhitespace }
         return parts.joined(separator: "-")
     }
+}
+
+private extension String {
+    var nilIfBlank: String? { isEmpty ? nil : self }
 }

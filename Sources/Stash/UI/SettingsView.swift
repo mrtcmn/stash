@@ -240,6 +240,23 @@ private struct BrowserSettings: View {
                         .foregroundStyle(.secondary)
                 }
             }
+            Section {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Coding agents can search and read your library. In Terminal, run:")
+                    Text(model.mcpInstallCommand)
+                        .font(.system(.callout, design: .monospaced))
+                        .textSelection(.enabled)
+                    HStack {
+                        Button("Copy Command") { Pasteboard.copy(text: model.mcpInstallCommand) }
+                        Button("Copy Server URL") { Pasteboard.copy(text: model.mcpURL) }
+                    }
+                }
+            } header: {
+                Text("MCP server")
+            } footer: {
+                Text("Works with Claude Code, Codex, Cursor and any client that speaks MCP over HTTP. The server only answers this Mac, and only while Stash is open.")
+                    .foregroundStyle(.secondary)
+            }
             Section("Without the extension") {
                 Text("Press ⌃⇧X in any browser to save the current tab. Posts on X are saved with their text, images and author. The first time, macOS asks to let Stash control the browser.")
                     .font(.callout)
