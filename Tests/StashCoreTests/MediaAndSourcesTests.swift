@@ -102,3 +102,12 @@ final class ReadableTextTests: XCTestCase {
         XCTAssertEqual(HTMLText.readableText(fromPage: html), "Short page")
     }
 }
+
+final class PinterestTextTests: XCTestCase {
+    func testStripsAutomaticAltPrefix() {
+        XCTAssertEqual(PinterestText.clean("This may contain: a painting of a duck"), "a painting of a duck")
+        XCTAssertEqual(PinterestText.clean("This contains: Bedroom with a slim desk"), "Bedroom with a slim desk")
+        XCTAssertEqual(PinterestText.clean("This contains an image of:"), "")
+        XCTAssertEqual(PinterestText.clean("Söylenemiyor çok şey"), "Söylenemiyor çok şey")
+    }
+}

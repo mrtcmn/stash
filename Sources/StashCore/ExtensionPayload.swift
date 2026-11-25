@@ -108,6 +108,18 @@ public enum ExtensionPayloadError: Error, Equatable {
     case missingContent
 }
 
+/// Pinterest's automatic image text starts with "This may contain:" or "This contains an image of:".
+/// As a title it says nothing, so the prefix goes and an empty rest lets the card fall back.
+public enum PinterestText {
+    public static func clean(_ text: String) -> String {
+        text.replacingOccurrences(
+            of: #"^\s*this (may )?contains?( an image of)?\s*:?\s*"#,
+            with: "",
+            options: [.regularExpression, .caseInsensitive]
+        )
+    }
+}
+
 public enum ExtensionPayload {
     public static func incoming(_ item: ExtensionItem, source: String?, now: Date = Date()) throws -> IncomingSnip {
         let tags = (item.tags ?? []).map(TagNormalizer.normalize).filter { !$0.isEmpty }
@@ -136,6 +148,12 @@ public enum ExtensionPayload {
 
         case "page", "link":
             guard let url = item.url, !url.isEmpty else { throw ExtensionPayloadError.missingContent }
+            var item = item
+            if item.siteName == "Pinterest" {
+                item.title = item.title.map(PinterestText.clean)
+                item.text = item.text.map(PinterestText.clean)
+                item.description = item.description.map(PinterestText.clean)
+            }
             let info = LinkInfo(
                 url: url,
                 title: item.title,

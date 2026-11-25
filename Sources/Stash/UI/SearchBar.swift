@@ -66,6 +66,8 @@ struct SearchBar: View {
             }
             .padding(.horizontal, 10)
             .frame(height: 58)
+            // A dark base under the glass: busy cards behind the field must not show through the text.
+            .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color(hex: 0x0F0F0F).opacity(0.72)))
             .glassEffect(.regular.tint(Color(hex: 0x0F0F0F).opacity(0.55)).interactive(), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)

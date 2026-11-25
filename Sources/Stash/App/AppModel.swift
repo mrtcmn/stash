@@ -102,6 +102,7 @@ final class AppModel {
         Analytics.capture("app_opened", ["snip_count": library.snips.count])
         search.refresh(debounce: 0)
         downloader.scan()
+        cleanPinterestText()
         analyzer.scan()
         showLibrary()
         if databaseError != nil {

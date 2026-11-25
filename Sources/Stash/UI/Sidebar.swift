@@ -124,7 +124,8 @@ struct Sidebar: View {
                     .font(.system(size: 12, weight: .medium))
                     .frame(width: 16)
                     .foregroundStyle(selected ? Theme.accent : Theme.inkSecondary)
-                Text(filter.title)
+                // The "number" icon already marks a tag; the title's own "#" would repeat it.
+                Text(filter.title.hasPrefix("#") ? String(filter.title.dropFirst()) : filter.title)
                     .font(.system(size: 13, weight: selected ? .semibold : .regular))
                     .lineLimit(1)
                 Spacer(minLength: 4)

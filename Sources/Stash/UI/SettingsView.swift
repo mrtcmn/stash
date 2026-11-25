@@ -32,6 +32,7 @@ private struct GeneralSettings: View {
                     Text("Atlas").tag(LibraryViewMode.atlas)
                     Text("Grid").tag(LibraryViewMode.grid)
                 }
+                LanguagePicker()
             }
             Section("Library") {
                 LabeledContent("Snips", value: model.library.snips.count.formatted())
@@ -59,6 +60,47 @@ private struct GeneralSettings: View {
             }
         }
         .formStyle(.grouped)
+    }
+}
+
+/// The app's own language. macOS reads `AppleLanguages` at launch, so a change needs a restart.
+private struct LanguagePicker: View {
+    private static let key = "AppleLanguages"
+    private let launched = UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier ?? "")?[key] as? [String]
+    @State private var choice = (UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier ?? "")?[key] as? [String])?.first ?? ""
+
+    private var codes: [String] {
+        // English is the development language: the catalog compiler writes no en.lproj for it.
+        Set(Bundle.main.localizations + ["en"]).subtracting(["Base"]).sorted { name($0) < name($1) }
+    }
+
+    private func name(_ code: String) -> String {
+        Locale(identifier: code).localizedString(forIdentifier: code)?.localizedCapitalized ?? code
+    }
+
+    var body: some View {
+        Picker("Language", selection: $choice) {
+            Text("System", comment: "Language setting: follow the macOS language").tag("")
+            Divider()
+            ForEach(codes, id: \.self) { Text(verbatim: name($0)).tag($0) }
+        }
+        .onChange(of: choice) { _, code in
+            if code.isEmpty { UserDefaults.standard.removeObject(forKey: Self.key) }
+            else { UserDefaults.standard.set([code], forKey: Self.key) }
+        }
+        if choice != (launched?.first ?? "") {
+            LabeledContent("Stash uses the new language after a restart.") {
+                Button("Restart Now") { Self.relaunch() }
+            }
+        }
+    }
+
+    private static func relaunch() {
+        let config = NSWorkspace.OpenConfiguration()
+        config.createsNewApplicationInstance = true
+        NSWorkspace.shared.openApplication(at: Bundle.main.bundleURL, configuration: config) { _, _ in
+            DispatchQueue.main.async { NSApp.terminate(nil) }
+        }
     }
 }
 

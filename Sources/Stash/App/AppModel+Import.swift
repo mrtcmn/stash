@@ -301,3 +301,20 @@ extension AppModel {
         }
     }
 }
+
+extension AppModel {
+    /// Pins saved before `PinterestText` existed have "This may contain: …" titles. Cheap: skips clean snips.
+    // ponytail: one-time repair; delete after a few releases.
+    func cleanPinterestText() {
+        for snip in library.snips where snip.link?.siteName == "Pinterest" {
+            let title = PinterestText.clean(snip.title), body = PinterestText.clean(snip.body)
+            let summary = snip.link?.summary.map(PinterestText.clean)
+            guard title != snip.title || body != snip.body || summary != snip.link?.summary else { continue }
+            library.mutate(snip.id) { s in
+                s.title = title
+                s.body = body
+                s.link?.summary = summary
+            }
+        }
+    }
+}

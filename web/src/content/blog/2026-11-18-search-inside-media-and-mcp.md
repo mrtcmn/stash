@@ -22,11 +22,15 @@ All of this runs on your Mac.
 
 The library has a sidebar now. It shows your types, tags and categories. Name a category, for example "AI" or "Design", and Stash collects the snips that are about it. Hide the sidebar with ⌃⌘S.
 
+<img src="/blog/2026-11-18-search-inside-media-and-mcp/sidebar.webp" alt="The Stash library with the new sidebar: types with counts, the categories design, ico and UI, and tags" width="1200" height="805" loading="lazy" />
+
 ## More places to save from
 
 - **Reddit and Pinterest.** The extension adds a Save button to posts and pins. It can also import your Reddit saved items and a whole Pinterest board.
 - **Browser bookmarks.** Sync all your bookmarks once. After that, each new bookmark goes to Stash too.
 - **Whole pages.** Stash keeps the text of a saved page for search. On Macs with Apple Intelligence, it also writes a short summary on the Mac.
+
+<img src="/blog/2026-11-18-search-inside-media-and-mcp/sources.webp" alt="Library cards saved from Pinterest, GitHub and Reddit, each with its site name, title and text" width="1200" height="607" loading="lazy" />
 
 ## Ask from your terminal
 
