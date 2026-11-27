@@ -2,10 +2,21 @@ import AppKit
 import Combine
 import SwiftUI
 
-/// First-run guide: permissions, the browser extension and on-device search.
+/// First-run guide: screen capture, the browser extension, the search engine and coding agents.
+/// Nothing is required: "Get Started" works at any point.
 struct OnboardingView: View {
     @Environment(AppModel.self) private var model
     @State private var screenAllowed = ScreenCapturePermission.isGranted
+    @State private var engine: SearchEngineChoice = .gemma
+    @State private var copiedMCP = false
+
+    private var engineDetail: LocalizedStringKey {
+        switch engine {
+        case .gemma: "Understands text and images in 100+ languages, fully on this Mac. One-time download of about 300 MB."
+        case .apple: "Apple's built-in model. Text only, no download."
+        case .off: "Matches the words you type. No model, no download."
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -37,7 +48,7 @@ struct OnboardingView: View {
                 step(
                     number: 2,
                     title: "Add the browser extension",
-                    detail: "Install it from the Chrome Web Store in Chrome, Arc, Brave or Edge. You get a Snip button on every post and one-click bookmark import.",
+                    detail: "Works in Chrome, Arc, Brave and Edge. Save posts from X, Reddit and Pinterest with one click, and bring in your browser bookmarks.",
                     done: model.lastExtensionContact != nil
                 ) {
                     Link("Add to Chrome", destination: AppResources.chromeWebStore)
@@ -45,27 +56,50 @@ struct OnboardingView: View {
 
                 step(
                     number: 3,
-                    title: "Help improve Stash (optional)",
-                    detail: "Share anonymous usage counts, such as how often you capture. Stash never sends your snips, URLs, titles or searches. Change this any time in Settings.",
-                    done: model.settings.shareUsageData
+                    title: "Choose how search works",
+                    detail: engineDetail,
+                    done: false
                 ) {
-                    @Bindable var settings = model.settings
-                    Toggle("Share anonymous usage data", isOn: $settings.shareUsageData)
+                    Picker("", selection: $engine) {
+                        Text("EmbeddingGemma 2").tag(SearchEngineChoice.gemma)
+                        Text("Apple built-in").tag(SearchEngineChoice.apple)
+                        Text("Keywords only").tag(SearchEngineChoice.off)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                    .fixedSize()
                 }
 
                 step(
                     number: 4,
-                    title: "Choose how search works",
-                    detail: "EmbeddingGemma 2 understands text and images in 100+ languages and runs fully on-device with WebGPU (one-time ≈300 MB download). Apple's built-in model is text-only but needs no download.",
-                    done: false
+                    title: "Ask from your terminal (optional)",
+                    detail: "Claude Code, Codex and Cursor can search what you saved. Copy the command and run it in Terminal.",
+                    done: copiedMCP
                 ) {
-                    HStack(spacing: 8) {
-                        Button("Use EmbeddingGemma 2") { finish(with: .gemma) }
-                            .buttonStyle(.glassProminent)
-                            .tint(Theme.accentStrong)
-                        Button("Apple built-in") { finish(with: .apple) }
-                        Button("Keywords only") { finish(with: .off) }
+                    Button(copiedMCP ? "Copied" : "Copy Command") {
+                        Pasteboard.copy(text: model.mcpInstallCommand)
+                        copiedMCP = true
                     }
+                }
+
+                Divider().opacity(0.4)
+
+                HStack(alignment: .center, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        @Bindable var settings = model.settings
+                        Toggle("Share anonymous usage data", isOn: $settings.shareUsageData)
+                            .toggleStyle(.switch)
+                            .controlSize(.small)
+                        Text("Only counts, such as “screenshot saved”. Never your snips, URLs or searches.")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Theme.inkTertiary)
+                    }
+                    Spacer()
+                    Button("Get Started") { finish(with: engine) }
+                        .buttonStyle(.glassProminent)
+                        .tint(Theme.accentStrong)
+                        .controlSize(.large)
+                        .keyboardShortcut(.defaultAction)
                 }
             }
             .buttonStyle(.glass)
@@ -73,6 +107,7 @@ struct OnboardingView: View {
             .frame(width: 620)
             .glassEffect(.regular.tint(Theme.panel.opacity(0.65)), in: RoundedRectangle(cornerRadius: 28, style: .continuous))
         }
+        .onAppear { if model.settings.didOnboard { engine = model.settings.searchEngine } }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             screenAllowed = ScreenCapturePermission.isGranted
         }

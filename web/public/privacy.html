@@ -21,33 +21,34 @@
 <body>
 <main>
   <h1>Stash Privacy Policy</h1>
-  <p class="muted">Effective October 26, 2026. Applies to the Stash Mac app, the "Stash — Save to Mac" browser extension and this website.</p>
+  <p class="muted">Effective November 25, 2026. Applies to the Stash Mac app, the "Stash — Save to Mac" browser extension and this website.</p>
 
   <h2>Summary</h2>
-  <p>Stash keeps everything you save on your own Mac. We do not run a server that receives your data, we do not have accounts, and we do not use ads or tracking. Anonymous usage statistics are off unless you turn them on. This website counts visits without cookies. We never sell or share your data.</p>
+  <p>Stash keeps everything you save on your own Mac. We do not run a server that receives your data, we do not have accounts, and we do not use ads or tracking. The app sends anonymous usage statistics unless you turn them off. This website counts visits without cookies. We never sell or share your data.</p>
 
   <h2>What the extension handles</h2>
-  <p>The extension acts only when you use it: when you click its button, press its shortcut, choose a right-click menu item, click the "Save to Stash" button on a post, bookmark a post on X, or start a bookmarks import. It then reads:</p>
+  <p>The extension acts only when you use it: when you click its button, press its shortcut, choose a right-click menu item, click the "Save to Stash" button on a post on X, Reddit or Pinterest, bookmark a post on X, start an import, or sync your browser bookmarks. It then reads:</p>
   <ul>
-    <li><strong>Website content</strong> you choose to save: the page address and title, selected text, images, and for posts on X the text, images, links and author.</li>
+    <li><strong>Website content</strong> you choose to save: the page address and title, selected text, images, and for posts on X, Reddit and Pinterest the text, images, video links and author. When you save a web page, the readable text of that page.</li>
+    <li><strong>Browser bookmarks</strong>, only after you click "Sync browser bookmarks": the address, title and folder name of each bookmark. After that first sync, the extension also sends each new bookmark you add. It never changes or deletes your bookmarks.</li>
     <li>A screenshot of the visible part of the tab, only when you ask for one.</li>
   </ul>
   <p>The extension sends this content to the Stash app on your own Mac at <code>http://127.0.0.1</code>. It does not send it anywhere else. If the app is closed, the extension keeps the save in the browser's local extension storage and delivers it when the app starts.</p>
-  <p>The extension also stores, in local extension storage, the port of the Stash app and whether your X bookmarks were imported before. This data never leaves your browser.</p>
+  <p>The extension also stores, in local extension storage, the port of the Stash app and whether your X bookmarks were imported before and whether bookmark sync is on. This data never leaves your browser.</p>
   <p>The extension does not read pages you do not act on, does not record your browsing history, and does not collect passwords, payment details, messages or location.</p>
 
   <h2>What the Mac app stores</h2>
-  <p>The app stores your saved items, images, notes and search index in <code>~/Library/Application Support/Stash</code> on your Mac. Search, text recognition in screenshots and the AI model run on your Mac. Your saved content is not uploaded for processing.</p>
+  <p>The app stores your saved items, images, notes and search index in <code>~/Library/Application Support/Stash</code> on your Mac. Search, text recognition in images and video frames, image labels, page summaries (Apple Intelligence, on Macs that have it) and the AI model run on your Mac. Your saved content is not uploaded for processing.</p>
 
   <h2>Network requests the app makes</h2>
   <ul>
     <li>It downloads the open EmbeddingGemma 2 search model from Hugging Face and the Transformers.js library from jsDelivr, once, and caches them on your Mac. These requests contain no saved content.</li>
-    <li>It downloads images and link previews for items you saved, directly from the websites they come from.</li>
+    <li>It downloads images, video frames, link previews and page text for items you saved, directly from the websites they come from. For some pages it loads the page in a hidden browser view on your Mac, without your cookies.</li>
   </ul>
   <p>Those websites receive the normal information of any web request, such as your IP address. Their own privacy policies apply.</p>
 
-  <h2>Anonymous usage statistics (optional)</h2>
-  <p>This is off by default. If you turn on "Share anonymous usage data" in the welcome guide or in Settings, the app sends usage events to PostHog (EU Cloud, servers in the EU), which we use to see how many people use Stash and which features they use.</p>
+  <h2>Anonymous usage statistics</h2>
+  <p>This is on by default for new installs, and you can turn it off with "Share anonymous usage data" in the welcome guide or in Settings. If you installed Stash before November 25, 2026, it stays off unless you turn it on. When it is on, the app sends usage events to PostHog (EU Cloud, servers in the EU), which we use to see how many people use Stash and which features they use.</p>
   <ul>
     <li>Each event contains only an event name (for example "app opened", "action used" or "snips added"), counts, the type of item or action (for example "screenshot" or "capture region"), the app version and the macOS version.</li>
     <li>Events never contain your saved content, page addresses, titles, notes, search queries or file names.</li>

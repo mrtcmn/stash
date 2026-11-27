@@ -54,8 +54,14 @@ final class AppSettings {
     var viewMode: LibraryViewMode { didSet { defaults.set(viewMode.rawValue, forKey: Keys.viewMode) } }
     var serverPort: Int { didSet { defaults.set(serverPort, forKey: Keys.serverPort) } }
     var showInDock: Bool { didSet { defaults.set(showInDock, forKey: Keys.showInDock) } }
-    var didOnboard: Bool { didSet { defaults.set(didOnboard, forKey: Keys.didOnboard) } }
-    /// Opt-in: anonymous usage events (see Analytics). Off until the user turns it on.
+    var didOnboard: Bool {
+        didSet {
+            defaults.set(didOnboard, forKey: Keys.didOnboard)
+            // Store the choice the guide showed, so the launch check below never mistakes it for an old install.
+            defaults.set(shareUsageData, forKey: Keys.shareUsageData)
+        }
+    }
+    /// Anonymous usage events (see Analytics). On for new installs; the welcome guide shows the switch.
     var shareUsageData: Bool {
         didSet {
             defaults.set(shareUsageData, forKey: Keys.shareUsageData)
@@ -81,7 +87,7 @@ final class AppSettings {
             Keys.serverPort: 47615,
             Keys.showInDock: true,
             Keys.didOnboard: false,
-            Keys.shareUsageData: false,
+            Keys.shareUsageData: true,
             Keys.showSidebar: true,
         ])
         searchEngine = SearchEngineChoice(rawValue: defaults.string(forKey: Keys.searchEngine) ?? "") ?? .gemma
@@ -96,6 +102,11 @@ final class AppSettings {
         serverPort = (1024...65535).contains(port) ? port : 47615
         showInDock = defaults.bool(forKey: Keys.showInDock)
         didOnboard = defaults.bool(forKey: Keys.didOnboard)
+        // On by default for new installs only. People who onboarded when it was off and never
+        // touched the toggle did not agree to it: keep theirs off.
+        if defaults.bool(forKey: Keys.didOnboard), defaults.object(forKey: Keys.shareUsageData) == nil {
+            defaults.set(false, forKey: Keys.shareUsageData)
+        }
         shareUsageData = defaults.bool(forKey: Keys.shareUsageData)
         hotKeyData = defaults.data(forKey: Keys.hotKeys)
         showSidebar = defaults.bool(forKey: Keys.showSidebar)

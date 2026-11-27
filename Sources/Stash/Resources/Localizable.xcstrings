@@ -3633,6 +3633,124 @@
         }
       }
     },
+    "Apple's built-in model. Text only, no download.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 内置模型。仅限文字，无需下载。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 內建模型。僅限文字，無需下載。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple の内蔵モデル。テキストのみ、ダウンロード不要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 내장 모델입니다. 텍스트만 지원하며 다운로드가 필요 없습니다."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "โมเดลในตัวของ Apple รองรับเฉพาะข้อความ ไม่ต้องดาวน์โหลด"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modelo integrado de Apple. Solo texto, sin descargas."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modelo integrado da Apple. Só texto, sem download."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le modèle intégré d’Apple. Texte uniquement, sans téléchargement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il modello integrato di Apple. Solo testo, nessun download."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apples integriertes Modell. Nur Text, kein Download."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Встроенная модель Apple. Только текст, без загрузки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вбудована модель Apple. Лише текст, без завантаження."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wbudowany model Apple. Tylko tekst, bez pobierania."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het ingebouwde model van Apple. Alleen tekst, geen download."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple'ın yerleşik modeli. Yalnızca metin, indirme gerekmez."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نموذج Apple المدمج. نص فقط، بلا تنزيل."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple का बिल्ट-इन मॉडल। सिर्फ़ टेक्स्ट, कोई डाउनलोड नहीं।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model bawaan Apple. Hanya teks, tanpa unduhan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mô hình tích hợp của Apple. Chỉ văn bản, không cần tải."
+          }
+        }
+      }
+    },
     "Apply": {
       "localizations": {
         "ar": {
@@ -3984,6 +4102,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "箭頭"
+          }
+        }
+      }
+    },
+    "Ask from your terminal (optional)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在终端中提问（可选）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在終端機中提問（選用）"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ターミナルから質問（任意）"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "터미널에서 질문하기 (선택 사항)"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ถามจากเทอร์มินัล (ไม่บังคับ)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregunta desde tu terminal (opcional)"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pergunte pelo terminal (opcional)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interroge depuis ton terminal (facultatif)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiedi dal terminale (facoltativo)"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frag aus dem Terminal (optional)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спрашивай из терминала (необязательно)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Питай із термінала (необов’язково)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pytaj z terminala (opcjonalnie)"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vraag vanuit je terminal (optioneel)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminalinden sor (isteğe bağlı)"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسأل من الطرفية (اختياري)"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "टर्मिनल से पूछें (वैकल्पिक)"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanya dari terminal (opsional)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi từ terminal (tùy chọn)"
           }
         }
       }
@@ -6472,6 +6708,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "選擇建立匯出資料夾的位置。每則摘錄會成為一個 Markdown 檔案；圖片會放在 media/ 中。"
+          }
+        }
+      }
+    },
+    "Claude Code, Codex and Cursor can search what you saved. Copy the command and run it in Terminal.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code、Codex 和 Cursor 可以搜索你保存的内容。拷贝命令并在终端中运行。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code、Codex 和 Cursor 可以搜尋你儲存的內容。拷貝指令並在終端機中執行。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code、Codex、Cursor が保存した内容を検索できます。コマンドをコピーしてターミナルで実行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex, Cursor가 저장한 항목을 검색할 수 있습니다. 명령어를 복사해 터미널에서 실행하세요."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex และ Cursor ค้นหาสิ่งที่คุณบันทึกไว้ได้ คัดลอกคำสั่งแล้วรันใน Terminal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex y Cursor pueden buscar lo que guardaste. Copia el comando y ejecútalo en Terminal."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex e Cursor podem buscar o que você salvou. Copie o comando e execute no Terminal."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex et Cursor peuvent chercher ce que tu as enregistré. Copie la commande et lance-la dans le Terminal."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex e Cursor possono cercare ciò che hai salvato. Copia il comando ed eseguilo nel Terminale."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex und Cursor können durchsuchen, was du gesichert hast. Kopiere den Befehl und führe ihn im Terminal aus."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex и Cursor могут искать то, что ты сохранил. Скопируй команду и выполни её в Терминале."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex і Cursor можуть шукати те, що ти зберіг. Скопіюй команду й виконай її в Терміналі."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex i Cursor mogą przeszukiwać to, co zapisujesz. Skopiuj polecenie i uruchom je w Terminalu."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex en Cursor kunnen doorzoeken wat je hebt bewaard. Kopieer het commando en voer het uit in Terminal."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex ve Cursor kaydettiklerinde arama yapabilir. Komutu kopyala ve Terminal'de çalıştır."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكن لـ Claude Code وCodex وCursor البحث فيما حفظته. انسخ الأمر وشغّله في Terminal."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex और Cursor आपकी सहेजी चीज़ें खोज सकते हैं। कमांड कॉपी करें और Terminal में चलाएँ।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex, dan Cursor bisa mencari yang kamu simpan. Salin perintahnya lalu jalankan di Terminal."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code, Codex và Cursor có thể tìm những gì bạn đã lưu. Sao chép lệnh và chạy trong Terminal."
           }
         }
       }
@@ -11339,6 +11693,124 @@
         }
       }
     },
+    "EmbeddingGemma 2": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EmbeddingGemma 2"
+          }
+        }
+      }
+    },
     "EmbeddingGemma 2 (on-device, text + images)": {
       "comment": "Search settings: semantic search engine choice",
       "localizations": {
@@ -11572,124 +12044,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "EmbeddingGemma 2 透過 WebGPU 完全在這台 Mac 上執行。它能理解 100 多種語言的文字和圖片，因此你可以依畫面內容搜尋截圖。首次啟動時會從 Hugging Face 下載約 300 MB。"
-          }
-        }
-      }
-    },
-    "EmbeddingGemma 2 understands text and images in 100+ languages and runs fully on-device with WebGPU (one-time ≈300 MB download). Apple's built-in model is text-only but needs no download.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "يفهم EmbeddingGemma 2 النصوص والصور بأكثر من 100 لغة ويعمل بالكامل على الجهاز باستخدام WebGPU (تنزيل لمرة واحدة ≈300 MB). نموذج Apple المدمج للنص فقط، لكنه لا يحتاج إلى تنزيل."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 versteht Text und Bilder in über 100 Sprachen und läuft komplett auf dem Gerät mit WebGPU (einmaliger Download von ≈300 MB). Das integrierte Modell von Apple versteht nur Text, braucht aber keinen Download."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 entiende texto e imágenes en más de 100 idiomas y se ejecuta por completo en el dispositivo con WebGPU (una sola descarga de ≈300 MB). El modelo integrado de Apple solo entiende texto, pero no necesita descarga."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 comprend le texte et les images dans plus de 100 langues et tourne entièrement sur l’appareil avec WebGPU (un seul téléchargement d’env. 300 Mo). Le modèle intégré d’Apple ne gère que le texte, mais ne demande aucun téléchargement."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 100+ भाषाओं में टेक्स्ट और इमेज समझता है और WebGPU के साथ पूरी तरह डिवाइस पर चलता है (एक बार ≈300 MB डाउनलोड)। Apple का बिल्ट-इन मॉडल सिर्फ़ टेक्स्ट के लिए है, पर उसे डाउनलोड की ज़रूरत नहीं।"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 memahami teks dan gambar dalam 100+ bahasa dan berjalan sepenuhnya di perangkat dengan WebGPU (unduhan sekali ≈300 MB). Model bawaan Apple hanya untuk teks, tetapi tidak perlu diunduh."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 capisce testo e immagini in oltre 100 lingue e gira interamente sul dispositivo con WebGPU (un solo download di ≈300 MB). Il modello integrato di Apple gestisce solo il testo, ma non richiede download."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 は 100 以上の言語のテキストと画像を理解し、WebGPU で完全にデバイス上で動作します（初回のみ約 300 MB をダウンロード）。Apple の内蔵モデルはテキストのみですが、ダウンロードは不要です。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2는 100개 이상의 언어로 된 텍스트와 이미지를 이해하며, WebGPU로 완전히 기기 내에서 실행됩니다(최초 1회 약 300 MB 다운로드). Apple 내장 모델은 텍스트만 지원하지만 다운로드가 필요 없습니다."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 begrijpt tekst en afbeeldingen in meer dan 100 talen en draait volledig op het apparaat met WebGPU (eenmalige download van ≈300 MB). Het ingebouwde model van Apple kent alleen tekst, maar hoeft niets te downloaden."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 rozumie tekst i obrazy w ponad 100 językach i działa w całości na urządzeniu z WebGPU (jednorazowe pobranie ≈300 MB). Wbudowany model Apple obsługuje tylko tekst, ale nie wymaga pobierania."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O EmbeddingGemma 2 entende texto e imagens em mais de 100 idiomas e roda totalmente no dispositivo com WebGPU (download único de ≈300 MB). O modelo integrado da Apple entende só texto, mas não precisa de download."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 понимает текст и изображения на 100+ языках и работает полностью на устройстве с WebGPU (разовая загрузка ≈300 МБ). Встроенная модель Apple понимает только текст, зато загрузка не нужна."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 เข้าใจข้อความและรูปภาพมากกว่า 100 ภาษา และทำงานบนอุปกรณ์ทั้งหมดด้วย WebGPU (ดาวน์โหลดครั้งเดียวประมาณ 300 MB) โมเดลในตัวของ Apple รองรับเฉพาะข้อความ แต่ไม่ต้องดาวน์โหลด"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2, 100'den fazla dilde metin ve görselleri anlar ve WebGPU ile tamamen cihazda çalışır (tek seferlik ≈300 MB indirme). Apple'ın yerleşik modeli yalnızca metni anlar ama indirme gerektirmez."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 розуміє текст і зображення 100+ мовами й працює повністю на пристрої з WebGPU (одноразове завантаження ≈300 МБ). Вбудована модель Apple розуміє лише текст, зате не потребує завантаження."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 hiểu văn bản và hình ảnh trong hơn 100 ngôn ngữ và chạy hoàn toàn trên thiết bị bằng WebGPU (tải một lần ≈300 MB). Mô hình tích hợp của Apple chỉ xử lý văn bản nhưng không cần tải về."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 能理解 100 多种语言的文本和图片，并借助 WebGPU 完全在设备端运行（一次性下载约 300 MB）。Apple 的内置模型仅支持文本，但无需下载。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 能理解 100 多種語言的文字和圖片，並透過 WebGPU 完全在裝置端執行（只需下載一次，約 300 MB）。Apple 的內建模型僅支援文字，但不需要下載。"
           }
         }
       }
@@ -13470,6 +13824,124 @@
         }
       }
     },
+    "Get Started": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始使用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始使用"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "始める"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시작하기"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เริ่มใช้งาน"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commencer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los geht’s"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Начать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почати"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaczynamy"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aan de slag"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başla"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابدأ"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "शुरू करें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mulai"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu"
+          }
+        }
+      }
+    },
     "Grid": {
       "localizations": {
         "ar": {
@@ -13702,124 +14174,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "格狀 (⌘2)"
-          }
-        }
-      }
-    },
-    "Help improve Stash (optional)": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ساعد في تحسين Stash (اختياري)"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hilf mit, Stash zu verbessern (optional)"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ayuda a mejorar Stash (opcional)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aide à améliorer Stash (facultatif)"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash को बेहतर बनाने में मदद करें (वैकल्पिक)"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bantu tingkatkan Stash (opsional)"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aiuta a migliorare Stash (facoltativo)"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash の改善に協力する（オプション）"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash 개선에 참여(선택 사항)"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Help Stash te verbeteren (optioneel)"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pomóż ulepszyć Stash (opcjonalnie)"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajude a melhorar o Stash (opcional)"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Помоги улучшить Stash (необязательно)"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ช่วยปรับปรุง Stash (ไม่บังคับ)"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash'i geliştirmeye yardım et (isteğe bağlı)"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Допоможи покращити Stash (необов’язково)"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Giúp cải thiện Stash (tùy chọn)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "帮助改进 Stash（可选）"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "協助改進 Stash（選用）"
           }
         }
       }
@@ -16558,124 +16912,6 @@
         }
       }
     },
-    "Install it from the Chrome Web Store in Chrome, Arc, Brave or Edge. You get a Snip button on every post and one-click bookmark import.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ثبّتها من Chrome Web Store في Chrome أو Arc أو Brave أو Edge. ستحصل على زر اقتطاع في كل منشور واستيراد للإشارات المرجعية بنقرة واحدة."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installiere sie aus dem Chrome Web Store in Chrome, Arc, Brave oder Edge. Du bekommst einen Snip-Button an jedem Post und den Lesezeichen-Import mit einem Klick."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Instálala desde la Chrome Web Store en Chrome, Arc, Brave o Edge. Tendrás un botón para guardar en cada post y la importación de marcadores con un clic."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installe-la depuis le Chrome Web Store dans Chrome, Arc, Brave ou Edge. Tu obtiens un bouton d’enregistrement sur chaque post et l’import des signets en un clic."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "इसे Chrome, Arc, Brave या Edge में Chrome Web Store से इंस्टॉल करें। आपको हर पोस्ट पर एक स्निप बटन और एक क्लिक में बुकमार्क इंपोर्ट मिलता है।"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pasang dari Chrome Web Store di Chrome, Arc, Brave, atau Edge. Kamu mendapat tombol Snip di setiap postingan dan impor bookmark sekali klik."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installala dal Chrome Web Store in Chrome, Arc, Brave o Edge. Avrai un pulsante per salvare su ogni post e l’importazione dei segnalibri con un clic."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chrome、Arc、Brave、Edge で Chrome ウェブストアからインストールしてください。すべてのポストに保存ボタンが付き、ブックマークをワンクリックでインポートできます。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chrome, Arc, Brave 또는 Edge에서 Chrome 웹 스토어를 통해 설치하세요. 모든 게시물에 저장 버튼이 생기고, 클릭 한 번으로 북마크를 가져올 수 있습니다."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installeer hem via de Chrome Web Store in Chrome, Arc, Brave of Edge. Je krijgt een bewaarknop bij elke post en importeert bladwijzers met één klik."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zainstaluj je z Chrome Web Store w Chrome, Arc, Brave lub Edge. Dostaniesz przycisk zapisu przy każdym poście i import zakładek jednym kliknięciem."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Instale pela Chrome Web Store no Chrome, Arc, Brave ou Edge. Você ganha um botão para salvar em cada post e importação de marcadores com um clique."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Установи его из Chrome Web Store в Chrome, Arc, Brave или Edge. На каждом посте появится кнопка сохранения, а закладки можно импортировать в один клик."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ติดตั้งจาก Chrome เว็บสโตร์ใน Chrome, Arc, Brave หรือ Edge คุณจะได้ปุ่มบันทึกบนทุกโพสต์ และนำเข้าบุ๊กมาร์กได้ในคลิกเดียว"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chrome, Arc, Brave veya Edge'de Chrome Web Store'dan yükle. Her gönderide bir kaydet düğmesi ve tek tıkla yer işareti aktarma kazanırsın."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Встанови його з Chrome Web Store у Chrome, Arc, Brave або Edge. На кожному пості з’явиться кнопка збереження, а закладки можна імпортувати в один клік."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cài từ Chrome Web Store trong Chrome, Arc, Brave hoặc Edge. Bạn có nút Snip trên mọi bài đăng và nhập dấu trang chỉ với một cú nhấp."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在 Chrome、Arc、Brave 或 Edge 中从 Chrome 应用商店安装。每条帖子上都会出现保存按钮，还能一键导入书签。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在 Chrome、Arc、Brave 或 Edge 中從 Chrome 線上應用程式商店安裝。每則貼文上都會出現儲存按鈕，還能一鍵匯入書籤。"
-          }
-        }
-      }
-    },
     "Install the Stash browser extension to import bookmarks": {
       "comment": "HUD when the user imports X bookmarks without the extension",
       "localizations": {
@@ -17627,43 +17863,19 @@
     },
     "Language": {
       "localizations": {
-        "zh-Hans": {
+        "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "语言"
+            "value": "اللغة"
           }
         },
-        "zh-Hant": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "語言"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "言語"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "언어"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ภาษา"
+            "value": "Sprache"
           }
         },
         "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Idioma"
-          }
-        },
-        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Idioma"
@@ -17673,54 +17885,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Langue"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lingua"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprache"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Язык"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мова"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Język"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Taal"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dil"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اللغة"
           }
         },
         "hi": {
@@ -17735,10 +17899,82 @@
             "value": "Bahasa"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lingua"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "言語"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "언어"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taal"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Język"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ภาษา"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мова"
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Ngôn ngữ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "語言"
           }
         }
       }
@@ -19635,6 +19871,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "相符度"
+          }
+        }
+      }
+    },
+    "Matches the words you type. No model, no download.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匹配你输入的词语。无需模型，无需下载。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "比對你輸入的字詞。無需模型，無需下載。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入力した単語で一致を探します。モデルもダウンロードも不要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "입력한 단어와 일치하는 항목을 찾습니다. 모델과 다운로드가 필요 없습니다."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "จับคู่คำที่คุณพิมพ์ ไม่มีโมเดล ไม่ต้องดาวน์โหลด"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busca las palabras que escribes. Sin modelo, sin descargas."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontra as palavras que você digita. Sem modelo, sem download."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cherche les mots que tu tapes. Sans modèle, sans téléchargement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca le parole che digiti. Nessun modello, nessun download."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Findet die Wörter, die du eingibst. Kein Modell, kein Download."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ищет слова, которые ты вводишь. Без модели и загрузки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шукає слова, які ти вводиш. Без моделі й завантаження."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szuka wpisanych słów. Bez modelu, bez pobierania."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoekt op de woorden die je typt. Geen model, geen download."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yazdığın kelimeleri eşleştirir. Model yok, indirme yok."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يطابق الكلمات التي تكتبها. بلا نموذج ولا تنزيل."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपके लिखे शब्दों से मिलान करता है। कोई मॉडल नहीं, कोई डाउनलोड नहीं।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mencocokkan kata yang kamu ketik. Tanpa model, tanpa unduhan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khớp các từ bạn gõ. Không cần mô hình, không cần tải."
           }
         }
       }
@@ -22244,6 +22598,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "關閉"
+          }
+        }
+      }
+    },
+    "Only counts, such as “screenshot saved”. Never your snips, URLs or searches.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅限计数，例如“已保存截屏”。绝不包括你的摘录、URL 或搜索内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅限計數，例如「已儲存截圖」。絕不包括你的摘錄、URL 或搜尋內容。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「スクリーンショットを保存」などの回数だけです。スニップ、URL、検索内容は送信されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "‘스크린샷 저장’ 같은 횟수만 보냅니다. 항목, URL, 검색어는 절대 보내지 않습니다."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เฉพาะจำนวนครั้ง เช่น “บันทึกภาพหน้าจอ” ไม่ส่งรายการ URL หรือคำค้นของคุณ"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo recuentos, como “captura guardada”. Nunca tus recortes, URL ni búsquedas."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só contagens, como “captura salva”. Nunca seus recortes, URLs ou buscas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seulement des compteurs, comme « capture enregistrée ». Jamais tes extraits, URL ou recherches."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo conteggi, come “screenshot salvato”. Mai i tuoi ritagli, URL o ricerche."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur Zähler wie „Bildschirmfoto gesichert“. Nie deine Snips, URLs oder Suchen."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только счётчики, например «скриншот сохранён». Никогда записи, URL или запросы."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише лічильники, наприклад «знімок збережено». Ніколи записи, URL чи запити."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tylko liczniki, np. „zrzut ekranu zapisany”. Nigdy twoje zapisy, URL-e ani wyszukiwania."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alleen tellingen, zoals ‘screenshot bewaard’. Nooit je snips, URL’s of zoekopdrachten."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca “ekran görüntüsü kaydedildi” gibi sayılar. Kayıtların, URL'lerin ve aramaların asla gönderilmez."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعداد فقط، مثل «تم حفظ لقطة شاشة». لا يتم إرسال قصاصاتك أو روابطك أو عمليات بحثك أبدًا."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "सिर्फ़ गिनती, जैसे “स्क्रीनशॉट सहेजा गया”। आपके स्निप, URL या खोज कभी नहीं।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hanya hitungan, seperti “tangkapan layar disimpan”. Tidak pernah snip, URL, atau pencarianmu."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ số đếm, như “đã lưu ảnh chụp màn hình”. Không bao giờ gửi mẩu lưu, URL hay tìm kiếm của bạn."
           }
         }
       }
@@ -27460,58 +27932,10 @@
     },
     "Restart Now": {
       "localizations": {
-        "zh-Hans": {
+        "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "立即重新启动"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "立即重新啟動"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今すぐ再起動"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "지금 재시동"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เริ่มใหม่ตอนนี้"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reiniciar ahora"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reiniciar agora"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Redémarrer"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Riavvia ora"
+            "value": "إعادة التشغيل الآن"
           }
         },
         "de": {
@@ -27520,40 +27944,16 @@
             "value": "Jetzt neu starten"
           }
         },
-        "ru": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Перезапустить"
+            "value": "Reiniciar ahora"
           }
         },
-        "uk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Перезапустити"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uruchom ponownie"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Herstart nu"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Şimdi Yeniden Başlat"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إعادة التشغيل الآن"
+            "value": "Redémarrer"
           }
         },
         "hi": {
@@ -27568,10 +27968,82 @@
             "value": "Mulai Ulang Sekarang"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riavvia ora"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今すぐ再起動"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지금 재시동"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herstart nu"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uruchom ponownie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reiniciar agora"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустить"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เริ่มใหม่ตอนนี้"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdi Yeniden Başlat"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустити"
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Khởi động lại ngay"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即重新启动"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即重新啟動"
           }
         }
       }
@@ -32554,124 +33026,6 @@
         }
       }
     },
-    "Share anonymous usage counts, such as how often you capture. Stash never sends your snips, URLs, titles or searches. Change this any time in Settings.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شارك أعداد استخدام مجهولة الهوية، مثل عدد مرات الالتقاط. لا يرسل Stash أبدًا قصاصاتك أو عناوين URL أو العناوين أو عمليات البحث. غيّر هذا في أي وقت من الإعدادات."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Teile anonyme Nutzungszahlen, etwa wie oft du aufnimmst. Stash sendet nie deine Snips, URLs, Titel oder Suchen. Du kannst das jederzeit in den Einstellungen ändern."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comparte recuentos de uso anónimos, como la frecuencia con la que haces capturas. Stash nunca envía tus recortes, URL, títulos ni búsquedas. Cámbialo cuando quieras en Ajustes."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partage des statistiques d’usage anonymes, comme la fréquence de tes captures. Stash n’envoie jamais tes extraits, URL, titres ou recherches. Tu peux changer cela à tout moment dans Réglages."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "इस्तेमाल की गुमनाम गिनती शेयर करें, जैसे आप कितनी बार कैप्चर करते हैं। Stash आपके स्निप, URL, टाइटल या सर्च कभी नहीं भेजता। इसे कभी भी सेटिंग्ज़ में बदलें।"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bagikan hitungan penggunaan anonim, seperti seberapa sering kamu menangkap layar. Stash tidak pernah mengirim snip, URL, judul, atau pencarianmu. Ubah ini kapan saja di Pengaturan."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Condividi conteggi d’uso anonimi, ad esempio quanto spesso catturi. Stash non invia mai i tuoi ritagli, URL, titoli o ricerche. Puoi cambiarlo quando vuoi in Impostazioni."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "キャプチャの回数など、匿名の利用回数を共有します。Stash がスニップ、URL、タイトル、検索内容を送信することはありません。設定でいつでも変更できます。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "캡처 빈도 같은 익명 사용 횟수를 공유합니다. Stash는 항목, URL, 제목, 검색어를 절대 보내지 않습니다. 설정에서 언제든 변경할 수 있습니다."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deel anonieme gebruikstellingen, zoals hoe vaak je iets vastlegt. Stash stuurt nooit je snips, URL's, titels of zoekopdrachten. Wijzig dit altijd in Instellingen."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Udostępniaj anonimowe liczniki użycia, np. jak często robisz zrzuty. Stash nigdy nie wysyła twoich zapisów, adresów URL, tytułów ani wyszukiwań. Zmienisz to w każdej chwili w Ustawieniach."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compartilhe contagens de uso anônimas, como a frequência das suas capturas. O Stash nunca envia seus recortes, URLs, títulos ou buscas. Altere isso quando quiser em Ajustes."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Делись анонимной статистикой, например, как часто ты делаешь снимки. Stash никогда не отправляет твои записи, URL, заголовки или запросы. Это можно изменить в любой момент в настройках."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "แชร์จำนวนการใช้งานแบบไม่ระบุตัวตน เช่น ความถี่ที่คุณจับภาพ Stash ไม่เคยส่งรายการ URL ชื่อเรื่อง หรือคำค้นหาของคุณ เปลี่ยนได้ทุกเมื่อในการตั้งค่า"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ne sıklıkla yakalama yaptığın gibi anonim kullanım sayılarını paylaş. Stash kayıtlarını, URL'lerini, başlıklarını veya aramalarını asla göndermez. Bunu istediğin zaman Ayarlar'dan değiştirebilirsin."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ділися анонімною статистикою, наприклад, як часто ти робиш знімки. Stash ніколи не надсилає твої записи, URL, заголовки чи запити. Це можна змінити будь-коли в параметрах."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chia sẻ số liệu sử dụng ẩn danh, chẳng hạn bạn chụp thường xuyên thế nào. Stash không bao giờ gửi mẩu lưu, URL, tiêu đề hay nội dung tìm kiếm của bạn. Thay đổi bất cứ lúc nào trong Cài đặt."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "共享匿名使用次数，例如你截取的频率。Stash 绝不会发送你的摘录、URL、标题或搜索内容。可随时在“设置”中更改。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "分享匿名的使用次數，例如你擷取的頻率。Stash 絕不會傳送你的摘錄、URL、標題或搜尋內容。可隨時在「設定」中更改。"
-          }
-        }
-      }
-    },
     "Share anonymous usage data": {
       "localizations": {
         "ar": {
@@ -35395,58 +35749,10 @@
     },
     "Stash uses the new language after a restart.": {
       "localizations": {
-        "zh-Hans": {
+        "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stash 重新启动后使用新语言。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash 重新啟動後使用新語言。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "再起動後、Stash は新しい言語で表示されます。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "재시동 후 Stash가 새 언어를 사용합니다."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash จะใช้ภาษาใหม่หลังเริ่มใหม่"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash usará el nuevo idioma después de reiniciar."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Stash usará o novo idioma depois de reiniciar."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash utilisera la nouvelle langue après un redémarrage."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash userà la nuova lingua dopo il riavvio."
+            "value": "يستخدم Stash اللغة الجديدة بعد إعادة التشغيل."
           }
         },
         "de": {
@@ -35455,40 +35761,16 @@
             "value": "Stash nutzt die neue Sprache nach einem Neustart."
           }
         },
-        "ru": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stash переключит язык после перезапуска."
+            "value": "Stash usará el nuevo idioma después de reiniciar."
           }
         },
-        "uk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stash змінить мову після перезапуску."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash użyje nowego języka po ponownym uruchomieniu."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash gebruikt de nieuwe taal na een herstart."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stash yeni dili yeniden başlatıldıktan sonra kullanır."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "يستخدم Stash اللغة الجديدة بعد إعادة التشغيل."
+            "value": "Stash utilisera la nouvelle langue après un redémarrage."
           }
         },
         "hi": {
@@ -35503,10 +35785,82 @@
             "value": "Stash memakai bahasa baru setelah dimulai ulang."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash userà la nuova lingua dopo il riavvio."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再起動後、Stash は新しい言語で表示されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재시동 후 Stash가 새 언어를 사용합니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash gebruikt de nieuwe taal na een herstart."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash użyje nowego języka po ponownym uruchomieniu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Stash usará o novo idioma depois de reiniciar."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash переключит язык после перезапуска."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash จะใช้ภาษาใหม่หลังเริ่มใหม่"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash yeni dili yeniden başlatıldıktan sonra kullanır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash змінить мову після перезапуску."
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Stash dùng ngôn ngữ mới sau khi khởi động lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash 重新启动后使用新语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stash 重新啟動後使用新語言。"
           }
         }
       }
@@ -36106,43 +36460,19 @@
     "System": {
       "comment": "Language setting: follow the macOS language",
       "localizations": {
-        "zh-Hans": {
+        "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "跟随系统"
+            "value": "لغة النظام"
           }
         },
-        "zh-Hant": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "跟隨系統"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "システム"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "시스템"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ตามระบบ"
+            "value": "System"
           }
         },
         "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sistema"
-          }
-        },
-        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Sistema"
@@ -36152,54 +36482,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Système"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sistema"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "System"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Системный"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Системна"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Systemowy"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Systeem"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sistem"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لغة النظام"
           }
         },
         "hi": {
@@ -36214,10 +36496,82 @@
             "value": "Sistem"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시스템"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Systeem"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Systemowy"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системный"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตามระบบ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistem"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системна"
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Theo hệ thống"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟随系统"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟隨系統"
           }
         }
       }
@@ -39663,6 +40017,124 @@
         }
       }
     },
+    "Understands text and images in 100+ languages, fully on this Mac. One-time download of about 300 MB.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "理解 100 多种语言的文字和图片，完全在这台 Mac 上运行。一次性下载约 300 MB。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "理解 100 多種語言的文字和圖片，完全在這台 Mac 上運作。一次性下載約 300 MB。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100以上の言語のテキストと画像を理解し、このMac上だけで動作します。初回のみ約300 MBのダウンロードが必要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100개 이상의 언어로 된 텍스트와 이미지를 이해하며, 이 Mac에서만 작동합니다. 약 300MB를 한 번 다운로드합니다."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เข้าใจข้อความและรูปภาพในกว่า 100 ภาษา ทำงานบน Mac เครื่องนี้ทั้งหมด ดาวน์โหลดครั้งเดียวประมาณ 300 MB"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entiende texto e imágenes en más de 100 idiomas, todo en este Mac. Descarga única de unos 300 MB."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entende texto e imagens em mais de 100 idiomas, tudo neste Mac. Download único de cerca de 300 MB."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprend le texte et les images dans plus de 100 langues, entièrement sur ce Mac. Téléchargement unique d’environ 300 Mo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capisce testo e immagini in oltre 100 lingue, tutto su questo Mac. Download una tantum di circa 300 MB."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versteht Text und Bilder in über 100 Sprachen, komplett auf diesem Mac. Einmaliger Download von etwa 300 MB."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Понимает текст и изображения на 100+ языках, полностью на этом Mac. Разовая загрузка около 300 МБ."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розуміє текст і зображення 100+ мовами, повністю на цьому Mac. Одноразове завантаження близько 300 МБ."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozumie tekst i obrazy w ponad 100 językach, w całości na tym Macu. Jednorazowe pobranie ok. 300 MB."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Begrijpt tekst en afbeeldingen in 100+ talen, volledig op deze Mac. Eenmalige download van ongeveer 300 MB."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100'den fazla dilde metin ve görselleri anlar, tamamen bu Mac'te çalışır. Bir kerelik yaklaşık 300 MB indirme."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يفهم النصوص والصور بأكثر من 100 لغة، بالكامل على هذا الـMac. تنزيل لمرة واحدة بحجم 300 ميغابايت تقريبًا."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100+ भाषाओं में टेक्स्ट और इमेज समझता है, पूरी तरह इस Mac पर। एक बार लगभग 300 MB डाउनलोड।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memahami teks dan gambar dalam 100+ bahasa, sepenuhnya di Mac ini. Unduhan sekali sekitar 300 MB."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiểu văn bản và hình ảnh trong hơn 100 ngôn ngữ, hoàn toàn trên máy Mac này. Tải một lần khoảng 300 MB."
+          }
+        }
+      }
+    },
     "Undo (⌘Z)": {
       "localizations": {
         "ar": {
@@ -39896,124 +40368,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "未知的錯誤"
-          }
-        }
-      }
-    },
-    "Use EmbeddingGemma 2": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "استخدام EmbeddingGemma 2"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 verwenden"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usar EmbeddingGemma 2"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utiliser EmbeddingGemma 2"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 इस्तेमाल करें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gunakan EmbeddingGemma 2"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usa EmbeddingGemma 2"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 を使用"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2 사용"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gebruik EmbeddingGemma 2"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Używaj EmbeddingGemma 2"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usar EmbeddingGemma 2"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Использовать EmbeddingGemma 2"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ใช้ EmbeddingGemma 2"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EmbeddingGemma 2'yi kullan"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Використовувати EmbeddingGemma 2"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dùng EmbeddingGemma 2"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "使用 EmbeddingGemma 2"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "使用 EmbeddingGemma 2"
           }
         }
       }
@@ -40842,6 +41196,124 @@
           "stringUnit": {
             "state": "translated",
             "value": "不使用擴充功能"
+          }
+        }
+      }
+    },
+    "Works in Chrome, Arc, Brave and Edge. Save posts from X, Reddit and Pinterest with one click, and bring in your browser bookmarks.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "适用于 Chrome、Arc、Brave 和 Edge。一键保存 X、Reddit 和 Pinterest 上的帖子，并导入浏览器书签。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "適用於 Chrome、Arc、Brave 和 Edge。一鍵儲存 X、Reddit 和 Pinterest 上的貼文，並匯入瀏覽器書籤。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chrome、Arc、Brave、Edge で使えます。X、Reddit、Pinterest の投稿をワンクリックで保存し、ブラウザのブックマークも取り込めます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chrome, Arc, Brave, Edge에서 작동합니다. X, Reddit, Pinterest 게시물을 한 번의 클릭으로 저장하고 브라우저 북마크도 가져올 수 있습니다."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ใช้ได้ใน Chrome, Arc, Brave และ Edge บันทึกโพสต์จาก X, Reddit และ Pinterest ได้ในคลิกเดียว และนำบุ๊กมาร์กเบราว์เซอร์เข้ามาด้วย"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funciona en Chrome, Arc, Brave y Edge. Guarda posts de X, Reddit y Pinterest con un clic y trae los marcadores de tu navegador."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funciona no Chrome, Arc, Brave e Edge. Salve posts do X, Reddit e Pinterest com um clique e traga os favoritos do navegador."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fonctionne dans Chrome, Arc, Brave et Edge. Enregistre les posts de X, Reddit et Pinterest en un clic, et importe les favoris de ton navigateur."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funziona in Chrome, Arc, Brave ed Edge. Salva i post di X, Reddit e Pinterest con un clic e importa i segnalibri del browser."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läuft in Chrome, Arc, Brave und Edge. Sichere Posts von X, Reddit und Pinterest mit einem Klick und übernimm deine Browser-Lesezeichen."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Работает в Chrome, Arc, Brave и Edge. Сохраняй посты из X, Reddit и Pinterest одним кликом и переноси закладки браузера."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Працює в Chrome, Arc, Brave і Edge. Зберігай дописи з X, Reddit і Pinterest одним кліком і перенось закладки браузера."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Działa w Chrome, Arc, Brave i Edge. Zapisuj posty z X, Reddita i Pinteresta jednym kliknięciem i przenieś zakładki przeglądarki."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werkt in Chrome, Arc, Brave en Edge. Bewaar posts van X, Reddit en Pinterest met één klik en haal je browserbladwijzers binnen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chrome, Arc, Brave ve Edge'de çalışır. X, Reddit ve Pinterest gönderilerini tek tıkla kaydet, tarayıcı yer imlerini de getir."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعمل في Chrome وArc وBrave وEdge. احفظ منشورات X وReddit وPinterest بنقرة واحدة، واجلب إشارات المتصفح المرجعية."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chrome, Arc, Brave और Edge में काम करता है। X, Reddit और Pinterest की पोस्ट एक क्लिक में सहेजें, और ब्राउज़र बुकमार्क भी लाएँ।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bekerja di Chrome, Arc, Brave, dan Edge. Simpan postingan dari X, Reddit, dan Pinterest dengan sekali klik, dan bawa bookmark browsermu."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoạt động trên Chrome, Arc, Brave và Edge. Lưu bài đăng từ X, Reddit và Pinterest chỉ với một cú nhấp, và đưa dấu trang trình duyệt vào."
           }
         }
       }
